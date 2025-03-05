@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b609d918a4d50e47807feee3ddd56a2, type: 3}
+  m_Name: BestRecord
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: BestRecord
+  DisplayName:
+    m_TableReference:
+      m_TableCollectionName: GUID:e4d168923a082d14fb3bb7de2a6b54d3
+    m_TableEntryReference:
+      m_KeyId: 146132901888
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  <Icon>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  references:
+    version: 2
+    RefIds: []
