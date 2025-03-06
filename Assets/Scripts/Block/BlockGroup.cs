@@ -14,13 +14,17 @@ public class BlockGroup : IEnumerable<Block>
 	public Vector2Int Size { get; private set; }
 
 	/// <summary>
+	/// 블록의 종류가 변경됐을 때
+	/// </summary>
+	public event Action<Block, BlockType, BlockType> TypeChanged;
+	/// <summary>
 	/// 블록이 배치됐을 때
 	/// </summary>
-	public event Action BlockSpawned;
+	public event Action<Block> BlockSpawned;
 	/// <summary>
 	/// 블록이 제거됐을 때
 	/// </summary>
-	public event Action BlockDestroyed;
+	public event Action<Block> BlockDestroyed;
 
 	public BlockGroup(BlockType[,] blockTypes)
 	{
@@ -33,6 +37,8 @@ public class BlockGroup : IEnumerable<Block>
 			{
 				var newBlock = new Block(blockTypes[x, y], new Vector2Int(x, y));
 				newBlock.TypeChanged += OnBlockTypeChanged;
+				newBlock.BlockSpawned += OnBlockSpawned;
+				newBlock.BlockDestroyed += OnBlockDestroyed;
 				_blocks[x, y] = newBlock;
 			}
 		}
@@ -108,24 +114,22 @@ public class BlockGroup : IEnumerable<Block>
 	}
 
 	#region Callbacks
-	/// <summary>
-	/// 블록의 종류가 변경됐을 때 호출됨
-	/// </summary>
-	void OnBlockTypeChanged(BlockType previousType, BlockType currentType)
+	void OnBlockTypeChanged(Block block, BlockType oldType, BlockType newType)
 	{
-		if (previousType != BlockType.Empty && currentType == BlockType.Block)
-		{
-			//블록이 배치됨
-			BlockSpawned?.Invoke();
-		}
-		else if (previousType == BlockType.Block && currentType == BlockType.Empty)
-		{
-			//블록이 제거됨
-			BlockDestroyed?.Invoke();
-		}
+		TypeChanged?.Invoke(block, oldType, newType);
+	}
+
+	void OnBlockSpawned(Block block)
+	{
+		BlockSpawned?.Invoke(block);
+	}
+
+	void OnBlockDestroyed(Block block)
+	{
+		BlockDestroyed?.Invoke(block);
 	}
 	#endregion
-	
+
 	public IEnumerator<Block> GetEnumerator()
 	{
 		for (int x = 0; x < _blocks.GetLength(0); x++)

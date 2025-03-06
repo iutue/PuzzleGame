@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-/// <summary>
-/// 하나의 칸
-/// </summary>
 public class Block
 {
 	/// <summary>
@@ -22,23 +19,49 @@ public class Block
 		get => _type;
 		set
 		{
-			if (_type != value)
+			BlockType oldType = _type;
+			if (value != oldType)
 			{
-				//블록의 타입이 바뀜
-				TypeChanged?.Invoke(_type, value);
+				_type = value;
+				OnTypeChanged(oldType, value);
 			}
-			_type = value;
 		}
 	}
 	/// <summary>
 	/// 블록의 종류가 변경됐을 때
 	/// </summary>
-	public event Action<BlockType, BlockType> TypeChanged;
+	public event Action<Block, BlockType, BlockType> TypeChanged;
+	/// <summary>
+	/// 블록이 배치됐을 때
+	/// </summary>
+	public event Action<Block> BlockSpawned;
+	/// <summary>
+	/// 블록이 제거됐을 때
+	/// </summary>
+	public event Action<Block> BlockDestroyed;
 
 	public Block(BlockType type, Vector2Int position)
 	{
 		_type = type;
 		Position = position;
+	}
+
+	/// <summary>
+	/// 블록의 종류가 변경됐을 때 호출됨
+	/// </summary>
+	void OnTypeChanged(BlockType oldType, BlockType newType)
+	{
+		TypeChanged?.Invoke(this, oldType, newType);
+		if (oldType != BlockType.Block && newType == BlockType.Block)
+		{
+			//블록이 배치됨
+			BlockSpawned?.Invoke(this);
+		}
+		else if (oldType == BlockType.Block && newType != BlockType.Block)
+		{
+			//블록이 제거됨
+			BlockDestroyed?.Invoke(this);
+		}
 	}
 }
 

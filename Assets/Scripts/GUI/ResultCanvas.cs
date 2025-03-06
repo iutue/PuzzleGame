@@ -35,6 +35,7 @@ public class ResultCanvas : UIBehaviour
 			var newPanel = Instantiate(_scorePanelPrefab, _scoreScrollRect.content).GetComponent<ScorePanel>();
 			newPanel.Init(score);
 		}
+		InitGrid();
 		//버튼 바인딩
 		TryBind(_backButton, backButtonClicked);
 		TryBind(_retryButton, retryButtonClicked);

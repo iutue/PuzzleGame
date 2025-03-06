@@ -5,10 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-/// <summary>
-/// 블록 그룹 GUI
-/// </summary>
-public class BlockGroupView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class BlockGroupView : UIBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
 	public BlockGroup OwnerBlockGroup { get; private set; }
 
@@ -17,6 +14,7 @@ public class BlockGroupView : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	GameObject _blockViewPrefab;
 	[SerializeField]
 	RectTransform _blocksParent;
+	[SerializeField]
 	GridLayoutGroup _blocksGrid;
 	/// <summary>
 	/// 화면상에서 블록 하나의 크기
@@ -32,16 +30,13 @@ public class BlockGroupView : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	public event DragHandler Dragging;
 	public event DragHandler EndDrag;
 
-	protected void Awake()
+	protected override void OnRectTransformDimensionsChange()
 	{
-		_blocksGrid = _blocksParent.GetComponent<GridLayoutGroup>();
-	}
-	protected void OnRectTransformDimensionsChange()
-	{
+		base.OnRectTransformDimensionsChange();
 		InitGrid();
 	}
 
-	public void Init(BlockGroup owner, BlockThemeSet blockThemeSet)
+	public void Init(BlockGroup owner, BlockTheme blockThemeSet)
 	{
 		OwnerBlockGroup = owner;
 
@@ -58,16 +53,10 @@ public class BlockGroupView : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 		}
 		InitGrid();
 	}
-	void InitGrid()
+
+	async Awaitable InitGrid()
 	{
-		if (gameObject.activeInHierarchy)
-		{
-			StartCoroutine(InitGridCoroutine());
-		}
-	}
-	IEnumerator InitGridCoroutine()
-	{
-		yield return new WaitForEndOfFrame();
+		await Awaitable.EndOfFrameAsync();
 		_blocksGrid.constraintCount = OwnerBlockGroup.Size.x;
 		//셀 크기를 3*3 크기의 정사각형보다 작게 제한
 		float squareSize = Mathf.Max(3, OwnerBlockGroup.Size.x, OwnerBlockGroup.Size.y);

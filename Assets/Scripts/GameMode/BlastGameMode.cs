@@ -110,14 +110,14 @@ public class BlastGameMode : GameMode
 		return false;
 	}
 
-	protected override void OnMapBlockSpawned()
+	protected override void OnMapBlockSpawned(Block block)
 	{
-		base.OnMapBlockSpawned();
+		base.OnMapBlockSpawned(block);
 		Scores["+Block"].BaseValue += 1;
 	}
-	protected override void OnMapBlockDestroyed()
+	protected override void OnMapBlockDestroyed(Block block)
 	{
-		base.OnMapBlockDestroyed();
+		base.OnMapBlockDestroyed(block);
 		Scores["-Block"].BaseValue += 1;
 	}
 }

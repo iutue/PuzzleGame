@@ -52,7 +52,7 @@ public abstract class GameMode : MonoBehaviour
 	void InitGame()
 	{
 		Scores.Init();
-		_playCanvas.OngameInitialized(_maxCardCount, Scores, OnBackButtonClicked, OnRefreshButtonClicked);
+		_playCanvas.OnGameInitialized(_maxCardCount, Scores, OnBackButtonClicked, OnRefreshButtonClicked);
 
 #if UNITY_EDITOR
 		Debug.Log("게임 초기화");
@@ -253,14 +253,14 @@ public abstract class GameMode : MonoBehaviour
 	/// <summary>
 	/// 맵에 블록이 배치됐을 때 호출됨
 	/// </summary>
-	protected virtual void OnMapBlockSpawned()
+	protected virtual void OnMapBlockSpawned(Block block)
 	{
 	}
 
 	/// <summary>
 	/// 맵의 블록이 제거됐을 때 호출됨
 	/// </summary>
-	protected virtual void OnMapBlockDestroyed()
+	protected virtual void OnMapBlockDestroyed(Block block)
 	{
 	}
 

@@ -35,7 +35,7 @@ public class PlayCanvas : MonoBehaviour
 	/// 맵에 적용할 테마
 	/// </summary>
 	[SerializeField]
-	BlockThemeSet _mapTheme;
+	BlockTheme _mapTheme;
 
 	/// <summary>
 	/// 카드 패널
@@ -61,7 +61,7 @@ public class PlayCanvas : MonoBehaviour
 	/// 카드에 무작위로 적용할 테마
 	/// </summary>
 	[SerializeField]
-	BlockThemeSet[] _cardThemes;
+	BlockTheme[] _cardThemes;
 
 	/// <summary>
 	/// 결과 패널
@@ -78,7 +78,7 @@ public class PlayCanvas : MonoBehaviour
 	/// <summary>
 	/// 게임 초기화 후 호출됨
 	/// </summary>
-	public void OngameInitialized(int drawCount, ScoreContainer scoreTable, Action backButtonClicked, Action refreshButtonClicked)
+	public void OnGameInitialized(int drawCount, ScoreContainer scoreTable, Action backButtonClicked, Action refreshButtonClicked)
 	{
 		//탑바
 		_topBar.Init(scoreTable["Total"], backButtonClicked, refreshButtonClicked);
@@ -178,7 +178,7 @@ public class PlayCanvas : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 카드 뷰 제거
+	/// 주어진 카드 뷰 제거
 	/// </summary>
 	public void RemoveCard(BlockGroupView cardView)
 	{
