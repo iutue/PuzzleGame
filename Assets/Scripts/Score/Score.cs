@@ -37,7 +37,7 @@ public class Score
 	/// 점수 배율
 	/// </summary>
 	[field: SerializeField]
-	public int Multiplier { get; private set; }
+	public int Multiplier { get; private set; } = 1;
 
 	/// <summary>
 	/// 초기 점수

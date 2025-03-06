@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,9 +23,6 @@ public class ResultCanvas : MonoBehaviour
 	GameObject _scorePanelPrefab;
 
 	[SerializeField]
-	ScorePanel _bestRecordPanel, _totalScorePanel;
-
-	[SerializeField]
 	Button _backButton, _retryButton, _nextButton;
 
 	protected void Awake()
@@ -36,33 +34,20 @@ public class ResultCanvas : MonoBehaviour
 		InitGrid();
 	}
 
-	public void Init(ScoreTable scoreTable, Action backButtonClicked, Action retryButtonClicked, Action nextButtonClicked)
+	public void Init(ScoreContainer scoreTable, Action backButtonClicked, Action retryButtonClicked, Action nextButtonClicked)
 	{
 		//점수 패널 생성
 		foreach (var score in scoreTable)
 		{
-			//최고 기록
-			if (score.Type.Name.Equals("BestRecord"))
-			{
-				_bestRecordPanel.Init(score);
-			}
-			//총 점수
-			else if (score.Type.Name.Equals("Total"))
-			{
-				_totalScorePanel.Init(score);
-			}
-			//이외
-			else
-			{
-				var newPanel = Instantiate(_scorePanelPrefab, _scoreScrollRect.content).GetComponent<ScorePanel>();
-				newPanel.Init(score);
-			}
+			var newPanel = Instantiate(_scorePanelPrefab, _scoreScrollRect.content).GetComponent<ScorePanel>();
+			newPanel.Init(score);
 		}
 		InitGrid();
 
-		_backButton.onClick.AddListener(new UnityAction(backButtonClicked));
-		_retryButton.onClick.AddListener(new UnityAction(retryButtonClicked));
-		_nextButton.onClick.AddListener(new UnityAction(nextButtonClicked));
+		//버튼 바인딩
+		TryBind(_backButton, backButtonClicked);
+		TryBind(_retryButton, retryButtonClicked);
+		TryBind(_nextButton, nextButtonClicked);
 	}
 	void InitGrid()
 	{
@@ -80,6 +65,19 @@ public class ResultCanvas : MonoBehaviour
 		scorePanelSize.y -= _scoreGrid.padding.top + _scoreGrid.padding.bottom;
 		scorePanelSize /= _constraintCount;
 		_scoreGrid.cellSize = scorePanelSize;
+	}
+
+	/// <summary>
+	/// 버튼 이벤트에 콜백 연결
+	/// </summary>
+	void TryBind(Button button, Action clicked)
+	{
+		if (clicked == null)
+		{
+			button.interactable = false;
+			return;
+		}
+		button.onClick.AddListener(new UnityAction(clicked));
 	}
 
 	public void Open()

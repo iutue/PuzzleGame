@@ -129,11 +129,12 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	void EndGame()
 	{
+		//기록 비교
 		var totalScore = Scores["Total"];
 		var bestRecord = Scores["BestRecord"];
 		string bestRecordName = "BestRecord_" + SceneManager.GetActiveScene().name;
 		bestRecord.BaseValue = PlayerPrefs.GetInt(bestRecordName, 0);
-		if (totalScore.CurrentValue > bestRecord.BaseValue)
+		if (totalScore.CurrentValue > bestRecord.CurrentValue)
 		{
 			//신기록 저장
 			PlayerPrefs.SetInt(bestRecordName, totalScore.CurrentValue);
@@ -292,7 +293,7 @@ public abstract class GameMode : MonoBehaviour
 	protected virtual void OnBackButtonClicked()
 	{
 		//메인 화면으로 돌아가기
-		TransitionManager.Instance.LoadScene("Main");
+		TransitionManager.Instance.LoadSceneAsync("Main");
 	}
 	/// <summary>
 	/// 새로고침 버튼이 눌렸을 때 호출됨

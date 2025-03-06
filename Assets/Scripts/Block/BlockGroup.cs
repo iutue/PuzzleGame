@@ -107,42 +107,6 @@ public class BlockGroup : IEnumerable<Block>
 		return true;
 	}
 
-	//public List<Block> GetCluster(Block centroid)
-	//{
-	//	var cluster = new List<Block>();
-	//	Find(centroid, centroid.Type, cluster);
-	//	return cluster;
-	//}
-	//void Find(Block target, BlockType type, List<Block> foundBlocks)
-	//{
-	//	if (foundBlocks.Contains(target))
-	//	{
-	//		return;
-	//	}
-
-	//	if (target.Type == type)
-	//	{
-	//		foundBlocks.Add(target);
-	//	}
-
-	//	for (int x = 0; x < target.Position.x - 1; x++)
-	//	{
-	//		for (int y = 0; x < target.Position.y - 1; y++)
-	//		{
-	//			if (x < 0 || Size.x <= x ||
-	//				y < 0 || Size.y <= y)
-	//			{
-	//				continue;
-	//			}
-	//			if (x == target.Position.x && y == target.Position.y)
-	//			{
-	//				continue;
-	//			}
-	//			Find(_blocks[x, y], type, foundBlocks);
-	//		}
-	//	}
-	//}
-
 	#region Callbacks
 	/// <summary>
 	/// 블록의 종류가 변경됐을 때 호출됨
