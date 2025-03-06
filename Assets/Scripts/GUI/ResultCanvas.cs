@@ -4,33 +4,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Canvas))]
-public class ResultCanvas : MonoBehaviour
+public class ResultCanvas : UIBehaviour
 {
 	[SerializeField]
-	Vector2 _constraintCount;
-
-	[SerializeField]
 	SlidePanel _resultPanel;
-
 	[SerializeField]
 	ScrollRect _scoreScrollRect;
-	GridLayoutGroup _scoreGrid;
-
+	[SerializeField]
+	Vector2 _constraintCount;
 	[SerializeField]
 	GameObject _scorePanelPrefab;
-
 	[SerializeField]
 	Button _backButton, _retryButton, _nextButton;
 
-	protected void Awake()
+	protected override void OnRectTransformDimensionsChange()
 	{
-		_scoreGrid = _scoreScrollRect.content.GetComponent<GridLayoutGroup>();
-	}
-	protected void OnRectTransformDimensionsChange()
-	{
+		base.OnRectTransformDimensionsChange();
 		InitGrid();
 	}
 
@@ -42,29 +35,21 @@ public class ResultCanvas : MonoBehaviour
 			var newPanel = Instantiate(_scorePanelPrefab, _scoreScrollRect.content).GetComponent<ScorePanel>();
 			newPanel.Init(score);
 		}
-		InitGrid();
-
 		//버튼 바인딩
 		TryBind(_backButton, backButtonClicked);
 		TryBind(_retryButton, retryButtonClicked);
 		TryBind(_nextButton, nextButtonClicked);
 	}
-	void InitGrid()
+	async Awaitable InitGrid()
 	{
-		if (gameObject.activeInHierarchy)
-		{
-			StartCoroutine(InitGridCoroutine());
-		}
-	}
-	IEnumerator InitGridCoroutine()
-	{
-		yield return new WaitForEndOfFrame();
+		await Awaitable.EndOfFrameAsync();
 		Vector2 scorePanelSize = _scoreScrollRect.viewport.rect.size;
-		scorePanelSize -= _scoreGrid.spacing * (_constraintCount);
-		scorePanelSize.x -= _scoreGrid.padding.left + _scoreGrid.padding.right;
-		scorePanelSize.y -= _scoreGrid.padding.top + _scoreGrid.padding.bottom;
+		GridLayoutGroup grid = _scoreScrollRect.content.GetComponent<GridLayoutGroup>();
+		scorePanelSize -= grid.spacing * (_constraintCount);
+		scorePanelSize.x -= grid.padding.left + grid.padding.right;
+		scorePanelSize.y -= grid.padding.top + grid.padding.bottom;
 		scorePanelSize /= _constraintCount;
-		_scoreGrid.cellSize = scorePanelSize;
+		grid.cellSize = scorePanelSize;
 	}
 
 	/// <summary>
