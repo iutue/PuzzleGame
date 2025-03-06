@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,6 +30,9 @@ public class TopBarCanvas : MonoBehaviour
 	void OnTotalScoreChanged(Score score, int oldValue, int newValue)
 	{
 		_scoreText.text = newValue.ToString();
+		DOTween.Sequence()
+			.Append(_scoreText.rectTransform.DOScale(1.2f, 0.1f))
+			.Append(_scoreText.rectTransform.DOScale(1f, 0.1f));
 	}
 
 	/// <summary>
