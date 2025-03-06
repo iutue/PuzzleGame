@@ -1,11 +1,15 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class SlidePanel : MonoBehaviour
+public class SlidePanel : UIBehaviour
 {
+	[SerializeField] float _openDelay = 0f;
+	[SerializeField] float _closeDelay = 0f;
 	[SerializeField] float _duration = 0.5f;
-	[SerializeField] Ease _easeType;
+	[SerializeField] Ease _easeType = Ease.OutExpo;
 
+	#region Move
 	/// <summary>
 	/// 슬라이딩할 패널
 	/// </summary>
@@ -13,9 +17,13 @@ public class SlidePanel : MonoBehaviour
 	[SerializeField]
 	RectTransform _panel;
 	/// <summary>
-	/// 창이 열려있는가
+	/// 패널이 열려있는가
 	/// </summary>
-	[SerializeField] bool _isOpened;
+	[SerializeField] bool _isOpened = true;
+	/// <summary>
+	/// 패널 위치가 초기화됐는가
+	/// </summary>
+	bool _isPositionInitialized;
 	/// <summary>
 	/// 열리기 전 위치
 	/// </summary>
@@ -40,7 +48,9 @@ public class SlidePanel : MonoBehaviour
 	/// 닫혔을 때 패널을 제거하는가
 	/// </summary>
 	[SerializeField] bool _destroyOnClose;
+	#endregion
 
+	#region Alpha
 	/// <summary>
 	/// 불투명도를 조절할 그룹
 	/// </summary>
@@ -55,23 +65,15 @@ public class SlidePanel : MonoBehaviour
 	/// 닫혔을 때 패널의 불투명도
 	/// </summary>
 	[SerializeField, Range(0f, 1f)] float _closedAlpha = 0f;
+	#endregion
 
-	protected void Awake()
+	protected override void Awake()
 	{
-		if (_panel)
-		{
-			//열렸을 때 위치 저장
-			_openedPosition = _panel.anchoredPosition;
-			//_panel.anchoredPosition = _isOpened ? _openedPosition : _closedPosition;
-		}
-		if (_transparentGroup)
-		{
-			_transparentGroup.alpha = _isOpened ? _openedAlpha : _closedAlpha;
-		}
-	}
-	protected void OnEnable()
-	{
-		//CalculatePositions();
+		base.Awake();
+		//위치 초기화
+		_openedPosition = _panel.anchoredPosition;
+		CalculatePositions();
+
 		if (_isOpened)
 		{
 			Open();
@@ -81,12 +83,13 @@ public class SlidePanel : MonoBehaviour
 			Close();
 		}
 	}
-	protected void OnRectTransformDimensionsChange()
+	protected override void OnRectTransformDimensionsChange()
 	{
-		if (_panel)
+		base.OnRectTransformDimensionsChange();
+		if (_panel && _isPositionInitialized)
 		{
-			//해상도에 맞는 위치로 이동
 			CalculatePositions();
+			//해상도에 맞는 위치로 강제 이동
 			_panel.anchoredPosition = _isOpened ? _openedPosition : _closedPosition;
 		}
 	}
@@ -96,15 +99,18 @@ public class SlidePanel : MonoBehaviour
 		{
 			CalculatePositions();
 			Transform canvasTr = GetComponentInParent<Canvas>().transform;
+			//캔버스 내 좌표를 월드 좌표로 변환
 			Vector2 opened = canvasTr.TransformPoint(_openedPosition);
 			Vector2 opening = canvasTr.TransformPoint(_openingPosition);
 			Vector2 closed = canvasTr.TransformPoint(_closedPosition);
-
+			//열리기 전 위치
 			Gizmos.color = Color.red;
 			Gizmos.DrawWireSphere(opening, 50f);
 			Gizmos.DrawLine(opening, opened);
+			//열린 후 위치
 			Gizmos.color = Color.green;
 			Gizmos.DrawWireSphere(opened, 50f);
+			//닫힌 후 위치
 			Gizmos.color = Color.blue;
 			Gizmos.DrawWireSphere(closed, 50f);
 			Gizmos.DrawLine(opened, closed);
@@ -116,10 +122,15 @@ public class SlidePanel : MonoBehaviour
 	/// </summary>
 	void CalculatePositions()
 	{
-		Canvas rootCanvas = _panel.GetComponentInParent<Canvas>().rootCanvas;
-		Vector2 rootCanvasSize = rootCanvas.GetComponent<RectTransform>().rect.size;
-		_openingPosition = _openedPosition - _openDirection * rootCanvasSize;
-		_closedPosition = _openedPosition + _closeDirection * rootCanvasSize;
+		Canvas canvas = _panel.GetComponentInParent<Canvas>();
+		if (canvas)
+		{
+			_isPositionInitialized = true;
+			Canvas rootCanvas = canvas.rootCanvas;
+			Vector2 rootCanvasSize = rootCanvas.GetComponent<RectTransform>().rect.size;
+			_openingPosition = _openedPosition - _openDirection * rootCanvasSize;
+			_closedPosition = _openedPosition + _closeDirection * rootCanvasSize;
+		}
 	}
 
 	/// <summary>
@@ -134,7 +145,8 @@ public class SlidePanel : MonoBehaviour
 			_panel
 				.DOAnchorPos(_openedPosition, _duration)
 				.From(_openingPosition)
-				.SetEase(_easeType);
+				.SetEase(_easeType)
+				.SetDelay(_openDelay);
 		}
 		//불투명도
 		if (_transparentGroup)
@@ -142,7 +154,8 @@ public class SlidePanel : MonoBehaviour
 			_transparentGroup
 				.DOFade(_openedAlpha, _duration)
 				.From(_closedAlpha)
-				.SetEase(_easeType);
+				.SetEase(_easeType)
+				.SetDelay(_openDelay);
 		}
 	}
 	/// <summary>
@@ -158,6 +171,7 @@ public class SlidePanel : MonoBehaviour
 				.DOAnchorPos(_closedPosition, _duration)
 				.From(_openedPosition)
 				.SetEase(_easeType)
+				.SetDelay(_closeDelay)
 				.onComplete = () =>
 				{
 					if (_destroyOnClose)
@@ -172,7 +186,8 @@ public class SlidePanel : MonoBehaviour
 			_transparentGroup
 				.DOFade(_closedAlpha, _duration)
 				.From(_openedAlpha)
-				.SetEase(_easeType);
+				.SetEase(_easeType)
+				.SetDelay(_closeDelay);
 		}
 	}
 }
