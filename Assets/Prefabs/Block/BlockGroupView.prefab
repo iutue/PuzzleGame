@@ -91,6 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _blockViewPrefab: {fileID: 2763769116593336635, guid: 0c8eee7e31ebacb4aae123603a49958d, type: 3}
   _blocksParent: {fileID: 5201576177911460816}
+  _blocksGrid: {fileID: 3922493125155271010}
 --- !u!1 &8176777633972811726
 GameObject:
   m_ObjectHideFlags: 0
