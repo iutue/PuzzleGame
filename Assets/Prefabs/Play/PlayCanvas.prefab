@@ -59,7 +59,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _topBar: {fileID: 1489203505673094445}
   _map: {fileID: 6797820624230846807}
+  _mapParent: {fileID: 0}
   _cards: {fileID: 4715660389888817966}
+  _cardParent: {fileID: 0}
   _resultPrefab: {fileID: 2166886757929894801, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
 --- !u!223 &8945915514091010042
 Canvas:
@@ -354,7 +356,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -60, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6797820624230846807
 MonoBehaviour:
@@ -368,6 +370,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755f03ffd20bcb34083efcd7a19d0ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _openDelay: 0
+  _closeDelay: 0
   _duration: 1
   _easeType: 18
   _panel: {fileID: 2278097181682224939}
