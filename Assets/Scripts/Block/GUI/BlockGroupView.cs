@@ -19,7 +19,7 @@ public class BlockGroupView : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	RectTransform _blocksParent;
 	GridLayoutGroup _blocksGrid;
 	/// <summary>
-	/// 블록 하나의 크기
+	/// 화면상에서 블록 하나의 크기
 	/// </summary>
 	public Vector2 CellSize { get; private set; }
 	/// <summary>
@@ -28,9 +28,9 @@ public class BlockGroupView : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 	public Vector2 OriginBlockPosition => _blocksParent.GetChild(0).position;
 
 	public delegate void DragHandler(BlockGroupView target, PointerEventData eventData);
-	public DragHandler BeginDrag;
-	public DragHandler Dragging;
-	public DragHandler EndDrag;
+	public event DragHandler BeginDrag;
+	public event DragHandler Dragging;
+	public event DragHandler EndDrag;
 
 	protected void Awake()
 	{

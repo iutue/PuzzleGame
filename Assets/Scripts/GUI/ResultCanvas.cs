@@ -53,7 +53,7 @@ public class ResultCanvas : UIBehaviour
 	}
 
 	/// <summary>
-	/// 버튼 이벤트에 콜백 연결
+	/// 버튼의 이벤트에 콜백 연결
 	/// </summary>
 	void TryBind(Button button, Action clicked)
 	{

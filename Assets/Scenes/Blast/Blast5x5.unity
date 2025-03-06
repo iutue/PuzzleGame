@@ -884,6 +884,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6744612469239991313}
     - target: {fileID: 2458285373314489841, guid: 9f5215b8c01ca5d49a23608c5eca8731, type: 3}
+      propertyPath: _mapSize.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2458285373314489841, guid: 9f5215b8c01ca5d49a23608c5eca8731, type: 3}
+      propertyPath: _mapSize.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2458285373314489841, guid: 9f5215b8c01ca5d49a23608c5eca8731, type: 3}
       propertyPath: _playCanvas
       value: 
       objectReference: {fileID: 771287528}

@@ -71,19 +71,6 @@ MonoBehaviour:
       <Multiplier>k__BackingField: 1
       <InitialValue>k__BackingField: 0
       _baseValue: 0
-  _initialMapSize: {x: 1, y: 1}
-  _drawCount: 3
+  _mapSize: {x: 1, y: 1}
+  _maxCardCount: 3
   _playCanvas: {fileID: 0}
-  _blockGroupViewPrefab: {fileID: 4292344153093373680, guid: e517032661691f34dac22131e008069c, type: 3}
-  _mapParent: {fileID: 0}
-  _mapBlockThemeSet: {fileID: 11400000, guid: 458cffec419fc7447b89d6e0d5321bb0, type: 2}
-  _cardsParent: {fileID: 0}
-  _cardOffset: {x: 0, y: 0.2}
-  _CardBlockThemeSets:
-  - {fileID: 11400000, guid: 3d9b275f9539d394d9157765c405582a, type: 2}
-  - {fileID: 11400000, guid: abae41d2511cb174fa1f28ae17cd2843, type: 2}
-  - {fileID: 11400000, guid: 4c85f05baad2b8e499a89db46a278214, type: 2}
-  - {fileID: 11400000, guid: f53ad807586fef74599429e1b6ac22ee, type: 2}
-  - {fileID: 11400000, guid: ca4ddf76db8af474cbbcea4bc77a7035, type: 2}
-  - {fileID: 11400000, guid: 8aac5848d29a39946940f92d89ff32b1, type: 2}
-  - {fileID: 11400000, guid: 43c4e0c987a465242824978ba21e9aa2, type: 2}

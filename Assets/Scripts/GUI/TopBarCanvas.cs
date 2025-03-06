@@ -22,13 +22,26 @@ public class TopBarCanvas : MonoBehaviour
 	public void Init(Score totalScore, Action backButtonClicked, Action refreshButtonClicked)
 	{
 		totalScore.Changed += OnTotalScoreChanged;
-		_backButton.onClick.AddListener(new UnityAction(backButtonClicked));
-		_refreshButton.onClick.AddListener(new UnityAction(refreshButtonClicked));
+		TryBind(_backButton, backButtonClicked);
+		TryBind(_refreshButton, refreshButtonClicked);
 	}
 
 	void OnTotalScoreChanged(Score score, int oldValue, int newValue)
 	{
 		_scoreText.text = newValue.ToString();
+	}
+
+	/// <summary>
+	/// 버튼의 이벤트에 콜백 연결
+	/// </summary>
+	void TryBind(Button button, Action clicked)
+	{
+		if (clicked == null)
+		{
+			button.interactable = false;
+			return;
+		}
+		button.onClick.AddListener(new UnityAction(clicked));
 	}
 
 	public void Open()

@@ -11,100 +11,52 @@ using UnityEngine.UI;
 /// </summary>
 public abstract class GameMode : MonoBehaviour
 {
+	[SerializeField]
+	Vector2Int _mapSize;
+	protected BlockGroup Map;
 	/// <summary>
-	/// 모든 점수
+	/// 카드를 놓을 수 있는지 검사한 맵 블록<br/>
+	/// 동일한 블록을 매프레임마다 검사하는 것을 방지함
 	/// </summary>
+	Block _previousMapBlock;
+
+	/// <summary>
+	/// 최대로 가질 수 있는 카드 수
+	/// </summary>
+	[SerializeField, Range(1, 5)]
+	int _maxCardCount = 3;
+	/// <summary>
+	/// 패에 있는 카드들
+	/// </summary>
+	protected List<BlockGroup> Cards = new();
+
+	[SerializeField]
+	PlayCanvas _playCanvas;
 	[SerializeField]
 	protected ScoreContainer Scores;
 
-	#region BlockGroups
-	[Header("Map")]
-	/// <summary>
-	/// 초기의 맵 크기
-	/// </summary>
-	[SerializeField]
-	Vector2Int _initialMapSize;
-	protected BlockGroup Map;
-	/// <summary>
-	/// 카드를 놓을 수 있는지 검사한 블록<br/>
-	/// 동일한 블록을 매프레임마다 검사하는 것을 방지함
-	/// </summary>
-	Block _previousBlock;
-
-	[Header("Cards")]
-	/// <summary>
-	/// 패에 최대로 가질 수 있는 카드 수
-	/// </summary>
-	[SerializeField, Range(1, 3)]
-	int _drawCount = 3;
-	/// <summary>
-	/// 현재 가지고 있는 카드들
-	/// </summary>
-	protected List<BlockGroup> Cards = new();
-	#endregion
-
-	#region GUI
-	[Header("GUI")]
-	[SerializeField]
-	PlayCanvas _playCanvas;
-
-	[SerializeField]
-	GameObject _blockGroupViewPrefab;
-	/// <summary>
-	/// 맵의 부모
-	/// </summary>
-	[Header("Map View")]
-	[SerializeField]
-	RectTransform _mapParent;
-	BlockGroupView _mapView;
-	/// <summary>
-	/// 맵 블록의 테마
-	/// </summary>
-	[SerializeField]
-	BlockThemeSet _mapBlockThemeSet;
-	GraphicRaycaster _mapRaycaster;
-	List<RaycastResult> _mapRaycastresult = new();
-
-	/// <summary>
-	/// 카드들의 부모
-	/// </summary>
-	[Header("Card Views")]
-	[SerializeField]
-	RectTransform _cardsParent;
-	List<BlockGroupView> _cardViews = new();
-	/// <summary>
-	/// 카드를 집었을 때 포인터와 카드의 상대 위치
-	/// </summary>
-	[SerializeField]
-	Vector2 _cardOffset;
-	/// <summary>
-	/// 카드 블록의 테마들
-	/// </summary>
-	[SerializeField]
-	BlockThemeSet[] _CardBlockThemeSets;
-	#endregion
-
-	protected void Awake()
-	{
-		_mapRaycaster = _mapParent.GetComponentInParent<GraphicRaycaster>();
-	}
 	protected void Start()
 	{
 		QualitySettings.vSyncCount = 0;
 		Application.targetFrameRate = 60;
 
+		//최초로 초기화 후 게임 시작
 		InitGame();
 		StartGame();
 	}
 
+	#region Game
 	/// <summary>
 	/// 게임 초기화
 	/// </summary>
 	void InitGame()
 	{
 		Scores.Init();
-		_playCanvas.Init(Scores, OnBackButtonClicked, OnRefreshButtonClicked);
+		_playCanvas.OngameInitialized(_maxCardCount, Scores, OnBackButtonClicked, OnRefreshButtonClicked);
 
+#if UNITY_EDITOR
+		Debug.Log("게임 초기화");
+#endif
 	}
 
 	/// <summary>
@@ -113,17 +65,16 @@ public abstract class GameMode : MonoBehaviour
 	void StartGame()
 	{
 		Scores.ResetAll();
+		ResetMap();
+		ResetCards();
 
-		InitMap();
-		InitCards();
-
-		//GUI 초기화
-		_playCanvas.StartGame();
+		_playCanvas.OnGameStarted();
 
 #if UNITY_EDITOR
 		Debug.Log("게임 시작");
 #endif
 	}
+
 	/// <summary>
 	/// 게임 종료
 	/// </summary>
@@ -141,18 +92,19 @@ public abstract class GameMode : MonoBehaviour
 		}
 
 		//결과 출력
-		_playCanvas.ShowResult(Scores, OnBackButtonClicked, OnRefreshButtonClicked, null);
+		_playCanvas.OnGameEnded(Scores, OnBackButtonClicked, OnRefreshButtonClicked, null);
 
 #if UNITY_EDITOR
 		Debug.Log("게임 종료");
 #endif
 	}
+
 	/// <summary>
 	/// 게임 최신화
 	/// </summary>
 	void UpdateGame()
 	{
-		//맵 업데이트
+		//맵 최신화
 		UpdateMap();
 
 		//게임 종료 조건 검사
@@ -165,62 +117,48 @@ public abstract class GameMode : MonoBehaviour
 	/// <summary>
 	/// 게임 종료 조건을 만족하는가
 	/// </summary>
-	/// <returns></returns>
 	protected abstract bool CheckEndCondition();
+	#endregion
 
+	#region Map
 	/// <summary>
 	/// 맵 초기화
 	/// </summary>
-	void InitMap()
+	void ResetMap()
 	{
 		//맵 초기화
-		Map = new BlockGroup(new BlockType[_initialMapSize.x, _initialMapSize.y]);
+		Map = new BlockGroup(new BlockType[_mapSize.x, _mapSize.y]);
 		Map.BlockSpawned += OnMapBlockSpawned;
 		Map.BlockDestroyed += OnMapBlockDestroyed;
 		//맵 뷰 초기화
-		if (_mapView)
-		{
-			Destroy(_mapView.gameObject);
-		}
-		_mapView = Instantiate(_blockGroupViewPrefab, _mapParent).GetComponent<BlockGroupView>();
-		_mapView.Init(Map, _mapBlockThemeSet);
+		_playCanvas.ResetMap(Map);
 	}
+
 	/// <summary>
-	/// 맵 업데이트
+	/// 규칙에 따라 맵을 최신 상태로 업데이트
 	/// </summary>
 	protected abstract void UpdateMap();
+	#endregion
 
+	#region Card
 	/// <summary>
 	/// 가지고 있는 카드를 버리고 최대 수 만큼 카드 뽑기
 	/// </summary>
-	void InitCards()
+	void ResetCards()
 	{
 		//카드 초기화
 		Cards.Clear();
-		for (int i = 0; i < _drawCount; i++)
+		for (int i = 0; i < _maxCardCount; i++)
 		{
-			//램덤한 카드 선택
-			var randomTemplate = BlockGroupTemplates.Templates[Random.Range(0, BlockGroupTemplates.Templates.Count)];
-			var newCard = new BlockGroup(randomTemplate);
-			Cards.Add(newCard);
+			//램덤한 모양의 카드 선택
+			int randomIndex = Random.Range(0, BlockGroupTemplates.Templates.Count);
+			var randomTemplate = BlockGroupTemplates.Templates[randomIndex];
+			Cards.Add(new BlockGroup(randomTemplate));
 		}
 		//카드 뷰 초기화
-		foreach (var cardView in _cardViews)
-		{
-			Destroy(cardView.gameObject);
-		}
-		_cardViews.Clear();
-		for (int i = 0; i < Cards.Count; i++)
-		{
-			//새로운 뷰 생성
-			var newCardView = Instantiate(_blockGroupViewPrefab, _cardsParent.GetChild(i)).GetComponent<BlockGroupView>();
-			newCardView.Init(Cards[i], _CardBlockThemeSets[Random.Range(0, _CardBlockThemeSets.Length)]);
-			newCardView.BeginDrag = OnBeginDragCard;
-			newCardView.EndDrag = OnEndDragCard;
-			newCardView.Dragging = OnDragCard;
-			_cardViews.Add(newCardView);
-		}
+		_playCanvas.ResetCards(Cards, OnBeginDragCard, OnEndDragCard, OnDragCard);
 	}
+
 	/// <summary>
 	/// 맵에 카드 배치 시도
 	/// </summary>
@@ -237,11 +175,11 @@ public abstract class GameMode : MonoBehaviour
 			currentBlock = null;
 		}
 		//이미 배치를 시도한 대상인가
-		if (currentBlock == _previousBlock)
+		if (currentBlock == _previousMapBlock)
 		{
 			return true;
 		}
-		_previousBlock = currentBlock;
+		_previousMapBlock = currentBlock;
 
 		//맵 업데이트
 		Map.Convert(BlockType.Ghost, BlockType.Empty);
@@ -256,10 +194,10 @@ public abstract class GameMode : MonoBehaviour
 			return Map.TryMerge(card, currentBlock.Position);
 		}
 	}
+
 	/// <summary>
 	/// 카드 배치 확정
 	/// </summary>
-	/// <param name="cardView"></param>
 	void ConfirmCardPlacement(BlockGroupView cardView)
 	{
 		//카드 사용
@@ -269,22 +207,22 @@ public abstract class GameMode : MonoBehaviour
 		//게임 업데이트
 		UpdateGame();
 	}
+
 	/// <summary>
 	/// 카드 제거
 	/// </summary>
 	void RemoveCard(BlockGroupView target)
 	{
 		Cards.Remove(target.OwnerBlockGroup);
-		_cardViews.Remove(target);
-		Destroy(target.gameObject);
+		_playCanvas.RemoveCard(target);
 
-		//카드를 다 사용했으면
 		if (Cards.Count == 0)
 		{
-			//새로운 카드 뽑기
-			InitCards();
+			//패에 카드가 없음
+			OnHandEmpty();
 		}
 	}
+	#endregion
 
 	#region Callbacks
 	/// <summary>
@@ -295,6 +233,7 @@ public abstract class GameMode : MonoBehaviour
 		//메인 화면으로 돌아가기
 		TransitionManager.Instance.LoadSceneAsync("Main");
 	}
+
 	/// <summary>
 	/// 새로고침 버튼이 눌렸을 때 호출됨
 	/// </summary>
@@ -303,12 +242,12 @@ public abstract class GameMode : MonoBehaviour
 		//게임 다시 시작
 		StartGame();
 	}
+
 	/// <summary>
 	/// 다음 버튼이 눌렸을 때 호출됨
 	/// </summary>
 	protected virtual void OnNextButtonClicked()
 	{
-		//TODO 다음 레벨이 있으면 다음 씬으로 전환
 	}
 
 	/// <summary>
@@ -317,6 +256,7 @@ public abstract class GameMode : MonoBehaviour
 	protected virtual void OnMapBlockSpawned()
 	{
 	}
+
 	/// <summary>
 	/// 맵의 블록이 제거됐을 때 호출됨
 	/// </summary>
@@ -327,31 +267,17 @@ public abstract class GameMode : MonoBehaviour
 	/// <summary>
 	/// 카드를 집었을 때 호출됨
 	/// </summary>
-	void OnBeginDragCard(BlockGroupView cardView, PointerEventData eventData)
+	protected virtual void OnBeginDragCard(BlockGroupView cardView, PointerEventData eventData)
 	{
-		cardView.StartDragging(_mapView.CellSize);
 	}
+
 	/// <summary>
 	/// 카드를 이동중일 때 호출됨
 	/// </summary>
-	void OnDragCard(BlockGroupView cardView, PointerEventData eventData)
+	protected virtual void OnDragCard(BlockGroupView cardView, PointerEventData eventData)
 	{
-		cardView.Drag(eventData.position + _cardOffset * Screen.height);
-
-		//카드를 배치할 때 기준이 되는 블록 검출
-		BlockView origin = null;
-		eventData.position = cardView.OriginBlockPosition;
-		_mapRaycastresult.Clear();
-		_mapRaycaster.Raycast(eventData, _mapRaycastresult);
-		foreach (var uiElement in _mapRaycastresult)
-		{
-			if (uiElement.gameObject.TryGetComponent<BlockView>(out origin))
-			{
-				//블록 발견
-				break;
-			}
-		}
-
+		//카드를 배치할 때 기준이 되는 맵의 블록 검출
+		var origin = _playCanvas.GetMapBlockAt(cardView.OriginBlockPosition);
 		//카드 배치 시도
 		if (TryCardPlacement(cardView.OwnerBlockGroup, origin))
 		{
@@ -363,20 +289,26 @@ public abstract class GameMode : MonoBehaviour
 			Map.Convert(BlockType.Ghost, BlockType.Empty);
 		}
 	}
+
 	/// <summary>
 	/// 카드를 내려놓았을 때 호출됨
 	/// </summary>
-	void OnEndDragCard(BlockGroupView cardView, PointerEventData eventData)
+	protected virtual void OnEndDragCard(BlockGroupView cardView, PointerEventData eventData)
 	{
-		if (!Map.Contains(BlockType.Ghost))
+		if (Map.Contains(BlockType.Ghost))
 		{
-			//카드를 배치할 수 없는 위치임
-			cardView.StopDragging();
-			return;
+			//카드 배치 확정
+			ConfirmCardPlacement(cardView);
 		}
+	}
 
-		//카드 배치 확정
-		ConfirmCardPlacement(cardView);
+	/// <summary>
+	/// 패에 카드가 하나도 없을 때 호출됨
+	/// </summary>
+	protected virtual void OnHandEmpty()
+	{
+		//새로운 카드 뽑기
+		ResetCards();
 	}
 	#endregion
 }
