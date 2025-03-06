@@ -26,7 +26,7 @@ public class TopBarCanvas : MonoBehaviour
 		_refreshButton.onClick.AddListener(new UnityAction(refreshButtonClicked));
 	}
 
-	void OnTotalScoreChanged(int oldValue, int newValue)
+	void OnTotalScoreChanged(Score score, int oldValue, int newValue)
 	{
 		_scoreText.text = newValue.ToString();
 	}

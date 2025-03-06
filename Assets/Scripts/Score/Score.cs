@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.Localization;
 
 [Serializable]
 public class Score
@@ -12,31 +10,25 @@ public class Score
 	/// 점수의 종류
 	/// </summary>
 	[field: SerializeField]
-	public ScoreType Type
-	{
-		get;
-#if UNITY_EDITOR
-		set;
-#endif
-	}
+	public ScoreType Type { get; private set; }
 
 	/// <summary>
 	/// 기준 점수를 변경할 때 어떤 점수를 선택하는가
 	/// </summary>
 	[SerializeField]
-	BaseValueType _baseValueType = BaseValueType.New;
-	public enum BaseValueType
+	ValueUpdateMethod _valueUpdateMethod = ValueUpdateMethod.New;
+	public enum ValueUpdateMethod
 	{
 		/// <summary>
 		/// 새로운 점수
 		/// </summary>
 		New,
 		/// <summary>
-		/// 최소 점수
+		/// 가장 낮은 점수
 		/// </summary>
 		Min,
 		/// <summary>
-		/// 최대 점수
+		/// 가장 높은 점수
 		/// </summary>
 		Max
 	}
@@ -44,8 +36,8 @@ public class Score
 	/// <summary>
 	/// 점수 배율
 	/// </summary>
-	[SerializeField]
-	int _multiplier = 1;
+	[field: SerializeField]
+	public int Multiplier { get; private set; }
 
 	/// <summary>
 	/// 초기 점수
@@ -63,25 +55,28 @@ public class Score
 		set
 		{
 			int oldBaseValue = _baseValue;
-			_baseValue = _baseValueType switch
+			_baseValue = _valueUpdateMethod switch
 			{
-				BaseValueType.New => value,
-				BaseValueType.Min => Mathf.Min(oldBaseValue, value),
-				BaseValueType.Max => Mathf.Max(oldBaseValue, value),
-				_ => 0
+				ValueUpdateMethod.New => value,
+				ValueUpdateMethod.Min => Mathf.Min(oldBaseValue, value),
+				ValueUpdateMethod.Max => Mathf.Max(oldBaseValue, value),
+				_ => throw new ArgumentOutOfRangeException()
 			};
-			Changed?.Invoke(oldBaseValue, _baseValue);
+			if (oldBaseValue != _baseValue)
+			{
+				Changed(this, oldBaseValue, _baseValue);
+			}
 		}
 	}
 	/// <summary>
 	/// 실제 점수
 	/// </summary>
-	public int CurrentValue => BaseValue * _multiplier;
+	public int CurrentValue => BaseValue * Multiplier;
 
 	/// <summary>
 	/// 점수가 변경됐을 때
 	/// </summary>
-	public event Action<int, int> Changed;
+	public event Action<Score, int, int> Changed;
 
 	/// <summary>
 	/// 점수를 초기값으로 설정
@@ -90,6 +85,9 @@ public class Score
 	{
 		int oldBaseValue = _baseValue;
 		_baseValue = InitialValue;
-		Changed?.Invoke(oldBaseValue, _baseValue);
+		if (oldBaseValue != _baseValue)
+		{
+			Changed(this, oldBaseValue, _baseValue);
+		}
 	}
 }

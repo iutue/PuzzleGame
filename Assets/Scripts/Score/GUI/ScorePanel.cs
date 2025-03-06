@@ -19,17 +19,20 @@ public class ScorePanel : MonoBehaviour
 	[SerializeField]
 	TMP_Text _baseValueText;
 	[SerializeField]
+	TMP_Text _multiplierText;
+	[SerializeField]
 	TMP_Text _currentValueText;
 
 	public void Init(Score score)
 	{
 		_ownerScore = score;
 		score.Changed += OnValueChanged;
-		
+
 		//UI 초기화
 		if (_nameText) _nameText.text = score.Type.DisplayName.GetLocalizedString();
 		if (_valueIcon) _valueIcon.sprite = score.Type.Icon;
 		if (_baseValueText) _baseValueText.text = score.BaseValue.ToString();
+		if (_multiplierText) _multiplierText.text = score.Multiplier.ToString();
 		if (_currentValueText) _currentValueText.text = score.CurrentValue.ToString();
 	}
 
@@ -41,7 +44,7 @@ public class ScorePanel : MonoBehaviour
 	/// <summary>
 	/// 점수가 변경됐을 때 호출됨
 	/// </summary>
-	void OnValueChanged(int oldValue, int newValue)
+	void OnValueChanged(Score score, int oldValue, int newValue)
 	{
 		if (_currentValueText)
 		{

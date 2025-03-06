@@ -1,7 +1,9 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
@@ -48,13 +50,6 @@ public abstract class GameMode : MonoBehaviour
 
 	[SerializeField]
 	GameObject _blockGroupViewPrefab;
-
-	[SerializeField]
-	TopBarCanvas _topBarCanvas;
-	[SerializeField]
-	GameObject _resultCanvasPrefab;
-	ResultCanvas _resultCanvas;
-
 	/// <summary>
 	/// 맵의 부모
 	/// </summary>
@@ -98,8 +93,18 @@ public abstract class GameMode : MonoBehaviour
 		QualitySettings.vSyncCount = 0;
 		Application.targetFrameRate = 60;
 
-		//게임 시작
+		InitGame();
 		StartGame();
+	}
+
+	/// <summary>
+	/// 게임 초기화
+	/// </summary>
+	void InitGame()
+	{
+		ScoreTable.Init();
+		_playCanvas.Init(ScoreTable, OnBackButtonClicked, OnRefreshButtonClicked);
+
 	}
 
 	/// <summary>
@@ -107,13 +112,13 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	void StartGame()
 	{
+		ScoreTable.ResetAll();
+
 		InitMap();
-		DrawCards();
-		ScoreTable.Init();
+		InitCards();
 
-		_playCanvas.Init(ScoreTable["Total"], OnBackButtonClicked, OnRefreshButtonClicked);
-
-		if (_resultCanvas) _resultCanvas.Close();
+		//GUI 초기화
+		_playCanvas.StartGame();
 
 #if UNITY_EDITOR
 		Debug.Log("게임 시작");
@@ -124,17 +129,18 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	void EndGame()
 	{
-		//신기록
-		var totalScore = ScoreTable.Get("Total");
-		string bestScoreName = "BestScore_" + GetType().Name;
-		int savedBestScore = PlayerPrefs.GetInt(bestScoreName, 0);
-		if (totalScore.CurrentValue > savedBestScore)
+		var totalScore = ScoreTable["Total"];
+		var bestRecord = ScoreTable["BestRecord"];
+		string bestRecordName = "BestRecord_" + SceneManager.GetActiveScene().name;
+		bestRecord.BaseValue = PlayerPrefs.GetInt(bestRecordName, 0);
+		if (totalScore.CurrentValue > bestRecord.BaseValue)
 		{
-			PlayerPrefs.SetInt(bestScoreName, totalScore.CurrentValue);
+			//신기록 저장
+			PlayerPrefs.SetInt(bestRecordName, totalScore.CurrentValue);
 		}
 
 		//결과 출력
-		_playCanvas.ShowResult(ScoreTable, OnBackButtonClicked, OnRefreshButtonClicked, OnNextButtonClicked);
+		_playCanvas.ShowResult(ScoreTable, OnBackButtonClicked, OnRefreshButtonClicked, null);
 
 #if UNITY_EDITOR
 		Debug.Log("게임 종료");
@@ -186,23 +192,23 @@ public abstract class GameMode : MonoBehaviour
 	/// <summary>
 	/// 가지고 있는 카드를 버리고 최대 수 만큼 카드 뽑기
 	/// </summary>
-	void DrawCards()
+	void InitCards()
 	{
+		//카드 초기화
 		Cards.Clear();
 		for (int i = 0; i < _drawCount; i++)
 		{
 			//램덤한 카드 선택
 			var randomTemplate = BlockGroupTemplates.Templates[Random.Range(0, BlockGroupTemplates.Templates.Count)];
-			Cards.Add(new BlockGroup(randomTemplate));
+			var newCard = new BlockGroup(randomTemplate);
+			Cards.Add(newCard);
 		}
-		//모든 카드 뷰 초기화
+		//카드 뷰 초기화
 		foreach (var cardView in _cardViews)
 		{
-			if (cardView)
-			{
-				Destroy(cardView.gameObject);
-			}
+			Destroy(cardView.gameObject);
 		}
+		_cardViews.Clear();
 		for (int i = 0; i < Cards.Count; i++)
 		{
 			//새로운 뷰 생성
@@ -275,7 +281,7 @@ public abstract class GameMode : MonoBehaviour
 		if (Cards.Count == 0)
 		{
 			//새로운 카드 뽑기
-			DrawCards();
+			InitCards();
 		}
 	}
 
@@ -301,7 +307,7 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	protected virtual void OnNextButtonClicked()
 	{
-		//TODO 다음 레벨이 있으면 씬 전환
+		//TODO 다음 레벨이 있으면 다음 씬으로 전환
 	}
 
 	/// <summary>

@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.Assertions;
+using static UnityEngine.Rendering.DebugUI;
 
 [Serializable]
 public class ScoreTable : IEnumerable<Score>
@@ -11,35 +13,25 @@ public class ScoreTable : IEnumerable<Score>
 	[SerializeField]
 	List<Score> _scores;
 	/// <summary>
-	/// 점수의 이름에 대응하는 점수 인스턴스
+	/// 키(점수 이름)에 대응하는 점수
 	/// </summary>
-	Dictionary<string, Score> _nameLUT;
-	public Score this[string scoreName] => _nameLUT[scoreName];
+	Dictionary<string, Score> _keyLUT = new();
+	public Score this[string scoreName] => _keyLUT[scoreName];
 
 	public void Init()
 	{
-		_nameLUT = new Dictionary<string, Score>();
-		for (int i = _scores.Count - 1; i >= 0; i--)
+		//점수 초기화
+		for (int i = 0; i < _scores.Count; i++)
 		{
-			ScoreType type = _scores[i].Type;
-			if (!type || _nameLUT.ContainsKey(type.Name))
-			{
-				//유효하지 않은 원소 제거
-				_scores.RemoveAt(i);
-				continue;
-			}
-			else
-			{
-				_nameLUT.Add(type.Name, _scores[i]);
-			}
+			Score score = _scores[i];
+			score.Changed += OnScoreChanged;
+			score.Reset();
+			_keyLUT.TryAdd(score.Type.Key, score);
 		}
-
-		//모든 점수 초기화
-		ResetAll();
 	}
 
 	/// <summary>
-	/// 모든 점수 초기화
+	/// 모든 점수를 기본값으로 초기화
 	/// </summary>
 	public void ResetAll()
 	{
@@ -49,20 +41,63 @@ public class ScoreTable : IEnumerable<Score>
 		}
 	}
 
-	public Score Get(string scoreName)
+	/// <summary>
+	/// 점수 획득
+	/// </summary>
+	public bool TryGet(string scoreName, out Score score)
 	{
-		return _nameLUT[scoreName];
+		return _keyLUT.TryGetValue(scoreName, out score);
 	}
+	/// <summary>
+	/// 점수 설정
+	/// </summary>
 	public void Set(string scoreName, int newBaseValue)
 	{
-		_nameLUT[scoreName].BaseValue = newBaseValue;
+		if (TryGet(scoreName, out var score))
+		{
+			score.BaseValue = newBaseValue;
+		}
 	}
 	/// <summary>
 	/// 점수를 초기값으로 설정
 	/// </summary>
 	public void Reset(string scoreName)
 	{
-		_nameLUT[scoreName].Reset();
+		if (TryGet(scoreName, out var score))
+		{
+			score.Reset();
+		}
+	}
+
+	public void Add(string scoreName, int value)
+	{
+		if (TryGet(scoreName, out var score))
+		{
+			score.BaseValue += value;
+		}
+	}
+
+	void OnScoreChanged(Score score, int oldValue, int newValue)
+	{
+		switch (score.Type.Group)
+		{
+			case ScoreType.ScoreGroup.Total:
+				if (TryGet("Total", out var totalScore))
+				{
+					//실제 점수 변화를 총점에 추가
+					totalScore.BaseValue += score.CurrentValue - oldValue * score.Multiplier;
+				}
+				break;
+
+			case ScoreType.ScoreGroup.EndCondition_Or:
+				break;
+
+			case ScoreType.ScoreGroup.EndCondition_And:
+				break;
+
+			default:
+				break;
+		}
 	}
 
 	public IEnumerator<Score> GetEnumerator() => _scores.GetEnumerator();
