@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
-/// 하드코딩된 블록 그룹 템플릿
+/// 하드코딩된 블록 그룹 템플릿<br/>
+/// LLM으로 수정할 것을 권장함
 /// </summary>
 public static class BlockGroupTemplates
 {
-	public static List<BlockType[,]> Templates = new List<BlockType[,]>()
+	public static IReadOnlyList<BlockType[,]> Templates => _templates;
+	static List<BlockType[,]> _templates = new List<BlockType[,]>()
 	{
 		 // 1. Single Block (1×1)
 		new BlockType[,] {
