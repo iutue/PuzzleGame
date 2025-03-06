@@ -15,7 +15,7 @@ public abstract class GameMode : MonoBehaviour
 	/// 모든 점수
 	/// </summary>
 	[SerializeField]
-	protected ScoreTable ScoreTable;
+	protected ScoreContainer Scores;
 
 	#region BlockGroups
 	[Header("Map")]
@@ -102,8 +102,8 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	void InitGame()
 	{
-		ScoreTable.Init();
-		_playCanvas.Init(ScoreTable, OnBackButtonClicked, OnRefreshButtonClicked);
+		Scores.Init();
+		_playCanvas.Init(Scores, OnBackButtonClicked, OnRefreshButtonClicked);
 
 	}
 
@@ -112,7 +112,7 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	void StartGame()
 	{
-		ScoreTable.ResetAll();
+		Scores.ResetAll();
 
 		InitMap();
 		InitCards();
@@ -129,8 +129,8 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	void EndGame()
 	{
-		var totalScore = ScoreTable["Total"];
-		var bestRecord = ScoreTable["BestRecord"];
+		var totalScore = Scores["Total"];
+		var bestRecord = Scores["BestRecord"];
 		string bestRecordName = "BestRecord_" + SceneManager.GetActiveScene().name;
 		bestRecord.BaseValue = PlayerPrefs.GetInt(bestRecordName, 0);
 		if (totalScore.CurrentValue > bestRecord.BaseValue)
@@ -140,7 +140,7 @@ public abstract class GameMode : MonoBehaviour
 		}
 
 		//결과 출력
-		_playCanvas.ShowResult(ScoreTable, OnBackButtonClicked, OnRefreshButtonClicked, null);
+		_playCanvas.ShowResult(Scores, OnBackButtonClicked, OnRefreshButtonClicked, null);
 
 #if UNITY_EDITOR
 		Debug.Log("게임 종료");

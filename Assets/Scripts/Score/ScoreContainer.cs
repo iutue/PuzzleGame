@@ -2,16 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
-using UnityEngine.Assertions;
-using static UnityEngine.Rendering.DebugUI;
 
 [Serializable]
-public class ScoreTable : IEnumerable<Score>
+public class ScoreContainer : IEnumerable<Score>
 {
 	[SerializeField]
-	List<Score> _scores;
+	List<Score> _elements;
 	/// <summary>
 	/// 키(점수 이름)에 대응하는 점수
 	/// </summary>
@@ -21,9 +18,9 @@ public class ScoreTable : IEnumerable<Score>
 	public void Init()
 	{
 		//점수 초기화
-		for (int i = 0; i < _scores.Count; i++)
+		for (int i = 0; i < _elements.Count; i++)
 		{
-			Score score = _scores[i];
+			Score score = _elements[i];
 			score.Changed += OnScoreChanged;
 			score.Reset();
 			_keyLUT.TryAdd(score.Type.Key, score);
@@ -35,9 +32,9 @@ public class ScoreTable : IEnumerable<Score>
 	/// </summary>
 	public void ResetAll()
 	{
-		for (int i = 0; i < _scores.Count; i++)
+		for (int i = 0; i < _elements.Count; i++)
 		{
-			_scores[i].Reset();
+			_elements[i].Reset();
 		}
 	}
 
@@ -100,6 +97,6 @@ public class ScoreTable : IEnumerable<Score>
 		}
 	}
 
-	public IEnumerator<Score> GetEnumerator() => _scores.GetEnumerator();
+	public IEnumerator<Score> GetEnumerator() => _elements.GetEnumerator();
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

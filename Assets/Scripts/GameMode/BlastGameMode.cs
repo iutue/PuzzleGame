@@ -73,7 +73,7 @@ public class BlastGameMode : GameMode
 			block.Type = BlockType.Empty;
 		}
 
-		ScoreTable["LineClear"].BaseValue += clearCount;
+		Scores["LineClear"].BaseValue += clearCount;
 	}
 
 	protected override bool CheckEndCondition()
@@ -113,11 +113,11 @@ public class BlastGameMode : GameMode
 	protected override void OnMapBlockSpawned()
 	{
 		base.OnMapBlockSpawned();
-		ScoreTable["+Block"].BaseValue += 1;
+		Scores["+Block"].BaseValue += 1;
 	}
 	protected override void OnMapBlockDestroyed()
 	{
 		base.OnMapBlockDestroyed();
-		ScoreTable["-Block"].BaseValue += 1;
+		Scores["-Block"].BaseValue += 1;
 	}
 }
