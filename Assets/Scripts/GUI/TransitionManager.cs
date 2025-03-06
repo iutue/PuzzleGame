@@ -1,56 +1,60 @@
 using DG.Tweening;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Canvas))]
-public class TransitionManager : MonoBehaviour
+public class TransitionManager : SingletonBehaviour<TransitionManager>
 {
-	public static TransitionManager Instance { get; private set; }
-
+	/// <summary>
+	/// 처음으로 불러올 씬
+	/// </summary>
 	[SerializeField]
-	CanvasGroup _fadeImage;
+	string _initialSceneName;
+
+	[Space]
 	[SerializeField]
 	float _fadeDuration;
-
+	[SerializeField]
+	CanvasGroup _fadeGroup;
 	[SerializeField]
 	Slider _progressBar;
 
-	protected void Awake()
-	{
-		DontDestroyOnLoad(gameObject);
-
-		Instance = this;
-	}
 	protected void Start()
 	{
-		//초기화 후 메인 화면으로 이동
-		LoadScene("Main");
-	}
-
-	public void LoadScene(string sceneName)
-	{
-		StartCoroutine(LoadSceneCoroutine(sceneName));
-	}
-	IEnumerator LoadSceneCoroutine(string sceneName)
-	{
-		_fadeImage.DOFade(1f, _fadeDuration);
-
-		var sceneLoading = SceneManager.LoadSceneAsync(sceneName);
-		sceneLoading.allowSceneActivation = false;
-		while (!sceneLoading.isDone)
+		if (string.IsNullOrEmpty(_initialSceneName))
 		{
-			_progressBar.value = sceneLoading.progress;
-			yield return null;
-
-			if (sceneLoading.progress >= 0.9f)
-			{
-				_progressBar.value = 1f;
-				sceneLoading.allowSceneActivation = true;
-				break;
-			}
+			//현재 씬 보여주기
+			FadeOut();
 		}
-		_fadeImage.DOFade(0f, _fadeDuration);
+		else
+		{
+			//초기 씬 불러오기
+			LoadSceneAsync(_initialSceneName);
+		}
+	}
+
+	public async Awaitable LoadSceneAsync(string sceneName)
+	{
+		await FadeIn();
+		//씬 불러오기
+		var loading = SceneManager.LoadSceneAsync(sceneName);
+		while (!loading.isDone)
+		{
+			_progressBar.value = loading.progress;
+			await Awaitable.NextFrameAsync();
+		}
+		_progressBar.value = 1f;
+		await FadeOut();
+	}
+
+	async Awaitable FadeIn()
+	{
+		_fadeGroup.DOFade(1f, _fadeDuration);
+		await Awaitable.WaitForSecondsAsync(_fadeDuration);
+	}
+	async Awaitable FadeOut()
+	{
+		_fadeGroup.DOFade(0f, _fadeDuration);
+		await Awaitable.WaitForSecondsAsync(_fadeDuration);
 	}
 }
