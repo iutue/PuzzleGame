@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LevelButton : Button
+[RequireComponent(typeof(Button))]
+public class LevelButton : UIBehaviour
 {
 	/// <summary>
 	/// 불러올 레벨 씬의 이름
