@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "D:/Projects/PuzzleGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/476a4q2w/obj/armeabi-v7a/libswappywrapper.so"
+			"path" : "D:/Projects/PuzzleGame/Library/Bee/Android/Prj/Mono2x/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/476a4q2w/obj/armeabi-v7a/libswappywrapper.so"
 		}
 	],
 	"backtrace" : 1,
@@ -73,7 +73,7 @@
 			[
 				{
 					"backtrace" : 4,
-					"path" : "D:/Projects/PuzzleGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/FramePacing"
+					"path" : "D:/Projects/PuzzleGame/Library/Bee/Android/Prj/Mono2x/Gradle/unityLibrary/src/main/cpp/FramePacing"
 				},
 				{
 					"backtrace" : 2,
