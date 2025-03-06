@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _topBar: {fileID: 1489203505673094445}
+  _map: {fileID: 6797820624230846807}
   _cards: {fileID: 4715660389888817966}
   _resultPrefab: {fileID: 2166886757929894801, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
 --- !u!223 &8945915514091010042
@@ -328,6 +329,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2278097181682224939}
   - component: {fileID: 6797820624230846807}
+  - component: {fileID: 7172183479311909084}
   m_Layer: 5
   m_Name: MapPanel
   m_TagString: Untagged
@@ -366,14 +368,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755f03ffd20bcb34083efcd7a19d0ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isOpened: 1
   _duration: 1
   _easeType: 18
+  _panel: {fileID: 2278097181682224939}
+  _isOpened: 1
   _openDirection: {x: -1, y: 0}
   _closeDirection: {x: -1, y: 0}
   _destroyOnClose: 0
+  _transparentGroup: {fileID: 7172183479311909084}
   _openedAlpha: 1
   _closedAlpha: 0
+--- !u!225 &7172183479311909084
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8945827239372895848}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &357458549680224046
 PrefabInstance:
   m_ObjectHideFlags: 0

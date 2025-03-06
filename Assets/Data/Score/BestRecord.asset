@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b609d918a4d50e47807feee3ddd56a2, type: 3}
   m_Name: BestRecord
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: BestRecord
-  DisplayName:
+  <Key>k__BackingField: BestRecord
+  <Group>k__BackingField: 0
+  <ScorePanelPrefab>k__BackingField: {fileID: 0}
+  <DisplayName>k__BackingField:
     m_TableReference:
       m_TableCollectionName: GUID:e4d168923a082d14fb3bb7de2a6b54d3
     m_TableEntryReference:

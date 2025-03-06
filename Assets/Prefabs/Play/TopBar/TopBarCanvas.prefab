@@ -84,9 +84,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7927542172078820217}
+  - component: {fileID: 6620043703505604329}
   - component: {fileID: 1930591995299535745}
   - component: {fileID: 3066483245546775656}
-  - component: {fileID: 6620043703505604329}
+  - component: {fileID: 7666460530981817362}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -116,6 +117,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -0.4000002, y: -0.40000004}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6620043703505604329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829417884791909275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755f03ffd20bcb34083efcd7a19d0ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 1
+  _easeType: 18
+  _panel: {fileID: 7927542172078820217}
+  _isOpened: 1
+  _openDirection: {x: 0, y: -0.5}
+  _closeDirection: {x: 0, y: 0.5}
+  _destroyOnClose: 0
+  _transparentGroup: {fileID: 7666460530981817362}
+  _openedAlpha: 1
+  _closedAlpha: 0
 --- !u!222 &1930591995299535745
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -150,26 +173,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &6620043703505604329
-MonoBehaviour:
+--- !u!225 &7666460530981817362
+CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 829417884791909275}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 755f03ffd20bcb34083efcd7a19d0ebe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isOpened: 1
-  _duration: 1
-  _easeType: 18
-  _openDirection: {x: 0, y: -0.5}
-  _closeDirection: {x: 0, y: 0.5}
-  _destroyOnClose: 0
-  _openedAlpha: 1
-  _closedAlpha: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1660966005847825215
 GameObject:
   m_ObjectHideFlags: 0

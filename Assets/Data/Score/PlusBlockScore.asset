@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b609d918a4d50e47807feee3ddd56a2, type: 3}
-  m_Name: MinusBlockScore
+  m_Name: PlusBlockScore
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: -Block
-  DisplayName:
+  <Key>k__BackingField: +Block
+  <Group>k__BackingField: 1
+  <ScorePanelPrefab>k__BackingField: {fileID: 0}
+  <DisplayName>k__BackingField:
     m_TableReference:
       m_TableCollectionName: GUID:e4d168923a082d14fb3bb7de2a6b54d3
     m_TableEntryReference:
-      m_KeyId: 90042474496
+      m_KeyId: 48959266816
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
