@@ -175,6 +175,7 @@ public class PlayCanvas : UIBehaviour
 			cardView.Dragging += dragCard + OnDragCard;
 			_cardViews.Add(cardView);
 		}
+		_cards.Open();
 	}
 
 	/// <summary>
