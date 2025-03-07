@@ -85,8 +85,8 @@ public class PlayCanvas : UIBehaviour
 		for (int i = 0; i < drawCount; i++)
 		{
 			//카드가 들어갈 자리를 미리 확보
-			var child = new GameObject().AddComponent<RectTransform>();
-			child.transform.SetParent(_cardParent);
+			var child = new GameObject("CardSlot").AddComponent<RectTransform>();
+			child.transform.SetParent(_cardParent, false);
 		}
 	}
 
