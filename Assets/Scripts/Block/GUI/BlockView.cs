@@ -78,13 +78,13 @@ public class BlockView : UIBehaviour
 	void OnBlockSpawned(Block block)
 	{
 		DOTween.Sequence()
-			.Append(_image.rectTransform.DOScale(0.9f, 0.1f).SetEase(Ease.OutSine))
-			.Append(_image.rectTransform.DOScale(1f, 0.1f).SetEase(Ease.OutSine));
+			.Append(_image.rectTransform.DOScale(0.9f, 0.1f))
+			.Append(_image.rectTransform.DOScale(1f, 0.05f));
 	}
 
 	void OnBlockDestroyed(Block block)
 	{
-		_image.rectTransform.DOShakeAnchorPos(0.5f, 50f, 300);
+		_image.rectTransform.DOShakeAnchorPos(0.3f, 50f, 500);
 	}
 	#endregion
 }
