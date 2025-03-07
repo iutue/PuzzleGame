@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8687029706193621143, guid: 00a92bed9b53a0146aba913fc68a840b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2dd1873e0851251439f715ad0ccb059f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -129,6 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755f03ffd20bcb34083efcd7a19d0ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _openDelay: 0
+  _closeDelay: 0
   _duration: 1
   _easeType: 18
   _panel: {fileID: 7927542172078820217}
@@ -559,7 +561,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6571956130255585286, guid: 93a94c45d01915a43a423a5784678915, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 93a94c45d01915a43a423a5784678915, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
