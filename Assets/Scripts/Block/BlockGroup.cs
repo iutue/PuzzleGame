@@ -18,11 +18,11 @@ public class BlockGroup : IEnumerable<Block>
 	/// 블록 그룹의 크기, 블록을 배치할 수 있는 가장 먼 위치
 	/// </summary>
 	public Vector2Int Size { get; private set; }
-	public event Action<Block, BlockType, BlockType> TypeChanged;
+	public event Action<Block, Block.State, Block.State> TypeChanged;
 	public event Action<Block> BlockSpawned;
 	public event Action<Block> BlockDestroyed;
 
-	public BlockGroup(BlockType[,] blockTypes)
+	public BlockGroup(Block.State[,] blockTypes)
 	{
 		Size = new Vector2Int(blockTypes.GetLength(0), blockTypes.GetLength(1));
 		//모든 블록 초기화
@@ -43,7 +43,7 @@ public class BlockGroup : IEnumerable<Block>
 	/// <summary>
 	/// 해당 상태의 블록이 있는가
 	/// </summary>
-	public bool Contains(BlockType type)
+	public bool Contains(Block.State type)
 	{
 		for (int x = 0; x < Size.x; x++)
 		{
@@ -64,7 +64,7 @@ public class BlockGroup : IEnumerable<Block>
 	/// <param name="from">변환할 블록의 상태</param>
 	/// <param name="to">변환 후 블록의 상태</param>
 	/// <returns>상태가 변환된 블록의 개수</returns>
-	public int Convert(BlockType from, BlockType to)
+	public int Convert(Block.State from, Block.State to)
 	{
 		int count = 0;
 		for (int x = 0; x < Size.x; x++)
@@ -91,7 +91,7 @@ public class BlockGroup : IEnumerable<Block>
 		{
 			for (int otherY = 0; otherY < other.Size.y; otherY++)
 			{
-				if (other[otherX, otherY].Type == BlockType.Empty)
+				if (other[otherX, otherY].Type == Block.State.Empty)
 				{
 					//빈 블록은 무시
 					continue;
@@ -103,8 +103,8 @@ public class BlockGroup : IEnumerable<Block>
 					//넣을 블록이 범위를 벗어남
 					return false;
 				}
-				if (_blocks[position.x, position.y].Type == BlockType.Block &&
-					other[otherX, otherY].Type != BlockType.Empty)
+				if (_blocks[position.x, position.y].Type == Block.State.Placed &&
+					other[otherX, otherY].Type != Block.State.Empty)
 				{
 					//이미 블록이 존재함
 					return false;
@@ -118,7 +118,7 @@ public class BlockGroup : IEnumerable<Block>
 	}
 
 	#region Callbacks
-	void OnBlockTypeChanged(Block block, BlockType oldType, BlockType newType)
+	void OnBlockTypeChanged(Block block, Block.State oldType, Block.State newType)
 	{
 		TypeChanged?.Invoke(block, oldType, newType);
 	}

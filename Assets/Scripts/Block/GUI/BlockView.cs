@@ -54,14 +54,14 @@ public class BlockView : UIBehaviour
 	/// <summary>
 	/// 블록에 테마 변경
 	/// </summary>
-	void ApplyTheme(BlockTheme theme, BlockType type)
+	void ApplyTheme(BlockTheme theme, Block.State type)
 	{
 		//블록 종류에 해당하는 테마 선택
-		BlockTheme.BlockTypeTheme typeTheme = type switch
+		BlockTheme.StateTheme typeTheme = type switch
 		{
-			BlockType.Empty => theme.Empty,
-			BlockType.Ghost => theme.Ghost,
-			BlockType.Block => theme.Block,
+			Block.State.Empty => theme.Empty,
+			Block.State.Preview => theme.Ghost,
+			Block.State.Placed => theme.Block,
 			_ => theme.Empty
 		};
 		//테마 적용
@@ -70,7 +70,7 @@ public class BlockView : UIBehaviour
 	}
 
 	#region Callbacks
-	void OnTypeChanged(Block block, BlockType oldType, BlockType newType)
+	void OnTypeChanged(Block block, Block.State oldType, Block.State newType)
 	{
 		//상태에 맞는 테마 적용
 		ApplyTheme(Theme, newType);

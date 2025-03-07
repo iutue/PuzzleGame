@@ -139,7 +139,7 @@ public abstract class GameMode : MonoBehaviour
 	void ResetMap()
 	{
 		//맵 초기화
-		Map = new BlockGroup(new BlockType[_mapSize.x, _mapSize.y]);
+		Map = new BlockGroup(new Block.State[_mapSize.x, _mapSize.y]);
 		Map.BlockSpawned += OnMapBlockSpawned;
 		Map.BlockDestroyed += OnMapBlockDestroyed;
 		//맵 뷰 초기화
@@ -194,7 +194,7 @@ public abstract class GameMode : MonoBehaviour
 		_previousMapBlock = currentBlock;
 
 		//배치 시도
-		Map.Convert(BlockType.Ghost, BlockType.Empty);
+		Map.Convert(Block.State.Preview, Block.State.Empty);
 		if (currentBlock == null)
 		{
 			//감지된 블록이 없으면 이전의 배치 흔적만 제거
@@ -213,7 +213,7 @@ public abstract class GameMode : MonoBehaviour
 	void ConfirmCardPlacement(BlockGroupView cardView)
 	{
 		//카드 사용
-		Map.Convert(BlockType.Ghost, BlockType.Block);
+		Map.Convert(Block.State.Preview, Block.State.Placed);
 		RemoveCard(cardView);
 		//게임 업데이트
 		UpdateGame();
@@ -297,7 +297,7 @@ public abstract class GameMode : MonoBehaviour
 		else
 		{
 			//배치 실패
-			Map.Convert(BlockType.Ghost, BlockType.Empty);
+			Map.Convert(Block.State.Preview, Block.State.Empty);
 		}
 	}
 
@@ -308,7 +308,7 @@ public abstract class GameMode : MonoBehaviour
 	{
 		//맵에 배치된 카드가 있으면
 		//TODO[개선] 맵이 아닌 카드로 배치 성공 여부 저장하기
-		if (Map.Contains(BlockType.Ghost))
+		if (Map.Contains(Block.State.Preview))
 		{
 			//카드 배치 확정
 			ConfirmCardPlacement(cardView);

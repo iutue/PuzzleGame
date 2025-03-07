@@ -30,7 +30,7 @@ public class BlastGameMode : GameMode
 			candidates.Clear();
 			for (int y = 0; y < Map.Size.y; y++)
 			{
-				if (Map[x, y].Type == BlockType.Block)
+				if (Map[x, y].Type == Block.State.Placed)
 				{
 					candidates.Add(Map[x, y]);
 				}
@@ -52,7 +52,7 @@ public class BlastGameMode : GameMode
 			candidates.Clear();
 			for (int x = 0; x < Map.Size.x; x++)
 			{
-				if (Map[x, y].Type == BlockType.Block)
+				if (Map[x, y].Type == Block.State.Placed)
 				{
 					candidates.Add(Map[x, y]);
 				}
@@ -71,7 +71,7 @@ public class BlastGameMode : GameMode
 		//감지된 모든 라인의 블록 제거
 		foreach (var block in blocksToDestroy)
 		{
-			block.Type = BlockType.Empty;
+			block.Type = Block.State.Empty;
 		}
 		//점수 추가
 		Scores["LineClear"].BaseValue += clearCount;
@@ -91,7 +91,7 @@ public class BlastGameMode : GameMode
 			}
 		}
 		//검사 흔적 제거
-		Map.Convert(BlockType.Ghost, BlockType.Empty);
+		Map.Convert(Block.State.Preview, Block.State.Empty);
 
 		//배치 가능한 카드가 하나도 없으면 게임 종료
 		return !hasValidCard;

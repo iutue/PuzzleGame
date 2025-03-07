@@ -13,14 +13,14 @@ public class BlockTheme : ScriptableObject
 	/// 블록 상태에 대응하는 테마
 	/// </summary>
 	[Serializable]
-	public class BlockTypeTheme
+	public class StateTheme
 	{
 		public Sprite BlockImage;
 		public Color BlockColor;
 	}
 
 	//블록 상태에 따라 적용할 테마들
-	public BlockTypeTheme Empty;
-	public BlockTypeTheme Ghost;
-	public BlockTypeTheme Block;
+	public StateTheme Empty;
+	public StateTheme Ghost;
+	public StateTheme Block;
 }

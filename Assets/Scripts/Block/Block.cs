@@ -12,16 +12,35 @@ public class Block
 	/// 블록 그룹 내에서 블록의 위치
 	/// </summary>
 	public readonly Vector2Int Position;
+	
+	/// <summary>
+	/// 블록의 상태
+	/// </summary>
+	public enum State
+	{
+		/// <summary>
+		/// 블록 없음
+		/// </summary>
+		Empty,
+		/// <summary>
+		/// 블록 배치 예약
+		/// </summary>
+		Preview,
+		/// <summary>
+		/// 블록 배치됨
+		/// </summary>
+		Placed
+	}
 	/// <summary>
 	/// 현재 블록의 상태
 	/// </summary>
-	BlockType _type;
-	public BlockType Type
+	State _type;
+	public State Type
 	{
 		get => _type;
 		set
 		{
-			BlockType oldType = _type;
+			State oldType = _type;
 			if (value != oldType)
 			{
 				_type = value;
@@ -32,7 +51,7 @@ public class Block
 	/// <summary>
 	/// 블록의 상태가 변경됐을 때
 	/// </summary>
-	public event Action<Block, BlockType, BlockType> TypeChanged;
+	public event Action<Block, State, State> TypeChanged;
 	/// <summary>
 	/// 블록이 배치됐을 때
 	/// </summary>
@@ -42,7 +61,7 @@ public class Block
 	/// </summary>
 	public event Action<Block> BlockDestroyed;
 
-	public Block(BlockType type, Vector2Int position)
+	public Block(State type, Vector2Int position)
 	{
 		_type = type;
 		Position = position;
@@ -51,37 +70,18 @@ public class Block
 	/// <summary>
 	/// 블록의 상태가 변경됐을 때 호출됨
 	/// </summary>
-	void OnTypeChanged(BlockType oldType, BlockType newType)
+	void OnTypeChanged(State oldType, State newType)
 	{
 		TypeChanged?.Invoke(this, oldType, newType);
-		if (oldType != BlockType.Block && newType == BlockType.Block)
+		if (oldType != State.Placed && newType == State.Placed)
 		{
 			//블록이 배치됨
 			BlockSpawned?.Invoke(this);
 		}
-		else if (oldType == BlockType.Block && newType != BlockType.Block)
+		else if (oldType == State.Placed && newType != State.Placed)
 		{
 			//블록이 제거됨
 			BlockDestroyed?.Invoke(this);
 		}
 	}
-}
-
-/// <summary>
-/// 블록의 상태
-/// </summary>
-public enum BlockType
-{
-	/// <summary>
-	/// 블록을 배치할 수 있는 빈 공간
-	/// </summary>
-	Empty,
-	/// <summary>
-	/// 블록 배치를 예약한 블록
-	/// </summary>
-	Ghost,
-	/// <summary>
-	/// 배치된 블록
-	/// </summary>
-	Block
 }
