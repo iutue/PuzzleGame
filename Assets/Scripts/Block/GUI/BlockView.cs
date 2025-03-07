@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
+/// <summary>
+/// 블록의 모습을 표현하는 GUI
+/// </summary>
 public class BlockView : UIBehaviour
 {
 	public Block OwnerBlock { get; private set; }
@@ -28,7 +30,7 @@ public class BlockView : UIBehaviour
 			if (value != _theme)
 			{
 				_theme = value;
-				UpdateTheme(value, OwnerBlock.Type);
+				ApplyTheme(value, OwnerBlock.Type);
 			}
 		}
 	}
@@ -40,18 +42,19 @@ public class BlockView : UIBehaviour
 		OwnerBlock.BlockDestroyed -= OnBlockDestroyed;
 	}
 
-	public void Init(Block owner, BlockTheme blockThemeSet)
+	public void Init(Block owner, BlockTheme theme)
 	{
 		OwnerBlock = owner;
+		Theme = theme;
 		OwnerBlock.TypeChanged += OnTypeChanged;
 		OwnerBlock.BlockSpawned += OnBlockSpawned;
 		OwnerBlock.BlockDestroyed += OnBlockDestroyed;
-		Theme = blockThemeSet;
-		//상태 동기화
-		OnTypeChanged(owner, owner.Type, owner.Type);
 	}
 
-	void UpdateTheme(BlockTheme theme, BlockType type)
+	/// <summary>
+	/// 블록에 테마 변경
+	/// </summary>
+	void ApplyTheme(BlockTheme theme, BlockType type)
 	{
 		//블록 종류에 해당하는 테마 선택
 		BlockTheme.BlockTypeTheme typeTheme = type switch
@@ -67,12 +70,10 @@ public class BlockView : UIBehaviour
 	}
 
 	#region Callbacks
-	/// <summary>
-	/// 블록의 종류가 변경됐을 때 호출됨
-	/// </summary>
 	void OnTypeChanged(Block block, BlockType oldType, BlockType newType)
 	{
-		UpdateTheme(Theme, newType);
+		//상태에 맞는 테마 적용
+		ApplyTheme(Theme, newType);
 	}
 
 	void OnBlockSpawned(Block block)
@@ -81,7 +82,7 @@ public class BlockView : UIBehaviour
 			.Append(_image.rectTransform.DOScale(0.9f, 0.1f))
 			.Append(_image.rectTransform.DOScale(1f, 0.05f));
 	}
-
+	
 	void OnBlockDestroyed(Block block)
 	{
 		_image.rectTransform.DOShakeAnchorPos(0.3f, 50f, 500);

@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// 블록 뷰를 관리하는 블록 그룹 GUI
+/// </summary>
 public class BlockGroupView : UIBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
 	public BlockGroup OwnerBlockGroup { get; private set; }

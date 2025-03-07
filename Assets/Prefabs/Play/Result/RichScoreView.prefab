@@ -149,7 +149,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.35
+  m_fontSize: 19.35
   m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -475,6 +475,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2307168172798598780, guid: 3ada87fe25f8e3e4ab32fad0c62882a2, type: 3}
+      propertyPath: _icon
+      value: 
+      objectReference: {fileID: 5099851712438268257}
+    - target: {fileID: 2307168172798598780, guid: 3ada87fe25f8e3e4ab32fad0c62882a2, type: 3}
+      propertyPath: _baseValue
+      value: 
+      objectReference: {fileID: 9200472575293968496}
     - target: {fileID: 2307168172798598780, guid: 3ada87fe25f8e3e4ab32fad0c62882a2, type: 3}
       propertyPath: _valueIcon
       value: 

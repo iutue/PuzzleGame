@@ -4,6 +4,9 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// 레벨로 이동할 수 있는 버튼
+/// </summary>
 [RequireComponent(typeof(Button))]
 public class LevelButton : UIBehaviour
 {
@@ -13,8 +16,14 @@ public class LevelButton : UIBehaviour
 	[SerializeField]
 	string _levelName;
 
+	/// <summary>
+	/// 레벨의 모드
+	/// </summary>
 	[SerializeField]
 	TMP_Text _levelModeText;
+	/// <summary>
+	/// 레벨의 맵 크기
+	/// </summary>
 	[SerializeField]
 	TMP_Text _levelSizeText;
 
@@ -24,9 +33,9 @@ public class LevelButton : UIBehaviour
 		GetComponent<Button>().onClick.AddListener(new UnityAction(OnButtonClicked));
 
 		//레벨 정보 표시
-		var levelSpecs = _levelName.Split('_');
-		if (_levelModeText) _levelModeText.text = levelSpecs[0];
-		if (_levelSizeText) _levelSizeText.text = levelSpecs[1];
+		var levelInfos = _levelName.Split('_');
+		if (_levelModeText) _levelModeText.text = levelInfos[0];
+		if (_levelSizeText) _levelSizeText.text = levelInfos[1];
 	}
 
 	/// <summary>

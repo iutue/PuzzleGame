@@ -7,21 +7,27 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
-/// 게임 전체를 관리하는 매니저 클래스
+/// 점수, 규칙 등 매치의 상태를 가지고 하나의 매치를 관리함
 /// </summary>
 public abstract class GameMode : MonoBehaviour
 {
+	/// <summary>
+	/// 맵의 크기
+	/// </summary>
 	[SerializeField]
 	Vector2Int _mapSize;
+	/// <summary>
+	/// 현재 맵
+	/// </summary>
 	protected BlockGroup Map;
 	/// <summary>
-	/// 카드를 놓을 수 있는지 검사한 맵 블록<br/>
+	/// 카드를 놓을 수 있는지 검사한 맵의 블록<br/>
 	/// 동일한 블록을 매프레임마다 검사하는 것을 방지함
 	/// </summary>
 	Block _previousMapBlock;
 
 	/// <summary>
-	/// 최대로 가질 수 있는 카드 수
+	/// 패에 최대로 가질 수 있는 카드 수
 	/// </summary>
 	[SerializeField, Range(1, 5)]
 	int _maxCardCount = 3;
@@ -30,8 +36,14 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	protected List<BlockGroup> Cards = new();
 
+	/// <summary>
+	/// 필수 GUI
+	/// </summary>
 	[SerializeField]
 	PlayCanvas _playCanvas;
+	/// <summary>
+	/// 모든 점수
+	/// </summary>
 	[SerializeField]
 	protected ScoreContainer Scores;
 
@@ -47,7 +59,7 @@ public abstract class GameMode : MonoBehaviour
 
 	#region Game
 	/// <summary>
-	/// 게임 초기화
+	/// 게임 초기화, 씬 로드 후 번만 실행됨
 	/// </summary>
 	void InitGame()
 	{
@@ -60,7 +72,7 @@ public abstract class GameMode : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 게임 시작
+	/// 게임 시작, 새로운 매치를 시작할 때마다 호출됨
 	/// </summary>
 	void StartGame()
 	{
@@ -76,7 +88,7 @@ public abstract class GameMode : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 게임 종료
+	/// 게임 종료, 매치 종료 조건을 만족하면 호출됨
 	/// </summary>
 	void EndGame()
 	{
@@ -100,7 +112,7 @@ public abstract class GameMode : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 게임 최신화
+	/// 게임 최신화, 매치 상태에 변화가 있을 때마다 호출됨
 	/// </summary>
 	void UpdateGame()
 	{
@@ -142,7 +154,7 @@ public abstract class GameMode : MonoBehaviour
 
 	#region Card
 	/// <summary>
-	/// 가지고 있는 카드를 버리고 최대 수 만큼 카드 뽑기
+	/// 패의 모든 카드를 버리고 최대 수 만큼 패를 다시 뽑기
 	/// </summary>
 	void ResetCards()
 	{
@@ -181,11 +193,11 @@ public abstract class GameMode : MonoBehaviour
 		}
 		_previousMapBlock = currentBlock;
 
-		//맵 업데이트
+		//배치 시도
 		Map.Convert(BlockType.Ghost, BlockType.Empty);
 		if (currentBlock == null)
 		{
-			//블록이 없으면 배치 흔적만 제거하면 됨
+			//감지된 블록이 없으면 이전의 배치 흔적만 제거
 			return true;
 		}
 		else
@@ -203,7 +215,6 @@ public abstract class GameMode : MonoBehaviour
 		//카드 사용
 		Map.Convert(BlockType.Ghost, BlockType.Block);
 		RemoveCard(cardView);
-
 		//게임 업데이트
 		UpdateGame();
 	}
@@ -295,6 +306,8 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	protected virtual void OnEndDragCard(BlockGroupView cardView, PointerEventData eventData)
 	{
+		//맵에 배치된 카드가 있으면
+		//TODO[개선] 맵이 아닌 카드로 배치 성공 여부 저장하기
 		if (Map.Contains(BlockType.Ghost))
 		{
 			//카드 배치 확정

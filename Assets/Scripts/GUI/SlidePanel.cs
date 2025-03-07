@@ -2,6 +2,9 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// 슬라이드해서 열고 닫을 수 있는 패널 GUI
+/// </summary>
 public class SlidePanel : UIBehaviour
 {
 	[SerializeField] float _openDelay = 0f;
@@ -37,15 +40,16 @@ public class SlidePanel : UIBehaviour
 	/// </summary>
 	Vector2 _closedPosition;
 	/// <summary>
-	/// 열릴 때 패널의 이동 방향
+	/// 열릴 때 패널의 이동 방향과 거리<br/>
+	/// 이동 거리는 화면(루트 캔버스) 크기에 비례해서 1 크기는 화면 1개의 크기와 같음
 	/// </summary>
 	[SerializeField] Vector2 _openDirection = Vector2.left;
-	/// <summary>
-	/// 닫힐 때 패널의 이동 방향
+	/// 닫힐 때 패널의 이동 방향과 거리<br/>
+	/// 이동 거리는 화면(루트 캔버스) 크기에 비례해서 1 크기는 화면 1개의 크기와 같음
 	/// </summary>
 	[SerializeField] Vector2 _closeDirection = Vector2.left;
 	/// <summary>
-	/// 닫혔을 때 패널을 제거하는가
+	/// 닫혔을 때 이 게임 오브젝트를 제거하는가
 	/// </summary>
 	[SerializeField] bool _destroyOnClose;
 	#endregion
@@ -73,7 +77,7 @@ public class SlidePanel : UIBehaviour
 		//위치 초기화
 		_openedPosition = _panel.anchoredPosition;
 		CalculatePositions();
-
+		//초기 상태에 따라 애니메이션 실행
 		if (_isOpened)
 		{
 			Open();
@@ -88,8 +92,8 @@ public class SlidePanel : UIBehaviour
 		base.OnRectTransformDimensionsChange();
 		if (_panel && _isPositionInitialized)
 		{
-			CalculatePositions();
 			//해상도에 맞는 위치로 강제 이동
+			CalculatePositions();
 			_panel.anchoredPosition = _isOpened ? _openedPosition : _closedPosition;
 		}
 	}
@@ -98,8 +102,8 @@ public class SlidePanel : UIBehaviour
 		if (_panel)
 		{
 			CalculatePositions();
-			Transform canvasTr = GetComponentInParent<Canvas>().transform;
 			//캔버스 내 좌표를 월드 좌표로 변환
+			Transform canvasTr = GetComponentInParent<Canvas>().transform;
 			Vector2 opened = canvasTr.TransformPoint(_openedPosition);
 			Vector2 opening = canvasTr.TransformPoint(_openingPosition);
 			Vector2 closed = canvasTr.TransformPoint(_closedPosition);

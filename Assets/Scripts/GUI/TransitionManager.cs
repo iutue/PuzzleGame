@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// 화면 전환을 관리하는 GUI
+/// </summary>
 public class TransitionManager : SingletonBehaviour<TransitionManager>
 {
 	/// <summary>
@@ -33,6 +36,11 @@ public class TransitionManager : SingletonBehaviour<TransitionManager>
 		}
 	}
 
+	/// <summary>
+	/// 해당 이름의 씬을 비동기로 불러오기
+	/// </summary>
+	/// <param name="sceneName"></param>
+	/// <returns></returns>
 	public async Awaitable LoadSceneAsync(string sceneName)
 	{
 		await FadeIn();

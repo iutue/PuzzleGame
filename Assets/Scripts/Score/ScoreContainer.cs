@@ -4,9 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// 복수의 점수를 가지는 컨테이너
+/// </summary>
 [Serializable]
 public class ScoreContainer : IEnumerable<Score>
 {
+	/// <summary>
+	/// 모든 점수
+	/// </summary>
 	[SerializeField]
 	List<Score> _elements;
 	/// <summary>
@@ -17,18 +23,18 @@ public class ScoreContainer : IEnumerable<Score>
 
 	public void Init()
 	{
-		//점수 초기화
+		//모든 점수 초기화
 		for (int i = 0; i < _elements.Count; i++)
 		{
 			Score score = _elements[i];
-			score.Changed += OnScoreChanged;
+			score.BaseValueChanged += OnScoreBaseValueChanged;
 			score.Reset();
 			_keyLUT.TryAdd(score.Type.Key, score);
 		}
 	}
 
 	/// <summary>
-	/// 모든 점수를 기본값으로 초기화
+	/// 모든 점수를 기본값으로 재설정
 	/// </summary>
 	public void ResetAll()
 	{
@@ -39,7 +45,7 @@ public class ScoreContainer : IEnumerable<Score>
 	}
 
 	/// <summary>
-	/// 점수 획득
+	/// 점수 탐색
 	/// </summary>
 	public bool TryGet(string scoreName, out Score score)
 	{
@@ -56,7 +62,7 @@ public class ScoreContainer : IEnumerable<Score>
 		}
 	}
 	/// <summary>
-	/// 점수를 초기값으로 설정
+	/// 점수를 초기값으로 재설정
 	/// </summary>
 	public void Reset(string scoreName)
 	{
@@ -66,15 +72,10 @@ public class ScoreContainer : IEnumerable<Score>
 		}
 	}
 
-	public void Add(string scoreName, int value)
-	{
-		if (TryGet(scoreName, out var score))
-		{
-			score.BaseValue += value;
-		}
-	}
-
-	void OnScoreChanged(Score score, int oldValue, int newValue)
+	/// <summary>
+	/// 한 점수의 기준 점수가 변경됐을 때 호출됨
+	/// </summary>
+	void OnScoreBaseValueChanged(Score score, int oldBaseValue, int newBaseValue)
 	{
 		switch (score.Type.Group)
 		{
@@ -82,7 +83,7 @@ public class ScoreContainer : IEnumerable<Score>
 				if (TryGet("Total", out var totalScore))
 				{
 					//실제 점수 변화를 총점에 추가
-					totalScore.BaseValue += score.CurrentValue - oldValue * score.Multiplier;
+					totalScore.BaseValue += score.CurrentValue - oldBaseValue * score.Multiplier;
 				}
 				break;
 

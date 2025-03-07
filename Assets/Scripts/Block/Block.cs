@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// 한 블록의 정보를 가지는 하나의 칸
+/// </summary>
 public class Block
 {
 	/// <summary>
-	/// 그룹 내에서 블록의 위치
+	/// 블록 그룹 내에서 블록의 위치
 	/// </summary>
 	public readonly Vector2Int Position;
-
 	/// <summary>
-	/// 현재 블록의 종류
+	/// 현재 블록의 상태
 	/// </summary>
 	BlockType _type;
 	public BlockType Type
@@ -28,7 +30,7 @@ public class Block
 		}
 	}
 	/// <summary>
-	/// 블록의 종류가 변경됐을 때
+	/// 블록의 상태가 변경됐을 때
 	/// </summary>
 	public event Action<Block, BlockType, BlockType> TypeChanged;
 	/// <summary>
@@ -47,7 +49,7 @@ public class Block
 	}
 
 	/// <summary>
-	/// 블록의 종류가 변경됐을 때 호출됨
+	/// 블록의 상태가 변경됐을 때 호출됨
 	/// </summary>
 	void OnTypeChanged(BlockType oldType, BlockType newType)
 	{
@@ -66,7 +68,7 @@ public class Block
 }
 
 /// <summary>
-/// 블록의 종류
+/// 블록의 상태
 /// </summary>
 public enum BlockType
 {
@@ -75,7 +77,7 @@ public enum BlockType
 	/// </summary>
 	Empty,
 	/// <summary>
-	/// 예약된 블록
+	/// 블록 배치를 예약한 블록
 	/// </summary>
 	Ghost,
 	/// <summary>

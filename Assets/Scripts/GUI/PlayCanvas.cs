@@ -5,8 +5,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static BlockGroupView;
 
+/// <summary>
+/// 매치에 필수적인 GUI 모음
+/// </summary>
 [RequireComponent(typeof(Canvas))]
-public class PlayCanvas : MonoBehaviour
+public class PlayCanvas : UIBehaviour
 {
 	/// <summary>
 	/// 탑바 패널
@@ -25,9 +28,6 @@ public class PlayCanvas : MonoBehaviour
 	/// </summary>
 	[SerializeField]
 	RectTransform _mapParent;
-	/// <summary>
-	/// 현재 맵 뷰
-	/// </summary>
 	BlockGroupView _mapView;
 	GraphicRaycaster _mapRaycaster;
 	List<RaycastResult> _mapRaycastresult = new();
@@ -48,12 +48,9 @@ public class PlayCanvas : MonoBehaviour
 	/// </summary>
 	[SerializeField]
 	RectTransform _cardParent;
-	/// <summary>
-	/// 현재 카드 뷰
-	/// </summary>
 	List<BlockGroupView> _cardViews = new();
 	/// <summary>
-	/// 카드를 집었을 때 포인터와 카드의 상대 위치
+	/// 카드를 집었을 때 포인터와 카드의 상대 위치, 화면 크기에 비례함
 	/// </summary>
 	[SerializeField]
 	Vector2 _cardOffset;
@@ -87,7 +84,7 @@ public class PlayCanvas : MonoBehaviour
 		//카드
 		for (int i = 0; i < drawCount; i++)
 		{
-			//카드가 들어갈 자리를 미리 계산
+			//카드가 들어갈 자리를 미리 확보
 			var child = new GameObject().AddComponent<RectTransform>();
 			child.transform.SetParent(_cardParent);
 		}
@@ -120,14 +117,16 @@ public class PlayCanvas : MonoBehaviour
 
 	#region Map
 	/// <summary>
-	/// 맵 뷰 재설정
+	/// 맵 뷰 초기화
 	/// </summary>
 	public void ResetMap(BlockGroup map)
 	{
+		//기존의 뷰 제거
 		if (_mapView)
 		{
 			Destroy(_mapView.gameObject);
 		}
+		//새로운 뷰 생성
 		_mapView = Instantiate(_blockGroupViewPrefab, _mapParent).GetComponent<BlockGroupView>();
 		_mapView.Init(map, _mapTheme);
 	}
@@ -137,6 +136,7 @@ public class PlayCanvas : MonoBehaviour
 	/// </summary>
 	public BlockView GetMapBlockAt(Vector2 position)
 	{
+		//TODO[개선] 맵 패널 위 포인터의 위치로 블록 위치 계산하기
 		PointerEventData eventData = new PointerEventData(EventSystem.current);
 		eventData.position = position;
 		_mapRaycastresult.Clear();
@@ -154,17 +154,17 @@ public class PlayCanvas : MonoBehaviour
 
 	#region Card
 	/// <summary>
-	/// 카드 뷰 재설정
+	/// 모든 카드 뷰 초기화
 	/// </summary>
 	public void ResetCards(List<BlockGroup> cards, DragHandler beginDragCard, DragHandler endDragCard, DragHandler dragCard)
 	{
-		//기존의 카드 뷰 제거
+		//기존의 뷰 제거
 		foreach (var cardView in _cardViews)
 		{
 			Destroy(cardView.gameObject);
 		}
 		_cardViews.Clear();
-		//새로운 카드 뷰 생성
+		//새로운 뷰 생성
 		for (int i = 0; i < cards.Count; i++)
 		{
 			var cardView = Instantiate(_blockGroupViewPrefab, _cardParent.GetChild(i)).GetComponent<BlockGroupView>();

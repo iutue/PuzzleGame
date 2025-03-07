@@ -5,31 +5,27 @@ using System.Linq;
 using UnityEngine;
 
 /// <summary>
-/// 복수의 블록을 가지는 블록 컨테이너
+/// 복수의 블록을 2차원으로 보관하는 컨테이너
 /// </summary>
 public class BlockGroup : IEnumerable<Block>
 {
+	/// <summary>
+	/// 모든 블록
+	/// </summary>
 	Block[,] _blocks;
 	public Block this[int x, int y] => _blocks[x, y];
+	/// <summary>
+	/// 블록 그룹의 크기, 블록을 배치할 수 있는 가장 먼 위치
+	/// </summary>
 	public Vector2Int Size { get; private set; }
-
-	/// <summary>
-	/// 블록의 종류가 변경됐을 때
-	/// </summary>
 	public event Action<Block, BlockType, BlockType> TypeChanged;
-	/// <summary>
-	/// 블록이 배치됐을 때
-	/// </summary>
 	public event Action<Block> BlockSpawned;
-	/// <summary>
-	/// 블록이 제거됐을 때
-	/// </summary>
 	public event Action<Block> BlockDestroyed;
 
 	public BlockGroup(BlockType[,] blockTypes)
 	{
 		Size = new Vector2Int(blockTypes.GetLength(0), blockTypes.GetLength(1));
-		//블록 초기화
+		//모든 블록 초기화
 		_blocks = new Block[Size.x, Size.y];
 		for (int x = 0; x < Size.x; x++)
 		{
@@ -45,34 +41,42 @@ public class BlockGroup : IEnumerable<Block>
 	}
 
 	/// <summary>
-	/// 해당 종류의 블록이 있는가
+	/// 해당 상태의 블록이 있는가
 	/// </summary>
 	public bool Contains(BlockType type)
 	{
-		foreach (var block in _blocks)
+		for (int x = 0; x < Size.x; x++)
 		{
-			if (block.Type == type)
+			for (int y = 0; y < Size.y; y++)
 			{
-				return true;
+				if (_blocks[x, y].Type == type)
+				{
+					return true;
+				}
 			}
 		}
 		return false;
 	}
 
 	/// <summary>
-	/// 특정 종류의 블록을 다른 종류로 변환
+	/// 특정 상태의 모든 블록을 다른 상태로 변환
 	/// </summary>
-	/// <param name="from">변환할 블록의 종류</param>
-	/// <param name="to">변환 후의 종류</param>
+	/// <param name="from">변환할 블록의 상태</param>
+	/// <param name="to">변환 후 블록의 상태</param>
+	/// <returns>상태가 변환된 블록의 개수</returns>
 	public int Convert(BlockType from, BlockType to)
 	{
 		int count = 0;
-		foreach (var block in _blocks)
+		for (int x = 0; x < Size.x; x++)
 		{
-			if (block.Type == from)
+			for (int y = 0; y < Size.y; y++)
 			{
-				block.Type = to;
-				count++;
+				Block block = _blocks[x, y];
+				if (block.Type == from)
+				{
+					block.Type = to;
+					count++;
+				}
 			}
 		}
 		return count;
@@ -132,9 +136,9 @@ public class BlockGroup : IEnumerable<Block>
 
 	public IEnumerator<Block> GetEnumerator()
 	{
-		for (int x = 0; x < _blocks.GetLength(0); x++)
+		for (int x = 0; x < Size.x; x++)
 		{
-			for (int y = 0; y < _blocks.GetLength(1); y++)
+			for (int y = 0; y < Size.y; y++)
 			{
 				yield return _blocks[x, y];
 			}

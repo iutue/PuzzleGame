@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+/// <summary>
+/// 최대한 많은 블록을 배치, 파괴하는 게임모드
+/// </summary>
 public class BlastGameMode : GameMode
 {
 	protected override void UpdateMap()
@@ -10,7 +13,7 @@ public class BlastGameMode : GameMode
 	}
 
 	/// <summary>
-	/// 맵의 모든 라인을 찾아서 클리어
+	/// 맵에 존재하는 모든 블록 라인을 찾아서 제거
 	/// </summary>
 	void TryLineClear()
 	{
@@ -43,7 +46,6 @@ public class BlastGameMode : GameMode
 				blocksToDestroy.AddRange(candidates);
 			}
 		}
-
 		//가로 클리어
 		for (int y = 0; y < Map.Size.y; y++)
 		{
@@ -66,35 +68,36 @@ public class BlastGameMode : GameMode
 				blocksToDestroy.AddRange(candidates);
 			}
 		}
-
-		//감지된 모든 라인 클리어
+		//감지된 모든 라인의 블록 제거
 		foreach (var block in blocksToDestroy)
 		{
 			block.Type = BlockType.Empty;
 		}
-
+		//점수 추가
 		Scores["LineClear"].BaseValue += clearCount;
 	}
 
 	protected override bool CheckEndCondition()
 	{
 		//배치할 수 있는 카드를 하나라도 가지고 있는지 검사
-		bool canPlaceCard = false;
+		bool hasValidCard = false;
 		foreach (var card in Cards)
 		{
 			if (TryPlaceCard(card))
 			{
 				//배치 가능한 카드가 하나라도 있음
-				canPlaceCard = true;
+				hasValidCard = true;
 				break;
 			}
 		}
+		//검사 흔적 제거
 		Map.Convert(BlockType.Ghost, BlockType.Empty);
 
-		return !canPlaceCard;
+		//배치 가능한 카드가 하나도 없으면 게임 종료
+		return !hasValidCard;
 	}
 	/// <summary>
-	/// 카드를 배치할 수 있는 공간이 있는가
+	/// 맵에 카드를 배치할 수 있는 공간이 있는가
 	/// </summary>
 	bool TryPlaceCard(BlockGroup card)
 	{
@@ -102,22 +105,25 @@ public class BlastGameMode : GameMode
 		{
 			if (Map.TryMerge(card, mapBlock.Position))
 			{
-				//카드를 맵에 배치 가능
+				//맵에 배치 가능
 				return true;
 			}
 		}
-		//카드를 맵에 배치할 수 없음
+		//맵에 배치할 공간이 없음
 		return false;
 	}
 
+	#region Callbakcs
 	protected override void OnMapBlockSpawned(Block block)
 	{
 		base.OnMapBlockSpawned(block);
 		Scores["+Block"].BaseValue += 1;
 	}
+
 	protected override void OnMapBlockDestroyed(Block block)
 	{
 		base.OnMapBlockDestroyed(block);
 		Scores["-Block"].BaseValue += 1;
 	}
+	#endregion
 }

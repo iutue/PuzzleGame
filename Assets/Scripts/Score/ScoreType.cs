@@ -4,17 +4,20 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Localization;
 
+/// <summary>
+/// 점수의 종류
+/// </summary>
 [CreateAssetMenu(fileName = "new ScoreType", menuName = "Score/Type")]
 public class ScoreType : ScriptableObject
 {
 	/// <summary>
-	/// 코드상에서 점수를 식별하는데 사용하는 이름
+	/// 코드상에서 점수를 식별하는데 사용할 이름
 	/// </summary>
 	[field: SerializeField]
 	public string Key { get; private set; }
 
 	/// <summary>
-	/// 점수가 속한 그룹
+	/// 점수가 속한 그룹, 그룹에 따라 다양한 연산에 사용됨
 	/// </summary>
 	[field: SerializeField]
 	public ScoreGroup Group { get; private set; }
@@ -52,10 +55,10 @@ public class ScoreType : ScriptableObject
 	}
 
 	/// <summary>
-	/// 점수 패널 GUI
+	/// 기본 뷰 이외에 사용할 커스텀 뷰
 	/// </summary>
 	[field: SerializeField]
-	public GameObject ScorePanelPrefab { get; private set; }
+	public GameObject CustomScoreViewPrefab { get; private set; }
 
 	/// <summary>
 	/// 점수와 함께 표시할 이름

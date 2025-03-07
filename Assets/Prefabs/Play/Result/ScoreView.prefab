@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 3622927097275735157}
   - component: {fileID: 5116840330218926232}
   m_Layer: 5
-  m_Name: ScorePanel
+  m_Name: ScoreView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,10 +150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a63fa4a3fe024074d92fe21025a01609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameText: {fileID: 4717504219753405752}
-  _valueIcon: {fileID: 0}
-  _baseValueText: {fileID: 0}
-  _currentValueText: {fileID: 263044214685041666}
+  _name: {fileID: 4717504219753405752}
+  _icon: {fileID: 0}
+  _baseValue: {fileID: 0}
+  _multiplier: {fileID: 0}
+  _currentValue: {fileID: 263044214685041666}
 --- !u!222 &7771670078825686621
 CanvasRenderer:
   m_ObjectHideFlags: 0
