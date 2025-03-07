@@ -36,8 +36,9 @@ public class ScoreView : UIBehaviour
 		if (_currentValue) _currentValue.text = score.CurrentValue.ToString();
 	}
 
-	protected void OnDestroy()
+	protected override void OnDestroy()
 	{
+		base.OnDestroy();
 		_ownerScore.BaseValueChanged -= OnValueChanged;
 	}
 
