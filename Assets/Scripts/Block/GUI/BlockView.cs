@@ -30,14 +30,14 @@ public class BlockView : UIBehaviour
 			if (value != _theme)
 			{
 				_theme = value;
-				ApplyTheme(value, OwnerBlock.Type);
+				ApplyTheme(value, OwnerBlock.CurrentState);
 			}
 		}
 	}
 
 	protected override void OnDestroy()
 	{
-		OwnerBlock.TypeChanged -= OnTypeChanged;
+		OwnerBlock.StateChanged -= OnStateChanged;
 		OwnerBlock.BlockSpawned -= OnBlockSpawned;
 		OwnerBlock.BlockDestroyed -= OnBlockDestroyed;
 	}
@@ -46,7 +46,7 @@ public class BlockView : UIBehaviour
 	{
 		OwnerBlock = owner;
 		Theme = theme;
-		OwnerBlock.TypeChanged += OnTypeChanged;
+		OwnerBlock.StateChanged += OnStateChanged;
 		OwnerBlock.BlockSpawned += OnBlockSpawned;
 		OwnerBlock.BlockDestroyed += OnBlockDestroyed;
 	}
@@ -54,10 +54,10 @@ public class BlockView : UIBehaviour
 	/// <summary>
 	/// 블록에 테마 변경
 	/// </summary>
-	void ApplyTheme(BlockTheme theme, Block.State type)
+	void ApplyTheme(BlockTheme theme, Block.State state)
 	{
 		//블록 종류에 해당하는 테마 선택
-		BlockTheme.StateTheme typeTheme = type switch
+		BlockTheme.StateTheme stateTheme = state switch
 		{
 			Block.State.Empty => theme.Empty,
 			Block.State.Preview => theme.Ghost,
@@ -65,15 +65,15 @@ public class BlockView : UIBehaviour
 			_ => theme.Empty
 		};
 		//테마 적용
-		_image.sprite = typeTheme.BlockImage;
-		_image.color = typeTheme.BlockColor;
+		_image.sprite = stateTheme.BlockImage;
+		_image.color = stateTheme.BlockColor;
 	}
 
 	#region Callbacks
-	void OnTypeChanged(Block block, Block.State oldType, Block.State newType)
+	void OnStateChanged(Block block, Block.State oldState, Block.State newState)
 	{
 		//상태에 맞는 테마 적용
-		ApplyTheme(Theme, newType);
+		ApplyTheme(Theme, newState);
 	}
 
 	void OnBlockSpawned(Block block)

@@ -34,24 +34,24 @@ public class Block
 	/// <summary>
 	/// 현재 블록의 상태
 	/// </summary>
-	State _type;
-	public State Type
+	State _currentState;
+	public State CurrentState
 	{
-		get => _type;
+		get => _currentState;
 		set
 		{
-			State oldType = _type;
-			if (value != oldType)
+			State oldState = _currentState;
+			if (value != oldState)
 			{
-				_type = value;
-				OnTypeChanged(oldType, value);
+				_currentState = value;
+				OnStateChanged(oldState, value);
 			}
 		}
 	}
 	/// <summary>
 	/// 블록의 상태가 변경됐을 때
 	/// </summary>
-	public event Action<Block, State, State> TypeChanged;
+	public event Action<Block, State, State> StateChanged;
 	/// <summary>
 	/// 블록이 배치됐을 때
 	/// </summary>
@@ -61,24 +61,24 @@ public class Block
 	/// </summary>
 	public event Action<Block> BlockDestroyed;
 
-	public Block(State type, Vector2Int position)
+	public Block(State state, Vector2Int position)
 	{
-		_type = type;
+		_currentState = state;
 		Position = position;
 	}
 
 	/// <summary>
 	/// 블록의 상태가 변경됐을 때 호출됨
 	/// </summary>
-	void OnTypeChanged(State oldType, State newType)
+	void OnStateChanged(State oldState, State newState)
 	{
-		TypeChanged?.Invoke(this, oldType, newType);
-		if (oldType != State.Placed && newType == State.Placed)
+		StateChanged?.Invoke(this, oldState, newState);
+		if (oldState != State.Placed && newState == State.Placed)
 		{
 			//블록이 배치됨
 			BlockSpawned?.Invoke(this);
 		}
-		else if (oldType == State.Placed && newType != State.Placed)
+		else if (oldState == State.Placed && newState != State.Placed)
 		{
 			//블록이 제거됨
 			BlockDestroyed?.Invoke(this);

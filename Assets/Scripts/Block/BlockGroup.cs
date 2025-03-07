@@ -18,21 +18,21 @@ public class BlockGroup : IEnumerable<Block>
 	/// 블록 그룹의 크기, 블록을 배치할 수 있는 가장 먼 위치
 	/// </summary>
 	public Vector2Int Size { get; private set; }
-	public event Action<Block, Block.State, Block.State> TypeChanged;
+	public event Action<Block, Block.State, Block.State> StateChanged;
 	public event Action<Block> BlockSpawned;
 	public event Action<Block> BlockDestroyed;
 
-	public BlockGroup(Block.State[,] blockTypes)
+	public BlockGroup(Block.State[,] blockStates)
 	{
-		Size = new Vector2Int(blockTypes.GetLength(0), blockTypes.GetLength(1));
+		Size = new Vector2Int(blockStates.GetLength(0), blockStates.GetLength(1));
 		//모든 블록 초기화
 		_blocks = new Block[Size.x, Size.y];
 		for (int x = 0; x < Size.x; x++)
 		{
 			for (int y = 0; y < Size.y; y++)
 			{
-				var newBlock = new Block(blockTypes[x, y], new Vector2Int(x, y));
-				newBlock.TypeChanged += OnBlockTypeChanged;
+				var newBlock = new Block(blockStates[x, y], new Vector2Int(x, y));
+				newBlock.StateChanged += OnBlockStateChanged;
 				newBlock.BlockSpawned += OnBlockSpawned;
 				newBlock.BlockDestroyed += OnBlockDestroyed;
 				_blocks[x, y] = newBlock;
@@ -43,13 +43,13 @@ public class BlockGroup : IEnumerable<Block>
 	/// <summary>
 	/// 해당 상태의 블록이 있는가
 	/// </summary>
-	public bool Contains(Block.State type)
+	public bool Contains(Block.State state)
 	{
 		for (int x = 0; x < Size.x; x++)
 		{
 			for (int y = 0; y < Size.y; y++)
 			{
-				if (_blocks[x, y].Type == type)
+				if (_blocks[x, y].CurrentState == state)
 				{
 					return true;
 				}
@@ -72,9 +72,9 @@ public class BlockGroup : IEnumerable<Block>
 			for (int y = 0; y < Size.y; y++)
 			{
 				Block block = _blocks[x, y];
-				if (block.Type == from)
+				if (block.CurrentState == from)
 				{
-					block.Type = to;
+					block.CurrentState = to;
 					count++;
 				}
 			}
@@ -91,7 +91,7 @@ public class BlockGroup : IEnumerable<Block>
 		{
 			for (int otherY = 0; otherY < other.Size.y; otherY++)
 			{
-				if (other[otherX, otherY].Type == Block.State.Empty)
+				if (other[otherX, otherY].CurrentState == Block.State.Empty)
 				{
 					//빈 블록은 무시
 					continue;
@@ -103,14 +103,14 @@ public class BlockGroup : IEnumerable<Block>
 					//넣을 블록이 범위를 벗어남
 					return false;
 				}
-				if (_blocks[position.x, position.y].Type == Block.State.Placed &&
-					other[otherX, otherY].Type != Block.State.Empty)
+				if (_blocks[position.x, position.y].CurrentState == Block.State.Placed &&
+					other[otherX, otherY].CurrentState != Block.State.Empty)
 				{
 					//이미 블록이 존재함
 					return false;
 				}
 				//블록 병합
-				_blocks[position.x, position.y].Type = other[otherX, otherY].Type;
+				_blocks[position.x, position.y].CurrentState = other[otherX, otherY].CurrentState;
 			}
 		}
 		//모든 블록 병합 완료
@@ -118,9 +118,9 @@ public class BlockGroup : IEnumerable<Block>
 	}
 
 	#region Callbacks
-	void OnBlockTypeChanged(Block block, Block.State oldType, Block.State newType)
+	void OnBlockStateChanged(Block block, Block.State oldState, Block.State newState)
 	{
-		TypeChanged?.Invoke(block, oldType, newType);
+		StateChanged?.Invoke(block, oldState, newState);
 	}
 
 	void OnBlockSpawned(Block block)
