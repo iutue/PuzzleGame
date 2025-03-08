@@ -121,7 +121,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5661098238862810422}
   m_Direction: 2
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.9998644
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -302,8 +302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755f03ffd20bcb34083efcd7a19d0ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playOnAwake: 1
-  _currentState: 0
+  _playOnAwake: 0
+  _currentState: 2
   _defaultEase: 9
   _panelToSlide: {fileID: 270354150564586420}
   _boundary: {fileID: 7749178678945870889}
@@ -459,7 +459,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 498.31726}
+  m_AnchoredPosition: {x: 0, y: 498.31683}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &6923031529821857329

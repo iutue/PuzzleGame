@@ -64,7 +64,9 @@ public abstract class GameMode : MonoBehaviour
 	void InitGame()
 	{
 		Scores.Init();
-		_playCanvas.OnGameInitialized(_maxCardCount, Scores, OnBackButtonClicked, OnRefreshButtonClicked);
+		_playCanvas.OnGameInitialized(
+			_maxCardCount, Scores,
+			OnBackButtonClicked, OnRefreshButtonClicked, null);
 
 #if UNITY_EDITOR
 		Debug.Log("게임 초기화");
@@ -104,7 +106,7 @@ public abstract class GameMode : MonoBehaviour
 		}
 
 		//결과 출력
-		_playCanvas.OnGameEnded(Scores, OnBackButtonClicked, OnRefreshButtonClicked, null);
+		_playCanvas.OnGameEnded();
 
 #if UNITY_EDITOR
 		Debug.Log("게임 종료");

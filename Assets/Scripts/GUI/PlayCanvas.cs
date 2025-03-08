@@ -17,6 +17,9 @@ public class PlayCanvas : UIBehaviour
 	[SerializeField]
 	TopBarCanvas _topBar;
 
+	[Space]
+	[SerializeField]
+	GameObject _blockGroupViewPrefab;
 	/// <summary>
 	/// 맵 패널
 	/// </summary>
@@ -63,22 +66,19 @@ public class PlayCanvas : UIBehaviour
 	/// <summary>
 	/// 결과 패널
 	/// </summary>
-	ResultCanvas _result;
-
 	[Space]
 	[SerializeField]
-	GameObject _blockGroupViewPrefab;
-	[SerializeField]
-	GameObject _resultPrefab;
+	ResultCanvas _result;
 
 	#region Game
 	/// <summary>
 	/// 게임 초기화 후 호출됨
 	/// </summary>
-	public void OnGameInitialized(int drawCount, ScoreContainer scoreTable, Action backButtonClicked, Action refreshButtonClicked)
+	public void OnGameInitialized(int drawCount, ScoreContainer scoreTable,
+		Action backButtonClicked, Action retryButtonClicked, Action nextButtonClicked)
 	{
 		//탑바
-		_topBar.Init(scoreTable["Total"], backButtonClicked, refreshButtonClicked);
+		_topBar.Init(scoreTable["Total"], backButtonClicked, retryButtonClicked);
 		//맵
 		_mapRaycaster = _mapParent.GetComponentInParent<GraphicRaycaster>();
 		//카드
@@ -88,6 +88,8 @@ public class PlayCanvas : UIBehaviour
 			var child = new GameObject("CardSlot").AddComponent<RectTransform>();
 			child.transform.SetParent(_cardParent, false);
 		}
+		//결과
+		_result.Init(scoreTable, backButtonClicked, retryButtonClicked, nextButtonClicked);
 	}
 
 	/// <summary>
@@ -96,7 +98,7 @@ public class PlayCanvas : UIBehaviour
 	public void OnGameStarted()
 	{
 		//결과 패널은 닫고
-		if (_result) _result.Close();
+		_result.Close();
 		//필수 패널은 열기
 		_topBar.Open();
 		_map.Open();
@@ -106,12 +108,10 @@ public class PlayCanvas : UIBehaviour
 	/// <summary>
 	/// 게임 종료 후 호출됨
 	/// </summary>
-	public void OnGameEnded(ScoreContainer scoreTable, Action backButtonClicked, Action retryButtonClicked, Action nextButtonClicked)
+	public void OnGameEnded()
 	{
 		_topBar.Close();
-		//결과 표시
-		_result = Instantiate(_resultPrefab).GetComponent<ResultCanvas>();
-		_result.Init(scoreTable, backButtonClicked, retryButtonClicked, nextButtonClicked);
+		_result.Open();
 	}
 	#endregion
 
@@ -129,6 +129,9 @@ public class PlayCanvas : UIBehaviour
 		//새로운 뷰 생성
 		_mapView = Instantiate(_blockGroupViewPrefab, _mapParent).GetComponent<BlockGroupView>();
 		_mapView.Init(map, _mapTheme);
+
+		_map.SetState(SlidePanel.State.Show);
+		_map.Open();
 	}
 
 	/// <summary>
@@ -175,6 +178,7 @@ public class PlayCanvas : UIBehaviour
 			cardView.Dragging += dragCard + OnDragCard;
 			_cardViews.Add(cardView);
 		}
+		_cards.SetState(SlidePanel.State.Show);
 		_cards.Open();
 	}
 
