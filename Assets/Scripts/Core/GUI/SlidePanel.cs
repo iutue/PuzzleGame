@@ -118,7 +118,7 @@ public class SlidePanel : UIBehaviour
 		/// <summary>
 		/// 슬라이드 거리, 경계 크기에 비례함
 		/// </summary>
-		[Range(0f, 1f)]
+		[Range(0f, 2f)]
 		public float SlideDistance = 1f;
 		/// <summary>
 		/// 슬라이드 위치가 고정됐는가
