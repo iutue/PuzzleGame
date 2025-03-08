@@ -324,6 +324,8 @@ public class SlidePanel : UIBehaviour
 		if (_panelToScale) _panelToScale.localScale = Vector3.one * setting.Scale;
 		//불투명도
 		if (_transparentGroup) _transparentGroup.alpha = setting.Alpha;
+		//캔버스 (비)활성화
+		if (_canvasToDisable) _canvasToDisable.enabled = setting.Alpha != 0f;
 	}
 	/// <summary>
 	/// 이전 상태에서 다음 상태로 부드럽게 전환
@@ -360,6 +362,26 @@ public class SlidePanel : UIBehaviour
 				.From(fromSetting.Alpha)
 				.SetEase(toSetting.CustomEase != Ease.Unset ? toSetting.CustomEase : _defaultEase)
 				.SetDelay(toSetting.Delay);
+		}
+		if (_canvasToDisable)
+		{
+			//비활성화
+			if (fromSetting.Alpha == 0f && toSetting.Alpha == 0f)
+			{
+				_canvasToDisable.enabled = false;
+			}
+			//활성화
+			else
+			{
+				_canvasToDisable.enabled = true;
+				if (toSetting.Alpha == 0f)
+				{
+					//재생 후 비활성화
+					DOVirtual
+						.DelayedCall(toSetting.Delay + toSetting.Duration,
+						() => _canvasToDisable.enabled = false);
+				}
+			}
 		}
 	}
 }
