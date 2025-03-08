@@ -164,10 +164,11 @@ public class SlidePanel : UIBehaviour
 	[SerializeField]
 	StateSetting[] _stateSettings = new StateSetting[0];
 
+#if UNITY_EDITOR
 	protected override void OnValidate()
 	{
 		base.OnValidate();
-		//
+		//패널의 모든 상태에 대응하는 세팅 생성
 		Array states = Enum.GetValues(typeof(State));
 		Array.Resize(ref _stateSettings, states.Length);
 		for (int i = 0; i < states.Length; i++)
@@ -184,6 +185,7 @@ public class SlidePanel : UIBehaviour
 			_slideInSetting.SlidePosition = _panelToSlide.anchoredPosition;
 		}
 	}
+#endif
 
 	protected override void Awake()
 	{
