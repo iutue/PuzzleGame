@@ -58,7 +58,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _topBar: {fileID: 1489203505673094445}
-  _blockGroupViewPrefab: {fileID: 4292344153093373680, guid: e517032661691f34dac22131e008069c, type: 3}
   _map: {fileID: 6797820624230846807}
   _mapParent: {fileID: 2278097181682224939}
   _mapTheme: {fileID: 11400000, guid: 458cffec419fc7447b89d6e0d5321bb0, type: 2}
@@ -73,6 +72,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ca4ddf76db8af474cbbcea4bc77a7035, type: 2}
   - {fileID: 11400000, guid: 8aac5848d29a39946940f92d89ff32b1, type: 2}
   - {fileID: 11400000, guid: 43c4e0c987a465242824978ba21e9aa2, type: 2}
+  _blockGroupViewPrefab: {fileID: 4292344153093373680, guid: e517032661691f34dac22131e008069c, type: 3}
   _resultPrefab: {fileID: 2166886757929894801, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
 --- !u!223 &8945915514091010042
 Canvas:
@@ -342,7 +342,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2278097181682224939}
   - component: {fileID: 6797820624230846807}
-  - component: {fileID: 7172183479311909084}
   m_Layer: 5
   m_Name: MapPanel
   m_TagString: Untagged
@@ -381,30 +380,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755f03ffd20bcb34083efcd7a19d0ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _openDelay: 0
-  _closeDelay: 0
-  _duration: 1
-  _easeType: 18
-  _panel: {fileID: 2278097181682224939}
-  _isOpened: 1
-  _openDirection: {x: -1, y: 0}
-  _closeDirection: {x: -1, y: 0}
-  _destroyOnClose: 0
-  _transparentGroup: {fileID: 7172183479311909084}
-  _openedAlpha: 1
-  _closedAlpha: 0
---- !u!225 &7172183479311909084
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8945827239372895848}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
+  _playOnAwake: 1
+  _currentState: 0
+  _panelToSlide: {fileID: 2278097181682224939}
+  _boundary: {fileID: 1822435417181939785}
+  _panelToScale: {fileID: 0}
+  _transparentGroup: {fileID: 0}
+  _canvasToDisable: {fileID: 0}
+  _stateSettings:
+  - State: 0
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 0
+    SlideDistance: 1
+    IsLocked: 0
+    SlidePosition: {x: 0, y: 0, z: 0}
+    Scale: 1
+    Alpha: 1
+  - State: 1
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 0
+    SlideDistance: 1
+    IsLocked: 0
+    SlidePosition: {x: 900, y: 0, z: 0}
+    Scale: 1
+    Alpha: 1
+  - State: 2
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 0
+    SlideDistance: 1
+    IsLocked: 0
+    SlidePosition: {x: 900, y: 0, z: 0}
+    Scale: 1
+    Alpha: 1
+  - State: 3
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 0
+    SlideDistance: 0
+    IsLocked: 0
+    SlidePosition: {x: 0, y: 0, z: 0}
+    Scale: 1
+    Alpha: 1
+  - State: 4
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 0
+    SlideDistance: 0
+    IsLocked: 0
+    SlidePosition: {x: 0, y: 0, z: 0}
+    Scale: 1
+    Alpha: 1
 --- !u!1001 &357458549680224046
 PrefabInstance:
   m_ObjectHideFlags: 0

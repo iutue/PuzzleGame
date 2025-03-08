@@ -302,48 +302,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755f03ffd20bcb34083efcd7a19d0ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _openDelay: 0.5
-  _closeDelay: 0
-  _duration: 1
-  _easeType: 18
-  _anims:
-  - State: 0
-    SlideDirection: 0
-    SlideDistance: 1
-    Scale: 1
-    Alpha: 1
-  - State: 1
-    SlideDirection: 0
-    SlideDistance: 1
-    Scale: 1
-    Alpha: 1
-  - State: 2
-    SlideDirection: 0
-    SlideDistance: 1
-    Scale: 1
-    Alpha: 1
-  - State: 3
-    SlideDirection: 0
-    SlideDistance: 1
-    Scale: 1
-    Alpha: 1
-  - State: 4
-    SlideDirection: 0
-    SlideDistance: 1
-    Scale: 1
-    Alpha: 1
-  _boundary: {fileID: 7749178678945870889}
-  _panel: {fileID: 270354150564586420}
-  _isOpened: 1
   _playOnAwake: 1
-  _destroyOnClose: {fileID: 2166886757929894801}
-  _isPositionInitialized: 0
-  _openedPosition: {x: 0, y: 0}
-  _openDirection: {x: 0, y: -1}
-  _closeDirection: {x: 0, y: -1}
+  _currentState: 0
+  _panelToSlide: {fileID: 270354150564586420}
+  _boundary: {fileID: 7749178678945870889}
+  _panelToScale: {fileID: 0}
   _transparentGroup: {fileID: 0}
-  _openedAlpha: 1
-  _closedAlpha: 0
+  _canvasToDisable: {fileID: 0}
+  _stateSettings:
+  - State: 0
+    Delay: 0.5
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 180
+    SlideDistance: 0
+    IsLocked: 0
+    SlidePosition: {x: 0, y: 0, z: 0}
+    Scale: 1
+    Alpha: 0
+  - State: 1
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 90
+    SlideDistance: 1
+    IsLocked: 0
+    SlidePosition: {x: -0.000039340248, y: 1600, z: 0}
+    Scale: 1
+    Alpha: 0
+  - State: 2
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 270
+    SlideDistance: 1
+    IsLocked: 0
+    SlidePosition: {x: 0.000010732392, y: -1600, z: 0}
+    Scale: 1
+    Alpha: 0
+  - State: 3
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 180
+    SlideDistance: 0
+    IsLocked: 0
+    SlidePosition: {x: 0, y: 0, z: 0}
+    Scale: 1
+    Alpha: 0
+  - State: 4
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 180
+    SlideDistance: 0
+    IsLocked: 0
+    SlidePosition: {x: 0, y: 0, z: 0}
+    Scale: 1
+    Alpha: 0
 --- !u!222 &8020362822905430228
 CanvasRenderer:
   m_ObjectHideFlags: 0

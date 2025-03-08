@@ -10,9 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5271172573795052633}
   - component: {fileID: 5009294213166025728}
-  - component: {fileID: 5439803310852084141}
   - component: {fileID: 5274069272094820436}
-  - component: {fileID: 4609140359503712036}
   m_Layer: 5
   m_Name: CardScrollView
   m_TagString: Untagged
@@ -53,26 +51,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755f03ffd20bcb34083efcd7a19d0ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _openDelay: 0
-  _closeDelay: 0
-  _duration: 1
-  _easeType: 18
-  _panel: {fileID: 5271172573795052633}
-  _isOpened: 1
-  _openDirection: {x: 0, y: 0.5}
-  _closeDirection: {x: 0, y: -0.5}
-  _destroyOnClose: 0
-  _transparentGroup: {fileID: 4609140359503712036}
-  _openedAlpha: 1
-  _closedAlpha: 0
---- !u!222 &5439803310852084141
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5356297259693504327}
-  m_CullTransparentMesh: 1
+  _playOnAwake: 1
+  _currentState: 0
+  _panelToSlide: {fileID: 5271172573795052633}
+  _boundary: {fileID: 3661261522258501050}
+  _panelToScale: {fileID: 0}
+  _transparentGroup: {fileID: 0}
+  _canvasToDisable: {fileID: 0}
+  _stateSettings:
+  - State: 0
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 0
+    SlideDistance: 1
+    IsLocked: 0
+    SlidePosition: {x: 0, y: 0, z: 0}
+    Scale: 1
+    Alpha: 1
+  - State: 1
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 270
+    SlideDistance: 1
+    IsLocked: 0
+    SlidePosition: {x: 0.000010732392, y: -400, z: 0}
+    Scale: 1
+    Alpha: 1
+  - State: 2
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 270
+    SlideDistance: 1
+    IsLocked: 0
+    SlidePosition: {x: 0.000010732392, y: -400, z: 0}
+    Scale: 1
+    Alpha: 1
+  - State: 3
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 0
+    SlideDistance: 0
+    IsLocked: 0
+    SlidePosition: {x: 0, y: 0, z: 0}
+    Scale: 1
+    Alpha: 1
+  - State: 4
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 0
+    SlideDistance: 0
+    IsLocked: 0
+    SlidePosition: {x: 0, y: 0, z: 0}
+    Scale: 1
+    Alpha: 1
 --- !u!114 &5274069272094820436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,18 +139,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!225 &4609140359503712036
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5356297259693504327}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &5526224874201120442
 GameObject:
   m_ObjectHideFlags: 0

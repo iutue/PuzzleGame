@@ -85,9 +85,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7927542172078820217}
   - component: {fileID: 6620043703505604329}
-  - component: {fileID: 1930591995299535745}
   - component: {fileID: 3066483245546775656}
-  - component: {fileID: 7666460530981817362}
+  - component: {fileID: 6747753212180611566}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -129,26 +128,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755f03ffd20bcb34083efcd7a19d0ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _openDelay: 0
-  _closeDelay: 0
-  _duration: 1
-  _easeType: 18
-  _panel: {fileID: 7927542172078820217}
-  _isOpened: 1
-  _openDirection: {x: 0, y: -0.5}
-  _closeDirection: {x: 0, y: 0.5}
-  _destroyOnClose: 0
-  _transparentGroup: {fileID: 7666460530981817362}
-  _openedAlpha: 1
-  _closedAlpha: 0
---- !u!222 &1930591995299535745
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 829417884791909275}
-  m_CullTransparentMesh: 1
+  _playOnAwake: 1
+  _currentState: 0
+  _panelToSlide: {fileID: 7927542172078820217}
+  _boundary: {fileID: 2559425088085499114}
+  _panelToScale: {fileID: 0}
+  _transparentGroup: {fileID: 6747753212180611566}
+  _canvasToDisable: {fileID: 0}
+  _stateSettings:
+  - State: 0
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 0
+    SlideDistance: 1
+    IsLocked: 0
+    SlidePosition: {x: 0, y: 0, z: 0}
+    Scale: 1
+    Alpha: 1
+  - State: 1
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 90
+    SlideDistance: 2
+    IsLocked: 0
+    SlidePosition: {x: -0.000078680496, y: 480, z: 0}
+    Scale: 1
+    Alpha: 1
+  - State: 2
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 90
+    SlideDistance: 1
+    IsLocked: 0
+    SlidePosition: {x: -0.000039340248, y: 240, z: 0}
+    Scale: 1
+    Alpha: 0
+  - State: 3
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 0
+    SlideDistance: 0
+    IsLocked: 0
+    SlidePosition: {x: 0, y: 0, z: 0}
+    Scale: 1
+    Alpha: 1
+  - State: 4
+    Delay: 0
+    Duration: 0.5
+    EaseType: 18
+    SlideAngle: 0
+    SlideDistance: 0
+    IsLocked: 0
+    SlidePosition: {x: 0, y: 0, z: 0}
+    Scale: 1
+    Alpha: 1
 --- !u!114 &3066483245546775656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +212,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!225 &7666460530981817362
+--- !u!225 &6747753212180611566
 CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

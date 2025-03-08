@@ -114,12 +114,12 @@ public class SlidePanel : UIBehaviour
 		/// 슬라이드 방향
 		/// </summary>
 		[Range(0f, 360f)]
-		public float SlideAngle;
+		public float SlideAngle = 180f;
 		/// <summary>
 		/// 슬라이드 거리, 경계 크기에 비례함
 		/// </summary>
 		[Range(0f, 2f)]
-		public float SlideDistance = 1f;
+		public float SlideDistance;
 		/// <summary>
 		/// 슬라이드 위치가 고정됐는가
 		/// true면 위치 수동 고정
@@ -141,7 +141,7 @@ public class SlidePanel : UIBehaviour
 		/// 불투명도
 		/// </summary>
 		[Range(0f, 1f)]
-		public float Alpha = 1f;
+		public float Alpha = 0f;
 
 		/// <summary>
 		/// 주어진 위치를 기준으로 이 상태의 슬라이드 위치 계산
