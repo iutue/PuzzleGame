@@ -382,6 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playOnAwake: 1
   _currentState: 0
+  _defaultEase: 9
   _panelToSlide: {fileID: 2278097181682224939}
   _boundary: {fileID: 1822435417181939785}
   _panelToScale: {fileID: 0}
@@ -391,7 +392,7 @@ MonoBehaviour:
   - State: 0
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 0
     SlideDistance: 1
     IsLocked: 0
@@ -401,27 +402,27 @@ MonoBehaviour:
   - State: 1
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 0
     SlideDistance: 1
     IsLocked: 0
     SlidePosition: {x: 900, y: 0, z: 0}
-    Scale: 1
+    Scale: 0
     Alpha: 1
   - State: 2
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 0
     SlideDistance: 1
     IsLocked: 0
     SlidePosition: {x: 900, y: 0, z: 0}
-    Scale: 1
+    Scale: 0
     Alpha: 1
   - State: 3
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 0
     SlideDistance: 0
     IsLocked: 0
@@ -431,7 +432,7 @@ MonoBehaviour:
   - State: 4
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 0
     SlideDistance: 0
     IsLocked: 0
@@ -656,14 +657,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1822435417181939785}
     m_Modifications:
-    - target: {fileID: 1140476714638335944, guid: 1e6e207dd8894c140bfa2717d666d1a2, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.0000076293945
-      objectReference: {fileID: 0}
-    - target: {fileID: 1140476714638335944, guid: 1e6e207dd8894c140bfa2717d666d1a2, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.000045776367
-      objectReference: {fileID: 0}
     - target: {fileID: 2357647190405359970, guid: 1e6e207dd8894c140bfa2717d666d1a2, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

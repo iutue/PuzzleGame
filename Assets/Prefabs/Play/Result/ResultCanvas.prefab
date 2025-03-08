@@ -120,7 +120,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3455571002156394273}
   m_HandleRect: {fileID: 5661098238862810422}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -304,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playOnAwake: 1
   _currentState: 0
+  _defaultEase: 9
   _panelToSlide: {fileID: 270354150564586420}
   _boundary: {fileID: 7749178678945870889}
   _panelToScale: {fileID: 0}
@@ -313,7 +314,7 @@ MonoBehaviour:
   - State: 0
     Delay: 0.5
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 180
     SlideDistance: 0
     IsLocked: 0
@@ -323,7 +324,7 @@ MonoBehaviour:
   - State: 1
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 90
     SlideDistance: 1
     IsLocked: 0
@@ -333,7 +334,7 @@ MonoBehaviour:
   - State: 2
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 270
     SlideDistance: 1
     IsLocked: 0
@@ -343,7 +344,7 @@ MonoBehaviour:
   - State: 3
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 180
     SlideDistance: 0
     IsLocked: 0
@@ -353,7 +354,7 @@ MonoBehaviour:
   - State: 4
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 180
     SlideDistance: 0
     IsLocked: 0

@@ -9,10 +9,11 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class SlidePanel : UIBehaviour
 {
+
 	/// <summary>
 	/// 초기화 후 자동으로 애니메이션을 재생하는가
 	/// </summary>
-	[Tooltip("자동으로 From 상태에서 CurrentState 상태로 전환되는 애니메이션을 실행하는가")]
+	[Tooltip("자동으로 슬라이드 인/아웃 애니메이션을 재생하는가")]
 	[SerializeField]
 	bool _playOnAwake;
 	/// <summary>
@@ -28,6 +29,8 @@ public class SlidePanel : UIBehaviour
 	/// 패널이 열려있는가
 	/// </summary>
 	bool _isOpened => _currentState == State.Focus;
+	[SerializeField]
+	Ease _defaultEase;
 
 	/// <summary>
 	/// 슬라이딩할 패널
@@ -108,7 +111,7 @@ public class SlidePanel : UIBehaviour
 		/// <summary>
 		/// 재생 스타일
 		/// </summary>
-		public Ease EaseType = Ease.OutExpo;
+		public Ease CustomEase = Ease.Unset;
 
 		/// <summary>
 		/// 슬라이드 방향
@@ -198,10 +201,21 @@ public class SlidePanel : UIBehaviour
 		//상태 초기화
 		if (_playOnAwake)
 		{
-			ChangeState(State.Show, _currentState);
+			//부드럽게 초기화
+			if (_currentState == State.Focus)
+			{
+				//슬라이드 인
+				ChangeState(State.Show, _currentState);
+			}
+			else
+			{
+				//슬라이드 아웃
+				ChangeState(State.Focus, _currentState);
+			}
 		}
 		else
 		{
+			//즉시 초기화
 			SetState(_currentState);
 		}
 	}
@@ -326,7 +340,7 @@ public class SlidePanel : UIBehaviour
 			_panelToSlide
 				.DOAnchorPos(toSetting.SlidePosition, toSetting.Duration)
 				.From(fromSetting.SlidePosition)
-				.SetEase(toSetting.EaseType)
+				.SetEase(toSetting.CustomEase != Ease.Unset ? toSetting.CustomEase : _defaultEase)
 				.SetDelay(toSetting.Delay);
 		}
 		if (_panelToScale)
@@ -335,7 +349,7 @@ public class SlidePanel : UIBehaviour
 			_panelToScale
 				.DOScale(toSetting.Scale, toSetting.Duration)
 				.From(fromSetting.Scale)
-				.SetEase(toSetting.EaseType)
+				.SetEase(toSetting.CustomEase != Ease.Unset ? toSetting.CustomEase : _defaultEase)
 				.SetDelay(toSetting.Delay);
 		}
 		if (_transparentGroup)
@@ -344,7 +358,7 @@ public class SlidePanel : UIBehaviour
 			_transparentGroup
 				.DOFade(toSetting.Alpha, toSetting.Duration)
 				.From(fromSetting.Alpha)
-				.SetEase(toSetting.EaseType)
+				.SetEase(toSetting.CustomEase != Ease.Unset ? toSetting.CustomEase : _defaultEase)
 				.SetDelay(toSetting.Delay);
 		}
 	}

@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playOnAwake: 1
   _currentState: 0
+  _defaultEase: 9
   _panelToSlide: {fileID: 5271172573795052633}
   _boundary: {fileID: 3661261522258501050}
   _panelToScale: {fileID: 0}
@@ -62,7 +63,7 @@ MonoBehaviour:
   - State: 0
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 0
     SlideDistance: 1
     IsLocked: 0
@@ -72,7 +73,7 @@ MonoBehaviour:
   - State: 1
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 270
     SlideDistance: 1
     IsLocked: 0
@@ -82,7 +83,7 @@ MonoBehaviour:
   - State: 2
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 270
     SlideDistance: 1
     IsLocked: 0
@@ -92,7 +93,7 @@ MonoBehaviour:
   - State: 3
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 0
     SlideDistance: 0
     IsLocked: 0
@@ -102,7 +103,7 @@ MonoBehaviour:
   - State: 4
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 0
     SlideDistance: 0
     IsLocked: 0

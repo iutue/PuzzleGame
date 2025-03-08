@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.0000076293945, y: -0.000045776367}
   m_SizeDelta: {x: -23.266663, y: -23.266663}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &336838651894957362
@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playOnAwake: 1
   _currentState: 0
+  _defaultEase: 9
   _panelToSlide: {fileID: 7927542172078820217}
   _boundary: {fileID: 2559425088085499114}
   _panelToScale: {fileID: 0}
@@ -139,7 +140,7 @@ MonoBehaviour:
   - State: 0
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 0
     SlideDistance: 1
     IsLocked: 0
@@ -149,17 +150,17 @@ MonoBehaviour:
   - State: 1
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 90
-    SlideDistance: 2
+    SlideDistance: 1
     IsLocked: 0
-    SlidePosition: {x: -0.000078680496, y: 480, z: 0}
+    SlidePosition: {x: -0.000039340248, y: 240, z: 0}
     Scale: 1
     Alpha: 1
   - State: 2
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 18
     SlideAngle: 90
     SlideDistance: 1
     IsLocked: 0
@@ -169,7 +170,7 @@ MonoBehaviour:
   - State: 3
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 0
     SlideDistance: 0
     IsLocked: 0
@@ -179,7 +180,7 @@ MonoBehaviour:
   - State: 4
     Delay: 0
     Duration: 0.5
-    EaseType: 18
+    CustomEase: 0
     SlideAngle: 0
     SlideDistance: 0
     IsLocked: 0
