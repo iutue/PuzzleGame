@@ -116,14 +116,15 @@ public class SlidePanel : UIBehaviour
 		public Ease CustomEase = Ease.Unset;
 
 		/// <summary>
-		/// 슬라이드 방향
+		/// 슬라이드 방향의 각도
 		/// </summary>
 		[Range(0f, 360f)]
 		public float SlideAngle = 180f;
 		/// <summary>
-		/// 슬라이드 거리, 경계 크기에 비례함
+		/// 슬라이드 거리<br/>
+		/// 경계가 있으면 경계 크기의 배수 거리, 
+		/// 경계가 없으면 로컬 좌표계의 거리
 		/// </summary>
-		[Range(0f, 2f)]
 		public float SlideDistance;
 		/// <summary>
 		/// 슬라이드 위치가 고정됐는가
@@ -174,17 +175,16 @@ public class SlidePanel : UIBehaviour
 	protected override void OnValidate()
 	{
 		base.OnValidate();
-		//패널의 모든 상태에 대응하는 세팅 생성
+		//상태 세팅
 		Array states = Enum.GetValues(typeof(State));
 		Array.Resize(ref _stateSettings, states.Length);
 		for (int i = 0; i < states.Length; i++)
 		{
 			_stateSettings[i] ??= new StateSetting();
 			_stateSettings[i].State = (State)states.GetValue(i);
+			_stateSettings[i].SlideDistance = Mathf.Max(0f, _stateSettings[i].SlideDistance);
 		}
 
-		//경계 초기화
-		InitializeBoundary();
 		//현재 위치로 설정
 		if (_panelToSlide && !_slideInSetting.IsLocked)
 		{
@@ -196,8 +196,6 @@ public class SlidePanel : UIBehaviour
 	protected override void Awake()
 	{
 		base.Awake();
-		//경계 초기화
-		InitializeBoundary();
 		//위치 초기화
 		if (_panelToSlide && !_slideInSetting.IsLocked)
 		{
@@ -255,31 +253,6 @@ public class SlidePanel : UIBehaviour
 				Gizmos.DrawWireSphere(globalPos, 50f);
 				Gizmos.DrawLine(focusPos, globalPos);
 			}
-		}
-	}
-
-	/// <summary>
-	/// 경계 초기화
-	/// </summary>
-	void InitializeBoundary()
-	{
-		if (!_panelToSlide)
-		{
-			//이동하지 않으면 경계가 필요 없음
-			_boundary = null;
-			return;
-		}
-		if (_boundary)
-		{
-			//설정된 경계가 이미 있음
-			return;
-		}
-
-		//임의의 경계가 없으면 루트 캔버스(화면)를 경계로 사용
-		Canvas canvas = _panelToSlide.GetComponentInParent<Canvas>();
-		if (canvas)
-		{
-			_boundary = canvas.rootCanvas.GetComponent<RectTransform>();
 		}
 	}
 
