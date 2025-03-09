@@ -63,6 +63,7 @@ public class SlidePanel : UIBehaviour
 	/// </summary>
 	[SerializeField]
 	Canvas _canvasToDisable;
+	Tween _canvasDisableTween;
 
 	#region State
 	/// <summary>
@@ -357,10 +358,15 @@ public class SlidePanel : UIBehaviour
 				_canvasToDisable.enabled = true;
 				if (toSetting.Alpha == 0f)
 				{
-					//재생 후 비활성화
-					DOVirtual
+					//임시 활성화
+					_canvasDisableTween = DOVirtual
 						.DelayedCall(toSetting.Delay + toSetting.Duration,
 						() => _canvasToDisable.enabled = false);
+				}
+				else if (_canvasDisableTween != null)
+				{
+					//영구 활성화
+					_canvasDisableTween.Kill();
 				}
 			}
 		}
