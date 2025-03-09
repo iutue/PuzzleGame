@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,7 +8,6 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class SlidePanel : UIBehaviour
 {
-
 	/// <summary>
 	/// 초기화 후 자동으로 애니메이션을 재생하는가
 	/// </summary>
@@ -29,6 +27,9 @@ public class SlidePanel : UIBehaviour
 	/// 패널이 열려있는가
 	/// </summary>
 	bool _isOpened => _currentState == State.Focus;
+	/// <summary>
+	/// 기본으로 적용할 재생 스타일
+	/// </summary>
 	[SerializeField]
 	Ease _defaultEase;
 
@@ -58,11 +59,12 @@ public class SlidePanel : UIBehaviour
 	[SerializeField]
 	CanvasGroup _transparentGroup;
 	/// <summary>
-	/// 슬라이드 아웃시 비활성화할 캔버스
+	/// 불투명도가 0일 때 비활성화할 캔버스
 	/// </summary>
 	[SerializeField]
 	Canvas _canvasToDisable;
 
+	#region State
 	/// <summary>
 	/// 패널의 상태
 	/// </summary>
@@ -161,8 +163,12 @@ public class SlidePanel : UIBehaviour
 			SlidePosition = position + slideVector * boundarySize;
 		}
 	}
+	/// <summary>
+	/// 패널의 상태에 대응하는 애니메이션 설정들
+	/// </summary>
 	[SerializeField]
 	StateSetting[] _stateSettings = new StateSetting[0];
+	#endregion
 
 #if UNITY_EDITOR
 	protected override void OnValidate()

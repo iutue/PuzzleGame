@@ -34,8 +34,11 @@ public class LevelButton : UIBehaviour
 
 		//레벨 정보 표시
 		var levelInfos = _levelName.Split('_');
-		if (_levelModeText) _levelModeText.text = levelInfos[0];
-		if (_levelSizeText) _levelSizeText.text = levelInfos[1];
+		if (levelInfos.Length >= 2)
+		{
+			if (_levelModeText) _levelModeText.text = levelInfos[0];
+			if (_levelSizeText) _levelSizeText.text = levelInfos[1];
+		}
 	}
 
 	/// <summary>

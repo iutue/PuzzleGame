@@ -8,6 +8,11 @@ using UnityEngine.UI;
 public class TabButton : UIBehaviour
 {
 	/// <summary>
+	/// 선택됐을 때만 활성화할 이미지
+	/// </summary>
+	[field: SerializeField]
+	public Image Highlight { get; private set; }
+	/// <summary>
 	/// 이 탭의 번호
 	/// </summary>
 	int _index;

@@ -8,60 +8,70 @@ using UnityEngine.EventSystems;
 public class TabPanel : UIBehaviour
 {
 	/// <summary>
-	/// 탭 버튼에 대응하는 탭 콘텐츠
+	/// 탭 버튼과 이에 대응하는 탭 콘텐츠
 	/// </summary>
 	[Serializable]
-	public struct TabContent
+	public class Tab
 	{
 		public TabButton Button;
 		public SlidePanel Content;
 	}
 	[SerializeField]
-	TabContent[] _tabContents;
+	Tab[] _tabs;
 	/// <summary>
-	/// 현재 열려있는 탭의 번호
+	/// 현재 탭의 번호
 	/// </summary>
+	[SerializeField]
 	int _currentTabIndex;
-	/// <summary>
-	/// 최초로 열 탭의 번호
-	/// </summary>
-	int _initialTabIndex;
 
 	protected override void Start()
 	{
-		for (int i = 0; i < _tabContents.Length; i++)
+		for (int i = 0; i < _tabs.Length; i++)
 		{
-			_tabContents[i].Button.Init(i, OnTabButtonClicked);
+			_tabs[i].Button.Init(i, OnTabButtonClicked);
 		}
-		//시작 탭 열기
-		_currentTabIndex = _initialTabIndex;
-		_tabContents[_currentTabIndex].Content.SetState(SlidePanel.State.Focus);
+		//현재 탭으로 초기화
+		OpenTab(_currentTabIndex);
 	}
 
 	/// <summary>
 	/// 탭 버튼이 클릭됐을 때 호출됨
 	/// </summary>
-	void OnTabButtonClicked(int index)
+	void OnTabButtonClicked(int tabIndex)
 	{
-		if (_currentTabIndex == index)
+		if (_currentTabIndex == tabIndex)
 		{
 			//이미 열린 탭임
 			return;
 		}
+		OpenTab(tabIndex);
+	}
 
+	/// <summary>
+	/// 열린 탭을 닫고, 주어진 탭 열기
+	/// </summary>
+	void OpenTab(int tabIndex)
+	{
 		int oldIndex = _currentTabIndex;
-		_currentTabIndex = index;
-		if (oldIndex < index)
+
+		Tab oldTab = _tabs[_currentTabIndex];
+		Tab newTab = _tabs[tabIndex];
+		_currentTabIndex = tabIndex;
+
+		oldTab.Button.Highlight.enabled = false;
+		newTab.Button.Highlight.enabled = true;
+
+		if (oldIndex < tabIndex)
 		{
 			//현재 탭의 오른쪽 탭 열기
-			_tabContents[oldIndex].Content.Close(SlidePanel.State.Next);
-			_tabContents[index].Content.Open(SlidePanel.State.Prev);
+			oldTab.Content.Close(SlidePanel.State.Next);
+			newTab.Content.Open(SlidePanel.State.Prev);
 		}
 		else
 		{
 			//현재 탭의 왼쪽 탭 열기
-			_tabContents[oldIndex].Content.Close(SlidePanel.State.Prev);
-			_tabContents[index].Content.Open(SlidePanel.State.Next);
+			oldTab.Content.Close(SlidePanel.State.Prev);
+			newTab.Content.Open(SlidePanel.State.Next);
 		}
 	}
 }
