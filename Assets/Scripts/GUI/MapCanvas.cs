@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// 현재 맵의 상태를 보여주는 창
+/// </summary>
 [RequireComponent(typeof(Canvas))]
 public class MapCanvas : UIBehaviour
 {
@@ -11,6 +14,7 @@ public class MapCanvas : UIBehaviour
 
 	[SerializeField]
 	SlidePanel _map;
+	[SerializeField]
 	RectTransform _mapParent;
 	GraphicRaycaster _mapRaycaster;
 	List<RaycastResult> _mapRaycastresult = new();
@@ -25,9 +29,9 @@ public class MapCanvas : UIBehaviour
 	/// </summary>
 	BlockGroupView _mapView;
 	/// <summary>
-	/// 스케일을 적용한 맵 블록 하나의 크기
+	/// 스케일을 적용한 맵 블록의 크기
 	/// </summary>
-	public Vector2 CellSize => _mapView.CellSize * _mapParent.localScale;
+	public Vector2 CellSize => _mapView.BlockViewSize * _mapParent.localScale;
 	/// <summary>
 	/// 맵에 적용할 테마
 	/// </summary>

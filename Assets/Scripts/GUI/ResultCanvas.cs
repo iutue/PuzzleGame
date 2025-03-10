@@ -5,13 +5,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
-/// 결과 창 GUI
+/// 매치 결과를 보여주는 창
 /// </summary>
 [RequireComponent(typeof(Canvas))]
 public class ResultCanvas : UIBehaviour
 {
 	[SerializeField]
-	SlidePanel _resultPanel;
+	SlidePanel _result;
 	[SerializeField]
 	ScrollRect _scoreScrollRect;
 	/// <summary>
@@ -76,10 +76,10 @@ public class ResultCanvas : UIBehaviour
 
 	public void Open()
 	{
-		_resultPanel.Open();
+		_result.Open();
 	}
 	public void Close()
 	{
-		_resultPanel.Close();
+		_result.Close();
 	}
 }

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
-/// 블록 뷰를 관리하는 블록 그룹 GUI
+/// 복수의 블록 뷰를 관리하는 블록 그룹 뷰
 /// </summary>
 public class BlockGroupView : UIBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -20,9 +20,9 @@ public class BlockGroupView : UIBehaviour, IBeginDragHandler, IDragHandler, IEnd
 	[SerializeField]
 	GridLayoutGroup _blocksGrid;
 	/// <summary>
-	/// 화면상에서 블록 하나의 크기
+	/// 화면상에서 블록의 크기
 	/// </summary>
-	public Vector2 CellSize { get; private set; }
+	public Vector2 BlockViewSize { get; private set; }
 	/// <summary>
 	/// [0, 0] 블록의 위치
 	/// </summary>
@@ -63,8 +63,8 @@ public class BlockGroupView : UIBehaviour, IBeginDragHandler, IDragHandler, IEnd
 		_blocksGrid.constraintCount = OwnerBlockGroup.Size.x;
 		//셀 크기를 3*3 크기의 정사각형보다 작게 제한
 		float squareSize = Mathf.Max(3, OwnerBlockGroup.Size.x, OwnerBlockGroup.Size.y);
-		CellSize = _blocksParent.rect.size / squareSize;
-		_blocksGrid.cellSize = CellSize;
+		BlockViewSize = _blocksParent.rect.size / squareSize;
+		_blocksGrid.cellSize = BlockViewSize;
 	}
 
 	#region Callbacks
@@ -75,11 +75,11 @@ public class BlockGroupView : UIBehaviour, IBeginDragHandler, IDragHandler, IEnd
 	/// <summary>
 	/// 플레이어가 카드를 들면 호출됨
 	/// </summary>
-	public void StartDragging(Vector2 mapCellSize)
+	public void StartDragging(Vector2 blockViewSize)
 	{
 		//맵과 카드의 크기를 일치시킴
 		DOTween
-			.To(() => _blocksGrid.cellSize, i => _blocksGrid.cellSize = i, mapCellSize, 0.3f)
+			.To(() => _blocksGrid.cellSize, i => _blocksGrid.cellSize = i, blockViewSize, 0.3f)
 			.SetEase(Ease.OutExpo);
 	}
 	/// <summary>
@@ -100,7 +100,7 @@ public class BlockGroupView : UIBehaviour, IBeginDragHandler, IDragHandler, IEnd
 			.SetEase(Ease.OutExpo);
 		//크기 초기화
 		DOTween
-			.To(() => _blocksGrid.cellSize, i => _blocksGrid.cellSize = i, CellSize, 0.3f)
+			.To(() => _blocksGrid.cellSize, i => _blocksGrid.cellSize = i, BlockViewSize, 0.3f)
 			.SetEase(Ease.OutExpo);
 	}
 	#endregion

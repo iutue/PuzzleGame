@@ -60,7 +60,8 @@ public abstract class GameMode : MonoBehaviour
 		Scores.Init();
 		_playCanvas.OnGameInitialized(
 			_maxCardCount, Scores,
-			OnBackButtonClicked, OnRefreshButtonClicked, null);
+			OnBackButtonClicked, OnRefreshButtonClicked, null,
+			OnBeginDragCard, OnEndDragCard, OnDragCard);
 
 #if UNITY_EDITOR
 		Debug.Log("게임 초기화");
@@ -113,7 +114,7 @@ public abstract class GameMode : MonoBehaviour
 		ResetMap();
 		ResetCards();
 		Scores.ResetAll();
-		_playCanvas.OnGameReset(Map);
+		_playCanvas.OnGameReset();
 
 #if UNITY_EDITOR
 		Debug.Log("게임 재설정");
@@ -151,6 +152,8 @@ public abstract class GameMode : MonoBehaviour
 		Map = new BlockGroup(new Block.State[_mapSize.x, _mapSize.y]);
 		Map.BlockSpawned += OnMapBlockSpawned;
 		Map.BlockDestroyed += OnMapBlockDestroyed;
+		//뷰 초기화
+		_playCanvas.MapCanvas.ResetMap(Map);
 	}
 
 	/// <summary>
@@ -174,8 +177,8 @@ public abstract class GameMode : MonoBehaviour
 			var randomTemplate = BlockGroupTemplates.Templates[randomIndex];
 			Cards.Add(new BlockGroup(randomTemplate));
 		}
-		//카드 뷰 초기화
-		_playCanvas.ResetCards(Cards, OnBeginDragCard, OnEndDragCard, OnDragCard);
+		//뷰 초기화
+		_playCanvas.HandCanvas.ResetCards(Cards);
 	}
 
 	/// <summary>
@@ -232,7 +235,7 @@ public abstract class GameMode : MonoBehaviour
 	void RemoveCard(BlockGroupView target)
 	{
 		Cards.Remove(target.OwnerBlockGroup);
-		_playCanvas.OnCardRemoved(target);
+		_playCanvas.HandCanvas.OnCardRemoved(target);
 
 		if (Cards.Count == 0)
 		{
@@ -287,6 +290,7 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	protected virtual void OnBeginDragCard(BlockGroupView cardView, PointerEventData eventData)
 	{
+		_playCanvas.HandCanvas.OnBeginDragCard(cardView, _playCanvas.MapCanvas.CellSize);
 	}
 
 	/// <summary>
@@ -306,6 +310,7 @@ public abstract class GameMode : MonoBehaviour
 			//배치 실패
 			Map.Convert(Block.State.Preview, Block.State.Empty);
 		}
+		_playCanvas.HandCanvas.OnDragCard(cardView, eventData.position);
 	}
 
 	/// <summary>
@@ -320,6 +325,7 @@ public abstract class GameMode : MonoBehaviour
 			//카드 배치 확정
 			ConfirmCardPlacement(cardView);
 		}
+		_playCanvas.HandCanvas.OnEndDragCard(cardView);
 	}
 
 	/// <summary>

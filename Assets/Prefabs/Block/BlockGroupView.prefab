@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1781624491473227447}
+  - component: {fileID: 6391472417815162779}
   - component: {fileID: 2956330271845034006}
   - component: {fileID: 911567710725341615}
-  - component: {fileID: 6391472417815162779}
   m_Layer: 5
   m_Name: BlockGroupView
   m_TagString: Untagged
@@ -39,6 +39,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6391472417815162779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4292344153093373680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa073cdd0cfe6ed46a517d447a9432a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _blockViewPrefab: {fileID: 2763769116593336635, guid: 0c8eee7e31ebacb4aae123603a49958d, type: 3}
+  _blocksParent: {fileID: 5201576177911460816}
+  _blocksGrid: {fileID: 3922493125155271010}
 --- !u!222 &2956330271845034006
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -77,21 +92,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6391472417815162779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4292344153093373680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa073cdd0cfe6ed46a517d447a9432a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _blockViewPrefab: {fileID: 2763769116593336635, guid: 0c8eee7e31ebacb4aae123603a49958d, type: 3}
-  _blocksParent: {fileID: 5201576177911460816}
-  _blocksGrid: {fileID: 3922493125155271010}
 --- !u!1 &8176777633972811726
 GameObject:
   m_ObjectHideFlags: 0

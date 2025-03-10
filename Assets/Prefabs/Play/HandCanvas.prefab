@@ -386,11 +386,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3661261522258501050}
+  - component: {fileID: 959621580875018213}
   - component: {fileID: 5357914982166373515}
   - component: {fileID: 4146816551712412392}
   - component: {fileID: 6648850481425077262}
   m_Layer: 5
-  m_Name: CardCanvas
+  m_Name: HandCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -416,6 +417,30 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &959621580875018213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052464462723363491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4034c35b1c25f6646949e948f9498030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cards: {fileID: 5009294213166025728}
+  _cardParent: {fileID: 6886095413788172937}
+  _cardViewPrefab: {fileID: 4292344153093373680, guid: e517032661691f34dac22131e008069c, type: 3}
+  _cardOffset: {x: 0, y: 0.5}
+  _themes:
+  - {fileID: 11400000, guid: 3d9b275f9539d394d9157765c405582a, type: 2}
+  - {fileID: 11400000, guid: abae41d2511cb174fa1f28ae17cd2843, type: 2}
+  - {fileID: 11400000, guid: 4c85f05baad2b8e499a89db46a278214, type: 2}
+  - {fileID: 11400000, guid: f53ad807586fef74599429e1b6ac22ee, type: 2}
+  - {fileID: 11400000, guid: ca4ddf76db8af474cbbcea4bc77a7035, type: 2}
+  - {fileID: 11400000, guid: 8aac5848d29a39946940f92d89ff32b1, type: 2}
+  - {fileID: 11400000, guid: 43c4e0c987a465242824978ba21e9aa2, type: 2}
 --- !u!223 &5357914982166373515
 Canvas:
   m_ObjectHideFlags: 0

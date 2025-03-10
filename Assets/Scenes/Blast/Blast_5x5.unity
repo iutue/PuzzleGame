@@ -377,7 +377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5308744031880775545, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 364.4788
+      value: 364.47894
       objectReference: {fileID: 0}
     - target: {fileID: 5661098238862810422, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1065,6 +1065,10 @@ PrefabInstance:
       objectReference: {fileID: 909356585}
     - target: {fileID: 4381538473177848910, guid: 4975974cf29087c479c69b5732f64000, type: 3}
       propertyPath: _resultCanvas
+      value: 
+      objectReference: {fileID: 909356585}
+    - target: {fileID: 4381538473177848910, guid: 4975974cf29087c479c69b5732f64000, type: 3}
+      propertyPath: <ResultCanvas>k__BackingField
       value: 
       objectReference: {fileID: 909356585}
     - target: {fileID: 4621217262177145355, guid: 4975974cf29087c479c69b5732f64000, type: 3}

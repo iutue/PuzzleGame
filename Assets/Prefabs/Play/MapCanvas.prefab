@@ -54,6 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playSetting: {fileID: 11400000, guid: 904b26cf08da64b48a0a4b243a9d943d, type: 2}
   _map: {fileID: 8591367807916746349}
+  _mapParent: {fileID: 3959072020976433169}
   _mapViewPrefab: {fileID: 4292344153093373680, guid: e517032661691f34dac22131e008069c, type: 3}
   _theme: {fileID: 11400000, guid: 458cffec419fc7447b89d6e0d5321bb0, type: 2}
 --- !u!223 &781449434612528268
