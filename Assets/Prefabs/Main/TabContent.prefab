@@ -579,6 +579,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4792946235553150787}
   - component: {fileID: 423825566521613793}
+  - component: {fileID: 689362335697194954}
+  - component: {fileID: 4388729399190537568}
   m_Layer: 5
   m_Name: TabContent
   m_TagString: Untagged
@@ -622,10 +624,10 @@ MonoBehaviour:
   _currentState: 2
   _defaultEase: 18
   _panelToSlide: {fileID: 7871057267136212754}
-  _boundary: {fileID: 0}
+  _boundary: {fileID: 4792946235553150787}
   _panelToScale: {fileID: 0}
   _transparentGroup: {fileID: 0}
-  _canvasToDisable: {fileID: 0}
+  _canvasToDisable: {fileID: 689362335697194954}
   _stateSettings:
   - State: 0
     Delay: 0
@@ -644,9 +646,9 @@ MonoBehaviour:
     SlideAngle: 90
     SlideDistance: 1
     IsLocked: 0
-    SlidePosition: {x: -0.00000004371139, y: 1, z: 0}
+    SlidePosition: {x: -0.00003496911, y: 1075.5555, z: 0}
     Scale: 1
-    Alpha: 1
+    Alpha: 0
   - State: 2
     Delay: 0
     Duration: 0.5
@@ -654,9 +656,9 @@ MonoBehaviour:
     SlideAngle: 270
     SlideDistance: 1
     IsLocked: 0
-    SlidePosition: {x: 0.000000011924881, y: -1, z: 0}
+    SlidePosition: {x: 0.000009539905, y: -1075.5555, z: 0}
     Scale: 1
-    Alpha: 1
+    Alpha: 0
   - State: 3
     Delay: 0
     Duration: 0.5
@@ -664,9 +666,9 @@ MonoBehaviour:
     SlideAngle: 180
     SlideDistance: 1
     IsLocked: 0
-    SlidePosition: {x: -1, y: -0.00000008742278, z: 0}
+    SlidePosition: {x: -800, y: -0.00009402805, z: 0}
     Scale: 1
-    Alpha: 1
+    Alpha: 0
   - State: 4
     Delay: 0
     Duration: 0.5
@@ -674,9 +676,49 @@ MonoBehaviour:
     SlideAngle: 0
     SlideDistance: 1
     IsLocked: 0
-    SlidePosition: {x: 1, y: 0, z: 0}
+    SlidePosition: {x: 800, y: 0, z: 0}
     Scale: 1
-    Alpha: 1
+    Alpha: 0
+--- !u!223 &689362335697194954
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5834982259544333848}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &4388729399190537568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5834982259544333848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &6868173085233389829
 GameObject:
   m_ObjectHideFlags: 0

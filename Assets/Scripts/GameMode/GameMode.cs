@@ -49,9 +49,6 @@ public abstract class GameMode : MonoBehaviour
 
 	protected void Start()
 	{
-		QualitySettings.vSyncCount = 0;
-		Application.targetFrameRate = 60;
-
 		//최초로 초기화 후 게임 시작
 		InitGame();
 		StartGame();

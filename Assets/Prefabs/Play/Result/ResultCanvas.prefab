@@ -121,7 +121,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5661098238862810422}
   m_Direction: 2
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.9999938
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resultPanel: {fileID: 6908325116753306392}
   _scoreScrollRect: {fileID: 1194406977448479765}
-  _constraintCount: {x: 2, y: 3.5}
+  _constraintCount: {x: 2, y: 3}
   _scorePanelPrefab: {fileID: 8338209947939429399, guid: c3461a1594dae8b4ea8138f14fe408bc, type: 3}
   _backButton: {fileID: 4302425352724017679}
   _retryButton: {fileID: 6580139386472365928}
@@ -287,8 +287,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -109.53851, y: -204.4873}
+  m_AnchoredPosition: {x: 0, y: -75.93799}
+  m_SizeDelta: {x: -109.5385, y: -441.5619}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6908325116753306392
 MonoBehaviour:
@@ -318,7 +318,7 @@ MonoBehaviour:
     SlideAngle: 180
     SlideDistance: 0
     IsLocked: 0
-    SlidePosition: {x: 0, y: 0, z: 0}
+    SlidePosition: {x: 0, y: -75.93799, z: 0}
     Scale: 1
     Alpha: 1
   - State: 1
@@ -328,7 +328,7 @@ MonoBehaviour:
     SlideAngle: 90
     SlideDistance: 1
     IsLocked: 0
-    SlidePosition: {x: -0.000039340248, y: 1600, z: 0}
+    SlidePosition: {x: -0.000039340248, y: 1524.062, z: 0}
     Scale: 1
     Alpha: 0
   - State: 2
@@ -338,7 +338,7 @@ MonoBehaviour:
     SlideAngle: 270
     SlideDistance: 1
     IsLocked: 0
-    SlidePosition: {x: 0.000010732392, y: -1600, z: 0}
+    SlidePosition: {x: 0.000010732392, y: -1675.938, z: 0}
     Scale: 1
     Alpha: 0
   - State: 3
@@ -348,7 +348,7 @@ MonoBehaviour:
     SlideAngle: 180
     SlideDistance: 0
     IsLocked: 0
-    SlidePosition: {x: 0, y: 0, z: 0}
+    SlidePosition: {x: 0, y: -75.93799, z: 0}
     Scale: 1
     Alpha: 0
   - State: 4
@@ -358,7 +358,7 @@ MonoBehaviour:
     SlideAngle: 180
     SlideDistance: 0
     IsLocked: 0
-    SlidePosition: {x: 0, y: 0, z: 0}
+    SlidePosition: {x: 0, y: -75.93799, z: 0}
     Scale: 1
     Alpha: 0
 --- !u!222 &8020362822905430228
@@ -459,7 +459,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 498.31726}
+  m_AnchoredPosition: {x: 0, y: 364.47922}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &6923031529821857329
@@ -773,7 +773,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 114.95
+  m_fontSize: 126.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -952,7 +952,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
+  m_Color: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 0.9019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1064,7 +1064,7 @@ MonoBehaviour:
   m_PreferredWidth: -1
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
-  m_FlexibleHeight: 6
+  m_FlexibleHeight: 4
   m_LayoutPriority: 1
 --- !u!1 &8436443289153441514
 GameObject:
@@ -1267,7 +1267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2296129451846715046, guid: 124945f5e4527c5498e19ae35e234e16, type: 3}
       propertyPath: m_fontSize
-      value: 53.75
+      value: 59.45
       objectReference: {fileID: 0}
     - target: {fileID: 2296129451846715046, guid: 124945f5e4527c5498e19ae35e234e16, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -1527,7 +1527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2296129451846715046, guid: 124945f5e4527c5498e19ae35e234e16, type: 3}
       propertyPath: m_fontSize
-      value: 53.75
+      value: 59.45
       objectReference: {fileID: 0}
     - target: {fileID: 2296129451846715046, guid: 124945f5e4527c5498e19ae35e234e16, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -1791,7 +1791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2296129451846715046, guid: 124945f5e4527c5498e19ae35e234e16, type: 3}
       propertyPath: m_fontSize
-      value: 53.75
+      value: 59.45
       objectReference: {fileID: 0}
     - target: {fileID: 2296129451846715046, guid: 124945f5e4527c5498e19ae35e234e16, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'

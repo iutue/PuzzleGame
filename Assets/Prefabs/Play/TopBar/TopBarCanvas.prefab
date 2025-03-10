@@ -154,7 +154,7 @@ MonoBehaviour:
     SlideAngle: 90
     SlideDistance: 1
     IsLocked: 0
-    SlidePosition: {x: -0.000039340248, y: 240, z: 0}
+    SlidePosition: {x: -0.000039340248, y: 160, z: 0}
     Scale: 1
     Alpha: 1
   - State: 2
@@ -164,7 +164,7 @@ MonoBehaviour:
     SlideAngle: 90
     SlideDistance: 1
     IsLocked: 0
-    SlidePosition: {x: -0.000039340248, y: 240, z: 0}
+    SlidePosition: {x: -0.000039340248, y: 160, z: 0}
     Scale: 1
     Alpha: 0
   - State: 3
@@ -713,6 +713,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1740789511619276656, guid: 421e2991d5fef2a4f81771b4c5acb867, type: 3}
+      propertyPath: m_Color.a
+      value: 0.78431374
+      objectReference: {fileID: 0}
     - target: {fileID: 4974597655032806329, guid: 421e2991d5fef2a4f81771b4c5acb867, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -862,6 +866,10 @@ PrefabInstance:
     - target: {fileID: 1373284360358093004, guid: 421e2991d5fef2a4f81771b4c5acb867, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740789511619276656, guid: 421e2991d5fef2a4f81771b4c5acb867, type: 3}
+      propertyPath: m_Color.a
+      value: 0.78431374
       objectReference: {fileID: 0}
     - target: {fileID: 4974597655032806329, guid: 421e2991d5fef2a4f81771b4c5acb867, type: 3}
       propertyPath: m_AnchorMax.x

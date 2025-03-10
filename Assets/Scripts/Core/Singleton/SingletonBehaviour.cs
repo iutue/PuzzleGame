@@ -9,8 +9,6 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
 
 	protected void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
-
 		if (Instance)
 		{
 			//중복된 싱글톤 제거
@@ -20,6 +18,7 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : SingletonBehaviour<
 		{
 			//사용할 싱글톤으로 등록
 			Instance = this as T;
+			DontDestroyOnLoad(gameObject);
 		}
 	}
 }
