@@ -20,7 +20,7 @@ public class BlockGroupView : UIBehaviour, IBeginDragHandler, IDragHandler, IEnd
 	[SerializeField]
 	GridLayoutGroup _blocksGrid;
 	/// <summary>
-	/// 화면상에서 블록의 크기
+	/// 해상도를 고려해서 계산된 최적의 블록 크기
 	/// </summary>
 	public Vector2 BlockViewSize { get; private set; }
 	/// <summary>
@@ -64,44 +64,47 @@ public class BlockGroupView : UIBehaviour, IBeginDragHandler, IDragHandler, IEnd
 		//셀 크기를 3*3 크기의 정사각형보다 작게 제한
 		float squareSize = Mathf.Max(3, OwnerBlockGroup.Size.x, OwnerBlockGroup.Size.y);
 		BlockViewSize = _blocksParent.rect.size / squareSize;
-		_blocksGrid.cellSize = BlockViewSize;
+		//계산된 블록 크기 반영
+		SetBlockViewSize(BlockViewSize);
+	}
+
+	/// <summary>
+	/// 주어진 크기로 블록 뷰의 크기를 즉시 변경
+	/// </summary>
+	public void SetBlockViewSize(Vector2 blockViewSize)
+	{
+		_blocksGrid.cellSize = blockViewSize;
+	}
+	/// <summary>
+	/// 주어진 크기로 블록 뷰의 크기를 부드럽게 변경
+	/// </summary>
+	public void ChangeBlockViewSize(Vector2 blockViewSize)
+	{
+		DOTween
+			.To(() => _blocksGrid.cellSize, i => _blocksGrid.cellSize = i, blockViewSize, 0.3f)
+			.SetEase(Ease.OutExpo);
+	}
+
+	/// <summary>
+	/// 주어진 위치로 즉시 이동
+	/// </summary>
+	public void SetPosition(Vector2 position)
+	{
+		_blocksParent.anchoredPosition = position;
+	}
+	/// <summary>
+	/// 주어진 위치로 부드럽게 이동
+	/// </summary>
+	public void ChangePosition(Vector2 position)
+	{
+		_blocksParent
+			.DOAnchorPos(position, 0.3f)
+			.SetEase(Ease.OutExpo);
 	}
 
 	#region Callbacks
 	public void OnBeginDrag(PointerEventData eventData) => BeginDrag?.Invoke(this, eventData);
 	public void OnDrag(PointerEventData eventData) => Dragging?.Invoke(this, eventData);
 	public void OnEndDrag(PointerEventData eventData) => EndDrag?.Invoke(this, eventData);
-
-	/// <summary>
-	/// 플레이어가 카드를 들면 호출됨
-	/// </summary>
-	public void StartDragging(Vector2 blockViewSize)
-	{
-		//맵과 카드의 크기를 일치시킴
-		DOTween
-			.To(() => _blocksGrid.cellSize, i => _blocksGrid.cellSize = i, blockViewSize, 0.3f)
-			.SetEase(Ease.OutExpo);
-	}
-	/// <summary>
-	/// 플레이어가 카드를 끄는 동안 호출됨
-	/// </summary>
-	public void Drag(Vector2 position)
-	{
-		_blocksParent.position = position;
-	}
-	/// <summary>
-	/// 플레이어가 카드를 놓으면 호출됨
-	/// </summary>
-	public void StopDragging()
-	{
-		//위치 초기화
-		_blocksParent
-			.DOAnchorPos(Vector2.zero, 0.3f)
-			.SetEase(Ease.OutExpo);
-		//크기 초기화
-		DOTween
-			.To(() => _blocksGrid.cellSize, i => _blocksGrid.cellSize = i, BlockViewSize, 0.3f)
-			.SetEase(Ease.OutExpo);
-	}
 	#endregion
 }

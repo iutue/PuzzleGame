@@ -9,7 +9,7 @@ using static BlockGroupView;
 [RequireComponent(typeof(Canvas))]
 public class HandCanvas : UIBehaviour
 {
-	//TODO GameModeSetting을 만들어 DrawCount, TimeLimit 등 저장하기
+	//TODO GameModeSetting을 만들어 DrawCount, TimeLimit,_cardOffset,_themes 등 저장하기
 	/// <summary>
 	/// 카드를 집었을 때 포인터와 카드의 상대 위치, 화면 크기에 비례함
 	/// </summary>
@@ -20,6 +20,8 @@ public class HandCanvas : UIBehaviour
 	/// </summary>
 	[SerializeField]
 	BlockTheme[] _themes;
+
+
 
 	[SerializeField]
 	SlidePanel _cards;
@@ -89,37 +91,41 @@ public class HandCanvas : UIBehaviour
 
 	#region Callbacks
 	/// <summary>
-	/// 주어진 카드 뷰 제거
+	/// 플레이어가 카드를 집었을 때 호출됨
+	/// </summary>
+	public void OnBeginDragCard(BlockGroupView cardView, Vector2 mapBlockViewSize)
+	{
+		//카드 블록의 크기를 맵 블록의 크기와 일치시킴
+		cardView.ChangeBlockViewSize(mapBlockViewSize);
+	}
+
+	/// <summary>
+	/// 플레이어가 카드를 이동중일 때 호출됨
+	/// </summary>
+	public void OnDragCard(BlockGroupView cardView, Vector2 position)
+	{
+		//카드를 포인터 위치로 이동
+		position = cardView.GetComponent<RectTransform>().InverseTransformPoint(position);
+		cardView.SetPosition(position + _cardOffset * Screen.height);
+	}
+
+	/// <summary>
+	/// 플레이어가 카드를 내려놓았을 때 호출됨
+	/// </summary>
+	public void OnEndDragCard(BlockGroupView cardView)
+	{
+		//카드를 원래 위치와 크기로 복구
+		cardView.ChangePosition(Vector2.zero);
+		cardView.ChangeBlockViewSize(cardView.BlockViewSize);
+	}
+
+	/// <summary>
+	/// 카드가 제거됐을 때 호출됨
 	/// </summary>
 	public void OnCardRemoved(BlockGroupView cardView)
 	{
 		_cardViews.Remove(cardView);
 		Destroy(cardView.gameObject);
-	}
-
-	/// <summary>
-	/// 카드를 집었을 때 호출됨
-	/// </summary>
-	public void OnBeginDragCard(BlockGroupView cardView, Vector2 blockViewSize)
-	{
-		//카드 블록의 크기를 맵 블록의 크기와 일치시킴
-		cardView.StartDragging(blockViewSize);
-	}
-
-	/// <summary>
-	/// 카드를 이동중일 때 호출됨
-	/// </summary>
-	public void OnDragCard(BlockGroupView cardView, Vector2 position)
-	{
-		cardView.Drag(position + _cardOffset * Screen.height);
-	}
-
-	/// <summary>
-	/// 카드를 내려놓았을 때 호출됨
-	/// </summary>
-	public void OnEndDragCard(BlockGroupView cardView)
-	{
-		cardView.StopDragging();
 	}
 	#endregion
 }
