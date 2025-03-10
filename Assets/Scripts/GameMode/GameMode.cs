@@ -60,7 +60,7 @@ public abstract class GameMode : MonoBehaviour
 		Scores.Init();
 		_playCanvas.OnGameInitialized(
 			_maxCardCount, Scores,
-			OnBackButtonClicked, OnRefreshButtonClicked, null,
+			OnBackButtonClicked, OnResetButtonClicked, null,
 			OnBeginDragCard, OnEndDragCard, OnDragCard);
 
 #if UNITY_EDITOR
@@ -256,9 +256,9 @@ public abstract class GameMode : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 새로고침 버튼이 눌렸을 때 호출됨
+	/// 리셋 버튼이 눌렸을 때 호출됨
 	/// </summary>
-	protected virtual void OnRefreshButtonClicked()
+	protected virtual void OnResetButtonClicked()
 	{
 		//게임 다시 시작
 		StartGame();
@@ -290,7 +290,7 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	protected virtual void OnBeginDragCard(BlockGroupView cardView, PointerEventData eventData)
 	{
-		_playCanvas.HandCanvas.OnBeginDragCard(cardView, _playCanvas.MapCanvas.CellSize);
+		_playCanvas.HandCanvas.OnBeginDragCard(cardView, _playCanvas.MapCanvas.BlockViewSize);
 	}
 
 	/// <summary>

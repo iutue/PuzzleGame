@@ -24,7 +24,7 @@ public class ResultCanvas : UIBehaviour
 
 	[Space]
 	[SerializeField] Button _backButton;
-	[SerializeField] Button _retryButton;
+	[SerializeField] Button _resetButton;
 	[SerializeField] Button _nextButton;
 
 	protected override void OnRectTransformDimensionsChange()
@@ -33,7 +33,7 @@ public class ResultCanvas : UIBehaviour
 		InitGrid();
 	}
 
-	public void Init(ScoreContainer scoreTable, Action backButtonClicked, Action retryButtonClicked, Action nextButtonClicked)
+	public void Init(ScoreContainer scoreTable, Action backButtonClicked, Action resetButtonClicked, Action nextButtonClicked)
 	{
 		//점수 패널 생성
 		foreach (var score in scoreTable)
@@ -44,7 +44,7 @@ public class ResultCanvas : UIBehaviour
 		InitGrid();
 		//버튼 바인딩
 		TryBind(_backButton, backButtonClicked);
-		TryBind(_retryButton, retryButtonClicked);
+		TryBind(_resetButton, resetButtonClicked);
 		TryBind(_nextButton, nextButtonClicked);
 	}
 	async Awaitable InitGrid()

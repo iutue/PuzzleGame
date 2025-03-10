@@ -154,7 +154,7 @@ MonoBehaviour:
     SlideAngle: 90
     SlideDistance: 1
     IsLocked: 0
-    SlidePosition: {x: -0.000039340248, y: 160, z: 0}
+    SlidePosition: {x: -0.000039340248, y: 240, z: 0}
     Scale: 1
     Alpha: 1
   - State: 2
@@ -164,7 +164,7 @@ MonoBehaviour:
     SlideAngle: 90
     SlideDistance: 1
     IsLocked: 0
-    SlidePosition: {x: -0.000039340248, y: 160, z: 0}
+    SlidePosition: {x: -0.000039340248, y: 240, z: 0}
     Scale: 1
     Alpha: 0
   - State: 3
@@ -473,7 +473,7 @@ MonoBehaviour:
   _topBar: {fileID: 6620043703505604329}
   _scoreText: {fileID: 9186123979834559695}
   _backButton: {fileID: 9141906304114944179}
-  _refreshButton: {fileID: 9074925174482941987}
+  _resetButton: {fileID: 9074925174482941987}
 --- !u!223 &6779415225955953989
 Canvas:
   m_ObjectHideFlags: 0
@@ -893,7 +893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8723124525864869441, guid: 421e2991d5fef2a4f81771b4c5acb867, type: 3}
       propertyPath: m_Name
-      value: RefreshButton
+      value: ResetButton
       objectReference: {fileID: 0}
     - target: {fileID: 8723124525864869441, guid: 421e2991d5fef2a4f81771b4c5acb867, type: 3}
       propertyPath: m_IsActive

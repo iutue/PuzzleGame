@@ -429,10 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4034c35b1c25f6646949e948f9498030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cards: {fileID: 5009294213166025728}
-  _cardParent: {fileID: 6886095413788172937}
-  _cardViewPrefab: {fileID: 4292344153093373680, guid: e517032661691f34dac22131e008069c, type: 3}
-  _cardOffset: {x: 0, y: 0.5}
+  _cardOffset: {x: 0, y: 0.2}
   _themes:
   - {fileID: 11400000, guid: 3d9b275f9539d394d9157765c405582a, type: 2}
   - {fileID: 11400000, guid: abae41d2511cb174fa1f28ae17cd2843, type: 2}
@@ -441,6 +438,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ca4ddf76db8af474cbbcea4bc77a7035, type: 2}
   - {fileID: 11400000, guid: 8aac5848d29a39946940f92d89ff32b1, type: 2}
   - {fileID: 11400000, guid: 43c4e0c987a465242824978ba21e9aa2, type: 2}
+  _cards: {fileID: 5009294213166025728}
+  _cardParent: {fileID: 6886095413788172937}
+  _cardViewPrefab: {fileID: 4292344153093373680, guid: e517032661691f34dac22131e008069c, type: 3}
 --- !u!223 &5357914982166373515
 Canvas:
   m_ObjectHideFlags: 0

@@ -31,7 +31,7 @@ public class MapCanvas : UIBehaviour
 	/// <summary>
 	/// 스케일을 적용한 맵 블록의 크기
 	/// </summary>
-	public Vector2 CellSize => _mapView.BlockViewSize * _mapParent.localScale;
+	public Vector2 BlockViewSize => _mapView.BlockViewSize * _mapParent.localScale;
 	/// <summary>
 	/// 맵에 적용할 테마
 	/// </summary>

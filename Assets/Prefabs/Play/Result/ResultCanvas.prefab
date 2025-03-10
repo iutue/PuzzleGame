@@ -121,7 +121,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5661098238862810422}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9999985
+  m_Size: 0.9999837
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -183,7 +183,7 @@ MonoBehaviour:
   _constraintCount: {x: 2, y: 3}
   _scorePanelPrefab: {fileID: 8338209947939429399, guid: c3461a1594dae8b4ea8138f14fe408bc, type: 3}
   _backButton: {fileID: 4302425352724017679}
-  _retryButton: {fileID: 6580139386472365928}
+  _resetButton: {fileID: 6580139386472365928}
   _nextButton: {fileID: 8036354109705054711}
 --- !u!223 &8959205096189425166
 Canvas:
@@ -459,7 +459,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 364.4793}
+  m_AnchoredPosition: {x: 0, y: 364.47903}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &6923031529821857329
@@ -1503,7 +1503,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 130289258424388082, guid: 124945f5e4527c5498e19ae35e234e16, type: 3}
       propertyPath: m_Name
-      value: RetryButton
+      value: ResetButton
       objectReference: {fileID: 0}
     - target: {fileID: 525786117201243161, guid: 124945f5e4527c5498e19ae35e234e16, type: 3}
       propertyPath: m_AnchorMax.x

@@ -30,17 +30,17 @@ public class PlayCanvas : UIBehaviour
 	/// 게임 초기화 후 호출됨
 	/// </summary>
 	public void OnGameInitialized(int drawCount, ScoreContainer scoreTable,
-		Action backButtonClicked, Action retryButtonClicked, Action nextButtonClicked,
+		Action backButtonClicked, Action resetButtonClicked, Action nextButtonClicked,
 		DragHandler beginDragCard, DragHandler endDragCard, DragHandler dragCard)
 	{
 		//탑바
-		TopBarCanvas.Init(scoreTable["Total"], backButtonClicked, retryButtonClicked);
+		TopBarCanvas.Init(scoreTable["Total"], backButtonClicked, resetButtonClicked);
 		//맵
 		MapCanvas.Init();
 		//카드
 		HandCanvas.Init(drawCount, beginDragCard, endDragCard, dragCard);
 		//결과
-		ResultCanvas.Init(scoreTable, backButtonClicked, retryButtonClicked, nextButtonClicked);
+		ResultCanvas.Init(scoreTable, backButtonClicked, resetButtonClicked, nextButtonClicked);
 	}
 
 	/// <summary>

@@ -21,13 +21,13 @@ public class TopBarCanvas : UIBehaviour
 	[SerializeField]
 	Button _backButton;
 	[SerializeField]
-	Button _refreshButton;
+	Button _resetButton;
 
-	public void Init(Score totalScore, Action backButtonClicked, Action refreshButtonClicked)
+	public void Init(Score totalScore, Action backButtonClicked, Action resetButtonClicked)
 	{
 		totalScore.BaseValueChanged += OnTotalScoreChanged;
 		TryBind(_backButton, backButtonClicked);
-		TryBind(_refreshButton, refreshButtonClicked);
+		TryBind(_resetButton, resetButtonClicked);
 	}
 
 	/// <summary>
