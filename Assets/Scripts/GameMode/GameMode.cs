@@ -36,9 +36,6 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	protected List<BlockGroup> Cards = new();
 
-	/// <summary>
-	/// 필수 GUI
-	/// </summary>
 	[SerializeField]
 	PlayCanvas _playCanvas;
 	/// <summary>
@@ -49,7 +46,7 @@ public abstract class GameMode : MonoBehaviour
 
 	protected void Start()
 	{
-		//최초로 초기화 후 게임 시작
+		//초기화 후 바로 게임 시작
 		InitGame();
 		StartGame();
 	}
@@ -75,10 +72,9 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	void StartGame()
 	{
-		Scores.ResetAll();
-		ResetMap();
-		ResetCards();
-
+		//모든 정보 초기화
+		ResetGame();
+		//시작
 		_playCanvas.OnGameStarted();
 
 #if UNITY_EDITOR
@@ -101,12 +97,26 @@ public abstract class GameMode : MonoBehaviour
 			//신기록 저장
 			PlayerPrefs.SetInt(bestRecordName, totalScore.CurrentValue);
 		}
-
 		//결과 출력
 		_playCanvas.OnGameEnded();
 
 #if UNITY_EDITOR
 		Debug.Log("게임 종료");
+#endif
+	}
+
+	/// <summary>
+	/// 게임 재설정, 게임의 모든 정보를 초기화할 때 호출됨
+	/// </summary>
+	void ResetGame()
+	{
+		ResetMap();
+		ResetCards();
+		Scores.ResetAll();
+		_playCanvas.OnGameReset(Map);
+
+#if UNITY_EDITOR
+		Debug.Log("게임 재설정");
 #endif
 	}
 
@@ -141,8 +151,6 @@ public abstract class GameMode : MonoBehaviour
 		Map = new BlockGroup(new Block.State[_mapSize.x, _mapSize.y]);
 		Map.BlockSpawned += OnMapBlockSpawned;
 		Map.BlockDestroyed += OnMapBlockDestroyed;
-		//맵 뷰 초기화
-		_playCanvas.ResetMap(Map);
 	}
 
 	/// <summary>
@@ -224,7 +232,7 @@ public abstract class GameMode : MonoBehaviour
 	void RemoveCard(BlockGroupView target)
 	{
 		Cards.Remove(target.OwnerBlockGroup);
-		_playCanvas.RemoveCard(target);
+		_playCanvas.OnCardRemoved(target);
 
 		if (Cards.Count == 0)
 		{
@@ -287,7 +295,7 @@ public abstract class GameMode : MonoBehaviour
 	protected virtual void OnDragCard(BlockGroupView cardView, PointerEventData eventData)
 	{
 		//카드를 배치할 때 기준이 되는 맵의 블록 검출
-		var origin = _playCanvas.GetMapBlockAt(cardView.OriginBlockPosition);
+		var origin = _playCanvas.MapCanvas.GetMapBlockAt(cardView.OriginBlockPosition);
 		//카드 배치 시도
 		if (TryCardPlacement(cardView.OwnerBlockGroup, origin))
 		{

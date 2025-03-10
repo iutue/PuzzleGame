@@ -57,12 +57,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b2d9f469d0a9141b8d12ebc4dc25b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _topBar: {fileID: 1489203505673094445}
+  _topBarCanvas: {fileID: 1489203505673094445}
+  <MapCanvas>k__BackingField: {fileID: 120231847931505536}
+  _cardsCanvas: {fileID: 4715660389888817966}
   _blockGroupViewPrefab: {fileID: 4292344153093373680, guid: e517032661691f34dac22131e008069c, type: 3}
-  _map: {fileID: 6797820624230846807}
-  _mapParent: {fileID: 2278097181682224939}
-  _mapTheme: {fileID: 11400000, guid: 458cffec419fc7447b89d6e0d5321bb0, type: 2}
-  _cards: {fileID: 4715660389888817966}
   _cardParent: {fileID: 6585848027634193831}
   _cardOffset: {x: 0, y: 0.2}
   _cardThemes:
@@ -73,7 +71,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ca4ddf76db8af474cbbcea4bc77a7035, type: 2}
   - {fileID: 11400000, guid: 8aac5848d29a39946940f92d89ff32b1, type: 2}
   - {fileID: 11400000, guid: 43c4e0c987a465242824978ba21e9aa2, type: 2}
-  _result: {fileID: 0}
+  _resultCanvas: {fileID: 0}
 --- !u!223 &8945915514091010042
 Canvas:
   m_ObjectHideFlags: 0
@@ -459,6 +457,14 @@ PrefabInstance:
       propertyPath: _boundary
       value: 
       objectReference: {fileID: 1822435417181939785}
+    - target: {fileID: 8591367807916746349, guid: ebb5b458cbb2a644ca6abc6011ac0250, type: 3}
+      propertyPath: _stateSettings.Array.data[1].SlidePosition.x
+      value: 900
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591367807916746349, guid: ebb5b458cbb2a644ca6abc6011ac0250, type: 3}
+      propertyPath: _stateSettings.Array.data[2].SlidePosition.x
+      value: 900
+      objectReference: {fileID: 0}
     - target: {fileID: 9099267097027803157, guid: ebb5b458cbb2a644ca6abc6011ac0250, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -544,27 +550,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebb5b458cbb2a644ca6abc6011ac0250, type: 3}
---- !u!224 &2278097181682224939 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3959072020976433169, guid: ebb5b458cbb2a644ca6abc6011ac0250, type: 3}
-  m_PrefabInstance: {fileID: 2984794016203159354}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &6281124417736920879 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 9099267097027803157, guid: ebb5b458cbb2a644ca6abc6011ac0250, type: 3}
-  m_PrefabInstance: {fileID: 2984794016203159354}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6797820624230846807 stripped
+--- !u!114 &120231847931505536 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8591367807916746349, guid: ebb5b458cbb2a644ca6abc6011ac0250, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2938379324784729274, guid: ebb5b458cbb2a644ca6abc6011ac0250, type: 3}
   m_PrefabInstance: {fileID: 2984794016203159354}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 755f03ffd20bcb34083efcd7a19d0ebe, type: 3}
+  m_Script: {fileID: 11500000, guid: 1252dadd93c57e04a873c39565b12d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &6281124417736920879 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 9099267097027803157, guid: ebb5b458cbb2a644ca6abc6011ac0250, type: 3}
+  m_PrefabInstance: {fileID: 2984794016203159354}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8828457912392698407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -688,6 +689,14 @@ PrefabInstance:
     - target: {fileID: 4753376763931790031, guid: 1e6e207dd8894c140bfa2717d666d1a2, type: 3}
       propertyPath: m_Name
       value: TopBarCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620043703505604329, guid: 1e6e207dd8894c140bfa2717d666d1a2, type: 3}
+      propertyPath: _stateSettings.Array.data[1].SlidePosition.y
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620043703505604329, guid: 1e6e207dd8894c140bfa2717d666d1a2, type: 3}
+      propertyPath: _stateSettings.Array.data[2].SlidePosition.y
+      value: 240
       objectReference: {fileID: 0}
     - target: {fileID: 8265690853536460513, guid: 1e6e207dd8894c140bfa2717d666d1a2, type: 3}
       propertyPath: m_AnchorMax.y

@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Canvas))]
 public class MapCanvas : UIBehaviour
@@ -9,6 +11,28 @@ public class MapCanvas : UIBehaviour
 
 	[SerializeField]
 	SlidePanel _map;
+	RectTransform _mapParent;
+	GraphicRaycaster _mapRaycaster;
+	List<RaycastResult> _mapRaycastresult = new();
+
+	/// <summary>
+	/// 생성할 맵 뷰
+	/// </summary>
+	[SerializeField]
+	GameObject _mapViewPrefab;
+	/// <summary>
+	/// 생성된 맵 뷰
+	/// </summary>
+	BlockGroupView _mapView;
+	/// <summary>
+	/// 스케일을 적용한 맵 블록 하나의 크기
+	/// </summary>
+	public Vector2 CellSize => _mapView.CellSize * _mapParent.localScale;
+	/// <summary>
+	/// 맵에 적용할 테마
+	/// </summary>
+	[SerializeField]
+	BlockTheme _theme;
 
 	protected override void OnEnable()
 	{
@@ -17,11 +41,51 @@ public class MapCanvas : UIBehaviour
 		//동기화
 		OnSettingChanged();
 	}
-
 	protected override void OnDisable()
 	{
 		base.OnDisable();
 		_playSetting.SettingChanged -= OnSettingChanged;
+	}
+
+	public void Init()
+	{
+		_mapParent = _map.GetComponent<RectTransform>();
+		_mapRaycaster = _map.GetComponentInParent<GraphicRaycaster>();
+	}
+
+	/// <summary>
+	/// 맵 뷰 초기화
+	/// </summary>
+	public void ResetMap(BlockGroup map)
+	{
+		//기존의 뷰 제거
+		if (_mapView)
+		{
+			Destroy(_mapView.gameObject);
+		}
+		//새로운 뷰 생성
+		_mapView = Instantiate(_mapViewPrefab, _mapParent).GetComponent<BlockGroupView>();
+		_mapView.Init(map, _theme);
+	}
+
+	/// <summary>
+	/// 맵 뷰에서 해당 위치의 블록 뷰 검출
+	/// </summary>
+	public BlockView GetMapBlockAt(Vector2 position)
+	{
+		//TODO[개선] 맵 패널 위 포인터의 위치로 블록 위치 계산하기
+		PointerEventData eventData = new PointerEventData(EventSystem.current);
+		eventData.position = position;
+		_mapRaycastresult.Clear();
+		_mapRaycaster.Raycast(eventData, _mapRaycastresult);
+		foreach (var element in _mapRaycastresult)
+		{
+			if (element.gameObject.TryGetComponent<BlockView>(out var origin))
+			{
+				return origin;
+			}
+		}
+		return null;
 	}
 
 	public void Open()

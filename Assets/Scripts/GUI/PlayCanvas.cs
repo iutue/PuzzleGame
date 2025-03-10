@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using static BlockGroupView;
 
 /// <summary>
@@ -15,37 +14,22 @@ public class PlayCanvas : UIBehaviour
 	/// 탑바 패널
 	/// </summary>
 	[SerializeField]
-	TopBarCanvas _topBar;
-
-	[Space]
-	[SerializeField]
-	GameObject _blockGroupViewPrefab;
+	TopBarCanvas _topBarCanvas;
 	/// <summary>
 	/// 맵 패널
 	/// </summary>
-	[Space]
-	[SerializeField]
-	SlidePanel _map;
-	/// <summary>
-	/// 맵 뷰를 가지는 부모
-	/// </summary>
-	[SerializeField]
-	RectTransform _mapParent;
-	BlockGroupView _mapView;
-	GraphicRaycaster _mapRaycaster;
-	List<RaycastResult> _mapRaycastresult = new();
-	/// <summary>
-	/// 맵에 적용할 테마
-	/// </summary>
-	[SerializeField]
-	BlockTheme _mapTheme;
+	[field: SerializeField]
+	public MapCanvas MapCanvas { get; private set; }
 
 	/// <summary>
 	/// 카드 패널
 	/// </summary>
 	[Space]
 	[SerializeField]
-	SlidePanel _cards;
+	//TODO CardsCanvas로 관리하기
+	SlidePanel _cardsCanvas;
+	[SerializeField]
+	GameObject _blockGroupViewPrefab;
 	/// <summary>
 	/// 모든 카드 뷰를 가지는 부모
 	/// </summary>
@@ -63,12 +47,13 @@ public class PlayCanvas : UIBehaviour
 	[SerializeField]
 	BlockTheme[] _cardThemes;
 
+	//TODO PlayCanvas 내 자식 캔버스로 옮기기
 	/// <summary>
 	/// 결과 패널
 	/// </summary>
 	[Space]
 	[SerializeField]
-	ResultCanvas _result;
+	ResultCanvas _resultCanvas;
 
 	#region Game
 	/// <summary>
@@ -78,10 +63,11 @@ public class PlayCanvas : UIBehaviour
 		Action backButtonClicked, Action retryButtonClicked, Action nextButtonClicked)
 	{
 		//탑바
-		_topBar.Init(scoreTable["Total"], backButtonClicked, retryButtonClicked);
+		_topBarCanvas.Init(scoreTable["Total"], backButtonClicked, retryButtonClicked);
 		//맵
-		_mapRaycaster = _mapParent.GetComponentInParent<GraphicRaycaster>();
+		MapCanvas.Init();
 		//카드
+		//_cards.Init();
 		for (int i = 0; i < drawCount; i++)
 		{
 			//카드가 들어갈 자리를 미리 확보
@@ -89,7 +75,7 @@ public class PlayCanvas : UIBehaviour
 			child.transform.SetParent(_cardParent, false);
 		}
 		//결과
-		_result.Init(scoreTable, backButtonClicked, retryButtonClicked, nextButtonClicked);
+		_resultCanvas.Init(scoreTable, backButtonClicked, retryButtonClicked, nextButtonClicked);
 	}
 
 	/// <summary>
@@ -98,11 +84,11 @@ public class PlayCanvas : UIBehaviour
 	public void OnGameStarted()
 	{
 		//결과 패널은 닫고
-		_result.Close();
+		_resultCanvas.Close();
 		//필수 패널은 열기
-		_topBar.Open();
-		_map.Open();
-		_cards.Open();
+		_topBarCanvas.Open();
+		MapCanvas.Open();
+		_cardsCanvas.Open();
 	}
 
 	/// <summary>
@@ -110,48 +96,17 @@ public class PlayCanvas : UIBehaviour
 	/// </summary>
 	public void OnGameEnded()
 	{
-		_topBar.Close();
-		_result.Open();
-	}
-	#endregion
-
-	#region Map
-	/// <summary>
-	/// 맵 뷰 초기화
-	/// </summary>
-	public void ResetMap(BlockGroup map)
-	{
-		//기존의 뷰 제거
-		if (_mapView)
-		{
-			Destroy(_mapView.gameObject);
-		}
-		//새로운 뷰 생성
-		_mapView = Instantiate(_blockGroupViewPrefab, _mapParent).GetComponent<BlockGroupView>();
-		_mapView.Init(map, _mapTheme);
-
-		_map.SetState(SlidePanel.State.Show);
-		_map.Open();
+		_topBarCanvas.Close();
+		_resultCanvas.Open();
 	}
 
 	/// <summary>
-	/// 맵 뷰에서 해당 위치의 블록 뷰 검출
+	/// 게임 리셋 후 호출됨
 	/// </summary>
-	public BlockView GetMapBlockAt(Vector2 position)
+	public void OnGameReset(BlockGroup map)
 	{
-		//TODO[개선] 맵 패널 위 포인터의 위치로 블록 위치 계산하기
-		PointerEventData eventData = new PointerEventData(EventSystem.current);
-		eventData.position = position;
-		_mapRaycastresult.Clear();
-		_mapRaycaster.Raycast(eventData, _mapRaycastresult);
-		foreach (var element in _mapRaycastresult)
-		{
-			if (element.gameObject.TryGetComponent<BlockView>(out var origin))
-			{
-				return origin;
-			}
-		}
-		return null;
+		MapCanvas.ResetMap(map);
+		//_cards.ResetCards();
 	}
 	#endregion
 
@@ -178,14 +133,14 @@ public class PlayCanvas : UIBehaviour
 			cardView.Dragging += dragCard + OnDragCard;
 			_cardViews.Add(cardView);
 		}
-		_cards.SetState(SlidePanel.State.Show);
-		_cards.Open();
+		_cardsCanvas.SetState(SlidePanel.State.Show);
+		_cardsCanvas.Open();
 	}
 
 	/// <summary>
 	/// 주어진 카드 뷰 제거
 	/// </summary>
-	public void RemoveCard(BlockGroupView cardView)
+	public void OnCardRemoved(BlockGroupView cardView)
 	{
 		_cardViews.Remove(cardView);
 		Destroy(cardView.gameObject);
@@ -197,7 +152,7 @@ public class PlayCanvas : UIBehaviour
 	void OnBeginDragCard(BlockGroupView cardView, PointerEventData eventData)
 	{
 		//카드의 블록 크기를 맵과 일치시킴
-		cardView.StartDragging(_mapView.CellSize);
+		cardView.StartDragging(MapCanvas.CellSize);
 	}
 
 	/// <summary>
