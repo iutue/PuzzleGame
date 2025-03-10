@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// 블록 뷰에 적용할 수 있는 테마
 /// </summary>
-[CreateAssetMenu(fileName = "new BlockTheme", menuName = "Block/Theme")]
+[CreateAssetMenu(fileName = "PlaySetting", menuName = "Scriptable Objects/BlockTheme")]
 public class BlockTheme : ScriptableObject
 {
 	/// <summary>

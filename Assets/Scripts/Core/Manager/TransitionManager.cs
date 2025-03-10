@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
-/// 화면 전환을 관리하는 매니저 GUI
+/// 화면 전환을 관리하는 매니저
 /// </summary>
 public class TransitionManager : SingletonBehaviour<TransitionManager>
 {

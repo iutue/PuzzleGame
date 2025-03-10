@@ -16,21 +16,25 @@ public class TabPanel : UIBehaviour
 		public TabButton Button;
 		public SlidePanel Content;
 	}
+	/// <summary>
+	/// 모든 탭
+	/// </summary>
 	[SerializeField]
 	Tab[] _tabs;
 	/// <summary>
-	/// 현재 탭의 번호
+	/// 현재 열린 탭의 번호
 	/// </summary>
 	[SerializeField]
 	int _currentTabIndex;
 
 	protected override void Start()
 	{
+		//모든 탭 초기화
 		for (int i = 0; i < _tabs.Length; i++)
 		{
 			_tabs[i].Button.Init(i, OnTabButtonClicked);
 		}
-		//현재 탭으로 초기화
+		//초기 탭 열기
 		OpenTab(_currentTabIndex);
 	}
 
@@ -48,28 +52,28 @@ public class TabPanel : UIBehaviour
 	}
 
 	/// <summary>
-	/// 열린 탭을 닫고, 주어진 탭 열기
+	/// 현재 탭 닫고, 새로운 탭 열기
 	/// </summary>
-	void OpenTab(int tabIndex)
+	void OpenTab(int newIndex)
 	{
 		int oldIndex = _currentTabIndex;
+		_currentTabIndex = newIndex;
 
-		Tab oldTab = _tabs[_currentTabIndex];
-		Tab newTab = _tabs[tabIndex];
-		_currentTabIndex = tabIndex;
-
+		Tab oldTab = _tabs[oldIndex];
+		Tab newTab = _tabs[newIndex];
+		
 		oldTab.Button.Highlight.enabled = false;
 		newTab.Button.Highlight.enabled = true;
 
-		if (oldIndex < tabIndex)
+		if (oldIndex < newIndex)
 		{
-			//현재 탭의 오른쪽 탭 열기
+			//현재 탭보다 다음에 위치한 탭 열기
 			oldTab.Content.Close(SlidePanel.State.Next);
 			newTab.Content.Open(SlidePanel.State.Prev);
 		}
 		else
 		{
-			//현재 탭의 왼쪽 탭 열기
+			//현재 탭보다 이전에 위치한 탭 열기
 			oldTab.Content.Close(SlidePanel.State.Prev);
 			newTab.Content.Open(SlidePanel.State.Next);
 		}

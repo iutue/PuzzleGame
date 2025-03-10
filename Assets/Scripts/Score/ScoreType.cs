@@ -7,7 +7,7 @@ using UnityEngine.Localization;
 /// <summary>
 /// 점수의 종류
 /// </summary>
-[CreateAssetMenu(fileName = "new ScoreType", menuName = "Score/Type")]
+[CreateAssetMenu(fileName = "ScoreType", menuName = "Scriptable Objects/ScoreType")]
 public class ScoreType : ScriptableObject
 {
 	/// <summary>

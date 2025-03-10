@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9099267097027803157}
+  - component: {fileID: 2938379324784729274}
   - component: {fileID: 781449434612528268}
   - component: {fileID: 648862981836961673}
   - component: {fileID: 6016248323747132925}
@@ -39,6 +40,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2938379324784729274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4815682421171642516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1252dadd93c57e04a873c39565b12d30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playSetting: {fileID: 11400000, guid: 904b26cf08da64b48a0a4b243a9d943d, type: 2}
+  _map: {fileID: 8591367807916746349}
 --- !u!223 &781449434612528268
 Canvas:
   m_ObjectHideFlags: 0
@@ -173,7 +188,7 @@ MonoBehaviour:
     SlideAngle: 0
     SlideDistance: 1
     IsLocked: 0
-    SlidePosition: {x: 900, y: 0, z: 0}
+    SlidePosition: {x: 1, y: 0, z: 0}
     Scale: 0
     Alpha: 1
   - State: 2
@@ -183,7 +198,7 @@ MonoBehaviour:
     SlideAngle: 0
     SlideDistance: 1
     IsLocked: 0
-    SlidePosition: {x: 900, y: 0, z: 0}
+    SlidePosition: {x: 1, y: 0, z: 0}
     Scale: 0
     Alpha: 1
   - State: 3

@@ -1999,9 +1999,9 @@ MonoBehaviour:
   m_FillRect: {fileID: 1072497821}
   m_HandleRect: {fileID: 1182901371}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
+  m_MinValue: -80
+  m_MaxValue: 0
+  m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2934,7 +2934,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 423825566521613793, guid: 0af076c66d1740e4bb72ca617fb568b4, type: 3}
   m_PrefabInstance: {fileID: 2162127281697483068}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2162127281697483069}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 755f03ffd20bcb34083efcd7a19d0ebe, type: 3}
@@ -7258,9 +7258,9 @@ MonoBehaviour:
   m_FillRect: {fileID: 80179741}
   m_HandleRect: {fileID: 412671247}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
+  m_MinValue: -80
+  m_MaxValue: 0
+  m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10480,9 +10480,9 @@ MonoBehaviour:
   m_FillRect: {fileID: 2014501966}
   m_HandleRect: {fileID: 1157533997}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
+  m_MinValue: -80
+  m_MaxValue: 0
+  m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11399,7 +11399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 689362335697194954, guid: 0af076c66d1740e4bb72ca617fb568b4, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 689362335697194954, guid: 0af076c66d1740e4bb72ca617fb568b4, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -11702,8 +11702,36 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5045196287286468912, guid: 0af076c66d1740e4bb72ca617fb568b4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 392322241}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5834982259544333848, guid: 0af076c66d1740e4bb72ca617fb568b4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2162127281697483070}
   m_SourcePrefab: {fileID: 100100000, guid: 0af076c66d1740e4bb72ca617fb568b4, type: 3}
+--- !u!1 &2162127281697483069 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5834982259544333848, guid: 0af076c66d1740e4bb72ca617fb568b4, type: 3}
+  m_PrefabInstance: {fileID: 2162127281697483068}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2162127281697483070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2162127281697483069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ef9a5b48b083a49a018f90b9fd5fbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _graphicsSetting: {fileID: 11400000, guid: dd8b28ca31ea7d54a9a2dd1c7b825ac7, type: 2}
+  _targetFps: {fileID: 392322242}
+  _soundSetting: {fileID: 11400000, guid: c70938db182d8ab499f3ab0331133718, type: 2}
+  _masterVolume: {fileID: 337994813}
+  _bgmVolume: {fileID: 1360059718}
+  _sfxVolume: {fileID: 2054162352}
+  _playSetting: {fileID: 11400000, guid: 904b26cf08da64b48a0a4b243a9d943d, type: 2}
+  _mapScale: {fileID: 1930496302}
 --- !u!1 &2338898798446837799
 GameObject:
   m_ObjectHideFlags: 0
@@ -12025,7 +12053,7 @@ MonoBehaviour:
     Content: {fileID: 1567210578}
   - Button: {fileID: 1159954477}
     Content: {fileID: 501063154}
-  _currentTabIndex: 0
+  _currentTabIndex: 3
 --- !u!224 &7314819358676792662
 RectTransform:
   m_ObjectHideFlags: 0
