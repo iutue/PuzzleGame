@@ -19,6 +19,11 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	protected BlockGroup Map;
 	/// <summary>
+	/// 맵의 크기
+	/// </summary>
+	[SerializeField]
+	Vector2Int _initialMapSize;
+	/// <summary>
 	/// 카드를 놓을 수 있는지 검사한 맵의 블록<br/>
 	/// 동일한 블록을 매프레임마다 검사하는 것을 방지함
 	/// </summary>
@@ -138,7 +143,7 @@ public abstract class GameMode : MonoBehaviour
 	void ResetMap()
 	{
 		//맵 초기화
-		var mapTemplate = new Block.State[_gameModeSetting.MapSize.x, _gameModeSetting.MapSize.y];
+		var mapTemplate = new Block.State[_initialMapSize.x, _initialMapSize.y];
 		Map = new BlockGroup(mapTemplate);
 		Map.BlockSpawned += OnMapBlockSpawned;
 		Map.BlockDestroyed += OnMapBlockDestroyed;

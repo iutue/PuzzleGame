@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8845a37e2fa350a408c48054195e5bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mapSize: {x: 1, y: 1}
-  _maxCardCount: 3
+  _gameModeSetting: {fileID: 11400000, guid: de38b6e50ad962e40a0036526c97e4cb, type: 2}
+  _initialMapSize: {x: 0, y: 0}
   _playCanvas: {fileID: 0}
   Scores:
     _elements:
