@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b58ae486e16224ba1b34c9c7e79637, type: 3}
   m_Name: PlaySetting
   m_EditorClassIdentifier: 
-  _fileName: 
-  MapScale: 0.8
+  MapScale: 0.7366811
+  CardOffset: {x: 0, y: 0.2}

@@ -4741,11 +4741,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3531501133825440165, guid: 0cabce8722ea84240bbb88966e038683, type: 3}
       propertyPath: m_text
-      value: Puzzle
+      value: CountDown
       objectReference: {fileID: 0}
     - target: {fileID: 3531501133825440165, guid: 0cabce8722ea84240bbb88966e038683, type: 3}
       propertyPath: m_fontSize
-      value: 61.1
+      value: 38.3
       objectReference: {fileID: 0}
     - target: {fileID: 7107440944174313185, guid: 0cabce8722ea84240bbb88966e038683, type: 3}
       propertyPath: m_Name

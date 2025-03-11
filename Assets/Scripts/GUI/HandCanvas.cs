@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static BlockGroupView;
+using static UnityEngine.Rendering.GPUSort;
 
 /// <summary>
 /// 자신이 가지고 있는 카드를 보여주는 창
@@ -57,17 +58,6 @@ public class HandCanvas : UIBehaviour
 			Destroy(cardView.gameObject);
 		}
 		_cardViews.Clear();
-		//새로운 뷰 생성
-		for (int i = 0; i < cards.Count; i++)
-		{
-			var cardView = Instantiate(_cardViewPrefab, _cardParent.GetChild(i)).GetComponent<BlockGroupView>();
-			var randomIndex = UnityEngine.Random.Range(0, _gameModeSetting.CardThemes.Length);
-			cardView.Init(cards[i], _gameModeSetting.CardThemes[randomIndex]);
-			cardView.BeginDrag += _beginDragCard;
-			cardView.EndDrag += _endDragCard;
-			cardView.Dragging += _dragCard;
-			_cardViews.Add(cardView);
-		}
 	}
 
 	public void Open()
@@ -109,6 +99,20 @@ public class HandCanvas : UIBehaviour
 		cardView.ChangeBlockViewSize(cardView.BlockViewSize);
 	}
 
+	/// <summary>
+	/// 카드가 추가됐을 때 호출됨
+	/// </summary>
+	public void OnCardAdded(int index, BlockGroup card)
+	{
+		var cardView = Instantiate(_cardViewPrefab, _cardParent.GetChild(index)).GetComponent<BlockGroupView>();
+		//카드 테마 선택
+		var randomIndex = UnityEngine.Random.Range(0, _gameModeSetting.CardThemes.Length);
+		cardView.Init(card, _gameModeSetting.CardThemes[randomIndex]);
+		cardView.BeginDrag += _beginDragCard;
+		cardView.EndDrag += _endDragCard;
+		cardView.Dragging += _dragCard;
+		_cardViews.Add(cardView);
+	}
 	/// <summary>
 	/// 카드가 제거됐을 때 호출됨
 	/// </summary>

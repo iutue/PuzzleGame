@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using Unity.Burst;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
@@ -14,7 +15,7 @@ public abstract class GameMode : MonoBehaviour
 	/// <summary>
 	/// 게임 상태
 	/// </summary>
-	[field:SerializeField]
+	[field: SerializeField]
 	protected GameState State { get; private set; }
 
 	/// <summary>
@@ -74,6 +75,8 @@ public abstract class GameMode : MonoBehaviour
 		ResetGame();
 		//시작
 		_playCanvas.OnGameStarted();
+
+		DrawCards();
 
 #if UNITY_EDITOR
 		Debug.Log("게임 시작");
@@ -162,22 +165,65 @@ public abstract class GameMode : MonoBehaviour
 
 	#region Card
 	/// <summary>
-	/// 패의 모든 카드를 버리고 최대 수 만큼 패를 다시 뽑기
+	/// 패 버리기
 	/// </summary>
-	//TODO[개선] ResetCard와 Draw카드로 분리하기
 	void ResetCards()
 	{
 		//카드 초기화
 		Cards.Clear();
-		for (int i = 0; i < State.HandCapacity; i++)
-		{
-			//램덤한 모양의 카드 선택
-			int randomIndex = Random.Range(0, BlockGroupTemplates.Templates.Count);
-			var randomTemplate = BlockGroupTemplates.Templates[randomIndex];
-			Cards.Add(new BlockGroup(randomTemplate));
-		}
 		//뷰 초기화
 		_playCanvas.HandCanvas.ResetCards(Cards);
+	}
+
+	/// <summary>
+	/// 카드 뽑기
+	/// </summary>
+	void DrawCards()
+	{
+		for (int i = 0; i < State.DrawCount; i++)
+		{
+			if (Cards.Count >= State.HandCapacity)
+			{
+				//더 이상 카드를 뽑을 수 없음
+				break;
+			}
+			var newCard = CreateCard();
+			AddCard(newCard);
+		}
+	}
+
+	/// <summary>
+	/// 새로운 카드 생성
+	/// </summary>
+	BlockGroup CreateCard()
+	{
+		//램덤한 모양의 카드 생성
+		int randomIndex = Random.Range(0, BlockGroupTemplates.Templates.Count);
+		var randomTemplate = BlockGroupTemplates.Templates[randomIndex];
+		return new BlockGroup(randomTemplate);
+	}
+
+	/// <summary>
+	/// 패에 카드 추가
+	/// </summary>
+	void AddCard(BlockGroup card)
+	{
+		Cards.Add(card);
+		_playCanvas.HandCanvas.OnCardAdded(Cards.Count - 1, card);
+	}
+	/// <summary>
+	/// 패의 카드 제거
+	/// </summary>
+	void RemoveCard(BlockGroupView target)
+	{
+		Cards.Remove(target.OwnerBlockGroup);
+		_playCanvas.HandCanvas.OnCardRemoved(target);
+
+		if (Cards.Count == 0)
+		{
+			//패에 카드가 없음
+			OnHandEmpty();
+		}
 	}
 
 	/// <summary>
@@ -226,21 +272,6 @@ public abstract class GameMode : MonoBehaviour
 		RemoveCard(cardView);
 		//게임 업데이트
 		UpdateGame();
-	}
-
-	/// <summary>
-	/// 카드 제거
-	/// </summary>
-	void RemoveCard(BlockGroupView target)
-	{
-		Cards.Remove(target.OwnerBlockGroup);
-		_playCanvas.HandCanvas.OnCardRemoved(target);
-
-		if (Cards.Count == 0)
-		{
-			//패에 카드가 없음
-			OnHandEmpty();
-		}
 	}
 	#endregion
 
@@ -333,7 +364,7 @@ public abstract class GameMode : MonoBehaviour
 	protected virtual void OnHandEmpty()
 	{
 		//새로운 카드 뽑기
-		ResetCards();
+		DrawCards();
 	}
 	#endregion
 }

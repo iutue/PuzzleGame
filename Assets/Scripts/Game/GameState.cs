@@ -30,7 +30,7 @@ public class GameState : ScriptableObject
 	/// <summary>
 	/// 카드를 한 번 뽑을 때 가져올 카드 수
 	/// </summary>
-	[Range(0, 5)]
+	[Range(1, 5)]
 	public int DrawCount;
 	/// <summary>
 	/// 카드에 무작위로 적용할 테마
