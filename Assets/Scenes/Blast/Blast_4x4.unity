@@ -698,7 +698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5163014805832455207, guid: 4975974cf29087c479c69b5732f64000, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 364.479
+      value: 364.47937
       objectReference: {fileID: 0}
     - target: {fileID: 5296727035316017906, guid: 4975974cf29087c479c69b5732f64000, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1150,6 +1150,10 @@ PrefabInstance:
       propertyPath: _topBarCanvas
       value: 
       objectReference: {fileID: 6744612469239991312}
+    - target: {fileID: 2458285373314489841, guid: 9f5215b8c01ca5d49a23608c5eca8731, type: 3}
+      propertyPath: _gameModeSetting
+      value: 
+      objectReference: {fileID: 11400000, guid: de38b6e50ad962e40a0036526c97e4cb, type: 2}
     - target: {fileID: 2458285373314489841, guid: 9f5215b8c01ca5d49a23608c5eca8731, type: 3}
       propertyPath: _initialMapSize.x
       value: 4

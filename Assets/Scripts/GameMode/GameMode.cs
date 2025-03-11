@@ -11,11 +11,9 @@ using UnityEngine.UI;
 /// </summary>
 public abstract class GameMode : MonoBehaviour
 {
-	/// <summary>
-	/// 맵의 크기
-	/// </summary>
 	[SerializeField]
-	Vector2Int _mapSize;
+	GameModeSetting _gameModeSetting;
+
 	/// <summary>
 	/// 현재 맵
 	/// </summary>
@@ -25,12 +23,6 @@ public abstract class GameMode : MonoBehaviour
 	/// 동일한 블록을 매프레임마다 검사하는 것을 방지함
 	/// </summary>
 	Block _previousMapBlock;
-
-	/// <summary>
-	/// 패에 최대로 가질 수 있는 카드 수
-	/// </summary>
-	[SerializeField, Range(1, 5)]
-	int _maxCardCount = 3;
 	/// <summary>
 	/// 패에 있는 카드들
 	/// </summary>
@@ -38,9 +30,6 @@ public abstract class GameMode : MonoBehaviour
 
 	[SerializeField]
 	PlayCanvas _playCanvas;
-	/// <summary>
-	/// 모든 점수
-	/// </summary>
 	[SerializeField]
 	protected ScoreContainer Scores;
 
@@ -59,7 +48,7 @@ public abstract class GameMode : MonoBehaviour
 	{
 		Scores.Init();
 		_playCanvas.OnGameInitialized(
-			_maxCardCount, Scores,
+			_gameModeSetting, Scores,
 			OnBackButtonClicked, OnResetButtonClicked, null,
 			OnBeginDragCard, OnEndDragCard, OnDragCard);
 
@@ -149,7 +138,8 @@ public abstract class GameMode : MonoBehaviour
 	void ResetMap()
 	{
 		//맵 초기화
-		Map = new BlockGroup(new Block.State[_mapSize.x, _mapSize.y]);
+		var mapTemplate = new Block.State[_gameModeSetting.MapSize.x, _gameModeSetting.MapSize.y];
+		Map = new BlockGroup(mapTemplate);
 		Map.BlockSpawned += OnMapBlockSpawned;
 		Map.BlockDestroyed += OnMapBlockDestroyed;
 		//뷰 초기화
@@ -166,11 +156,12 @@ public abstract class GameMode : MonoBehaviour
 	/// <summary>
 	/// 패의 모든 카드를 버리고 최대 수 만큼 패를 다시 뽑기
 	/// </summary>
+	//TODO ResetCard와 Draw카드로 분리하기
 	void ResetCards()
 	{
 		//카드 초기화
 		Cards.Clear();
-		for (int i = 0; i < _maxCardCount; i++)
+		for (int i = 0; i < _gameModeSetting.HandCapacity; i++)
 		{
 			//램덤한 모양의 카드 선택
 			int randomIndex = Random.Range(0, BlockGroupTemplates.Templates.Count);

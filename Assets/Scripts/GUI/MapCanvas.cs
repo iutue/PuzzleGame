@@ -11,6 +11,7 @@ public class MapCanvas : UIBehaviour
 {
 	[SerializeField]
 	PlaySetting _playSetting;
+	GameModeSetting _gameModeSetting;
 
 	[SerializeField]
 	SlidePanel _map;
@@ -32,11 +33,6 @@ public class MapCanvas : UIBehaviour
 	/// 스케일을 적용한 맵 블록의 크기
 	/// </summary>
 	public Vector2 BlockViewSize => _mapView.BlockViewSize * _mapParent.localScale;
-	/// <summary>
-	/// 맵에 적용할 테마
-	/// </summary>
-	[SerializeField]
-	BlockTheme _theme;
 
 	protected override void OnEnable()
 	{
@@ -51,8 +47,9 @@ public class MapCanvas : UIBehaviour
 		_playSetting.SettingChanged -= OnSettingChanged;
 	}
 
-	public void Init()
+	public void Init(GameModeSetting gameModeSetting)
 	{
+		_gameModeSetting = gameModeSetting;
 		_mapParent = _map.GetComponent<RectTransform>();
 		_mapRaycaster = _map.GetComponentInParent<GraphicRaycaster>();
 	}
@@ -69,7 +66,7 @@ public class MapCanvas : UIBehaviour
 		}
 		//새로운 뷰 생성
 		_mapView = Instantiate(_mapViewPrefab, _mapParent).GetComponent<BlockGroupView>();
-		_mapView.Init(map, _theme);
+		_mapView.Init(map, _gameModeSetting.MapTheme);
 	}
 
 	/// <summary>

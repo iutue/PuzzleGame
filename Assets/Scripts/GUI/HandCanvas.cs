@@ -9,16 +9,9 @@ using static BlockGroupView;
 [RequireComponent(typeof(Canvas))]
 public class HandCanvas : UIBehaviour
 {
-	//TODO GameModeSetting을 만들어 DrawCount, TimeLimit,_cardOffset,_themes 등 저장하기
-
 	[SerializeField]
 	PlaySetting _playSetting;
-
-	/// <summary>
-	/// 카드에 무작위로 적용할 테마
-	/// </summary>
-	[SerializeField]
-	BlockTheme[] _themes;
+	GameModeSetting _gameModeSetting;
 
 	[SerializeField]
 	SlidePanel _cards;
@@ -39,14 +32,14 @@ public class HandCanvas : UIBehaviour
 	DragHandler _endDragCard;
 	DragHandler _dragCard;
 
-	//TODO drawCount는 ModeSetting에서 가져오기
-	public void Init(int drawCount, DragHandler beginDragCard, DragHandler endDragCard, DragHandler dragCard)
+	public void Init(GameModeSetting gameModeSetting, DragHandler beginDragCard, DragHandler endDragCard, DragHandler dragCard)
 	{
+		_gameModeSetting = gameModeSetting;
 		_beginDragCard = beginDragCard;
 		_endDragCard = endDragCard;
 		_dragCard = dragCard;
 		//카드가 들어갈 자리를 미리 확보
-		for (int i = 0; i < drawCount; i++)
+		for (int i = 0; i < _gameModeSetting.HandCapacity; i++)
 		{
 			var child = new GameObject("CardSlot").AddComponent<RectTransform>();
 			child.transform.SetParent(_cardParent, false);
@@ -68,8 +61,8 @@ public class HandCanvas : UIBehaviour
 		for (int i = 0; i < cards.Count; i++)
 		{
 			var cardView = Instantiate(_cardViewPrefab, _cardParent.GetChild(i)).GetComponent<BlockGroupView>();
-			var randomIndex = UnityEngine.Random.Range(0, _themes.Length);
-			cardView.Init(cards[i], _themes[randomIndex]);
+			var randomIndex = UnityEngine.Random.Range(0, _gameModeSetting.CardThemes.Length);
+			cardView.Init(cards[i], _gameModeSetting.CardThemes[randomIndex]);
 			cardView.BeginDrag += _beginDragCard;
 			cardView.EndDrag += _endDragCard;
 			cardView.Dragging += _dragCard;
