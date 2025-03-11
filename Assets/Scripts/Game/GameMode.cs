@@ -11,8 +11,11 @@ using UnityEngine.UI;
 /// </summary>
 public abstract class GameMode : MonoBehaviour
 {
-	[SerializeField]
-	GameModeSetting _gameModeSetting;
+	/// <summary>
+	/// 게임 상태
+	/// </summary>
+	[field:SerializeField]
+	protected GameState State { get; private set; }
 
 	/// <summary>
 	/// 현재 맵
@@ -35,8 +38,6 @@ public abstract class GameMode : MonoBehaviour
 
 	[SerializeField]
 	PlayCanvas _playCanvas;
-	[SerializeField]
-	protected ScoreContainer Scores;
 
 	protected void Start()
 	{
@@ -51,9 +52,11 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	void InitGame()
 	{
-		Scores.Init();
+		State = Instantiate(State);
+
+		State.Scores.Init();
 		_playCanvas.OnGameInitialized(
-			_gameModeSetting, Scores,
+			State,
 			OnBackButtonClicked, OnResetButtonClicked, null,
 			OnBeginDragCard, OnEndDragCard, OnDragCard);
 
@@ -83,8 +86,8 @@ public abstract class GameMode : MonoBehaviour
 	void EndGame()
 	{
 		//기록 비교
-		var totalScore = Scores["Total"];
-		var bestRecord = Scores["BestRecord"];
+		var totalScore = State.Scores["Total"];
+		var bestRecord = State.Scores["BestRecord"];
 		string bestRecordName = "BestRecord_" + SceneManager.GetActiveScene().name;
 		bestRecord.BaseValue = PlayerPrefs.GetInt(bestRecordName, 0);
 		if (totalScore.CurrentValue > bestRecord.CurrentValue)
@@ -107,7 +110,7 @@ public abstract class GameMode : MonoBehaviour
 	{
 		ResetMap();
 		ResetCards();
-		Scores.ResetAll();
+		State.Scores.ResetAll();
 		_playCanvas.OnGameReset();
 
 #if UNITY_EDITOR
@@ -161,12 +164,12 @@ public abstract class GameMode : MonoBehaviour
 	/// <summary>
 	/// 패의 모든 카드를 버리고 최대 수 만큼 패를 다시 뽑기
 	/// </summary>
-	//TODO ResetCard와 Draw카드로 분리하기
+	//TODO[개선] ResetCard와 Draw카드로 분리하기
 	void ResetCards()
 	{
 		//카드 초기화
 		Cards.Clear();
-		for (int i = 0; i < _gameModeSetting.HandCapacity; i++)
+		for (int i = 0; i < State.HandCapacity; i++)
 		{
 			//램덤한 모양의 카드 선택
 			int randomIndex = Random.Range(0, BlockGroupTemplates.Templates.Count);

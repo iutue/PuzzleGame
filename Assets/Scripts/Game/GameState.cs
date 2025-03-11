@@ -1,9 +1,14 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GameModeSetting", menuName = "Scriptable Objects/Setting/GameMode")]
-public class GameModeSetting : ScriptableSetting
+/// <summary>
+/// 게임의 상태
+/// </summary>
+//TODO[추가] Json으로 직렬화해서 게임 상태 저장 기능 추가하기
+[CreateAssetMenu(fileName = "GameState", menuName = "Scriptable Objects/GameState")]
+public class GameState : ScriptableObject
 {
-	[Header("Turn")]
+	[Header("Match")]
+	public ScoreContainer Scores;
 	/// <summary>
 	/// 한 턴의 제한 시간
 	/// </summary>

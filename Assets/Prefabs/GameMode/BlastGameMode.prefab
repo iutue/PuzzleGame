@@ -44,33 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8845a37e2fa350a408c48054195e5bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameModeSetting: {fileID: 11400000, guid: de38b6e50ad962e40a0036526c97e4cb, type: 2}
+  <State>k__BackingField: {fileID: 11400000, guid: de38b6e50ad962e40a0036526c97e4cb, type: 2}
   _initialMapSize: {x: 0, y: 0}
   _playCanvas: {fileID: 0}
-  Scores:
-    _elements:
-    - <Type>k__BackingField: {fileID: 11400000, guid: 95884e1e77971e34a850d65491d3850c, type: 2}
-      _valueUpdateMethod: 0
-      <Multiplier>k__BackingField: 1
-      <InitialValue>k__BackingField: 0
-      _baseValue: 0
-    - <Type>k__BackingField: {fileID: 11400000, guid: f650e67cf45434f49b47d7145e999f8b, type: 2}
-      _valueUpdateMethod: 0
-      <Multiplier>k__BackingField: 2
-      <InitialValue>k__BackingField: 0
-      _baseValue: 0
-    - <Type>k__BackingField: {fileID: 11400000, guid: 35bafe4aa5c1bee4480d7df4663898c7, type: 2}
-      _valueUpdateMethod: 0
-      <Multiplier>k__BackingField: 10
-      <InitialValue>k__BackingField: 0
-      _baseValue: 0
-    - <Type>k__BackingField: {fileID: 11400000, guid: 212dd936ca521cd4ebc6f1d88edf7320, type: 2}
-      _valueUpdateMethod: 0
-      <Multiplier>k__BackingField: 1
-      <InitialValue>k__BackingField: 0
-      _baseValue: 0
-    - <Type>k__BackingField: {fileID: 11400000, guid: 43b0417de961b6147b7f844ef5eb4025, type: 2}
-      _valueUpdateMethod: 0
-      <Multiplier>k__BackingField: 1
-      <InitialValue>k__BackingField: 0
-      _baseValue: 0

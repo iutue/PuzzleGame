@@ -74,7 +74,7 @@ public class BlastGameMode : GameMode
 			block.CurrentState = Block.State.Empty;
 		}
 		//점수 추가
-		Scores["LineClear"].BaseValue += clearCount;
+		State.Scores["LineClear"].BaseValue += clearCount;
 	}
 
 	protected override bool CheckEndCondition()
@@ -117,13 +117,13 @@ public class BlastGameMode : GameMode
 	protected override void OnMapBlockSpawned(Block block)
 	{
 		base.OnMapBlockSpawned(block);
-		Scores["+Block"].BaseValue += 1;
+		State.Scores["+Block"].BaseValue += 1;
 	}
 
 	protected override void OnMapBlockDestroyed(Block block)
 	{
 		base.OnMapBlockDestroyed(block);
-		Scores["-Block"].BaseValue += 1;
+		State.Scores["-Block"].BaseValue += 1;
 	}
 	#endregion
 }

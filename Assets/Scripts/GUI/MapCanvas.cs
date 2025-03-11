@@ -11,7 +11,7 @@ public class MapCanvas : UIBehaviour
 {
 	[SerializeField]
 	PlaySetting _playSetting;
-	GameModeSetting _gameModeSetting;
+	GameState _gameModeSetting;
 
 	[SerializeField]
 	SlidePanel _map;
@@ -47,7 +47,7 @@ public class MapCanvas : UIBehaviour
 		_playSetting.SettingChanged -= OnSettingChanged;
 	}
 
-	public void Init(GameModeSetting gameModeSetting)
+	public void Init(GameState gameModeSetting)
 	{
 		_gameModeSetting = gameModeSetting;
 		_mapParent = _map.GetComponent<RectTransform>();

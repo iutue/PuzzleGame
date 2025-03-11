@@ -16,7 +16,6 @@ public class PlayCanvas : UIBehaviour
 	public MapCanvas MapCanvas { get; private set; }
 	[field: SerializeField]
 	public HandCanvas HandCanvas { get; private set; }
-	//TODO PlayCanvas 내 자식 캔버스로 옮기기
 	[field: SerializeField]
 	public ResultCanvas ResultCanvas { get; private set; }
 
@@ -29,18 +28,18 @@ public class PlayCanvas : UIBehaviour
 	/// <summary>
 	/// 게임 초기화 후 호출됨
 	/// </summary>
-	public void OnGameInitialized(GameModeSetting gameModeSetting, ScoreContainer scoreTable,
+	public void OnGameInitialized(GameState gameModeData,
 		Action backButtonClicked, Action resetButtonClicked, Action nextButtonClicked,
 		DragHandler beginDragCard, DragHandler endDragCard, DragHandler dragCard)
 	{
 		//탑바
-		TopBarCanvas.Init(scoreTable["Total"], backButtonClicked, resetButtonClicked);
+		TopBarCanvas.Init(gameModeData.Scores["Total"], backButtonClicked, resetButtonClicked);
 		//맵
-		MapCanvas.Init(gameModeSetting);
+		MapCanvas.Init(gameModeData);
 		//카드
-		HandCanvas.Init(gameModeSetting, beginDragCard, endDragCard, dragCard);
+		HandCanvas.Init(gameModeData, beginDragCard, endDragCard, dragCard);
 		//결과
-		ResultCanvas.Init(scoreTable, backButtonClicked, resetButtonClicked, nextButtonClicked);
+		ResultCanvas.Init(gameModeData.Scores, backButtonClicked, resetButtonClicked, nextButtonClicked);
 	}
 
 	/// <summary>

@@ -11,7 +11,7 @@ public class HandCanvas : UIBehaviour
 {
 	[SerializeField]
 	PlaySetting _playSetting;
-	GameModeSetting _gameModeSetting;
+	GameState _gameModeSetting;
 
 	[SerializeField]
 	SlidePanel _cards;
@@ -32,7 +32,7 @@ public class HandCanvas : UIBehaviour
 	DragHandler _endDragCard;
 	DragHandler _dragCard;
 
-	public void Init(GameModeSetting gameModeSetting, DragHandler beginDragCard, DragHandler endDragCard, DragHandler dragCard)
+	public void Init(GameState gameModeSetting, DragHandler beginDragCard, DragHandler endDragCard, DragHandler dragCard)
 	{
 		_gameModeSetting = gameModeSetting;
 		_beginDragCard = beginDragCard;
