@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// 현재 맵의 상태를 보여주는 창
 /// </summary>
 [RequireComponent(typeof(Canvas))]
-public class MapCanvas : UIBehaviour
+public class MapView : UIBehaviour
 {
 	[SerializeField]
 	PlaySetting _playSetting;

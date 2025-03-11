@@ -154,7 +154,7 @@ public abstract class GameMode : MonoBehaviour
 		Map.BlockSpawned += OnMapBlockSpawned;
 		Map.BlockDestroyed += OnMapBlockDestroyed;
 		//뷰 초기화
-		_playCanvas.MapCanvas.ResetMap(Map);
+		_playCanvas.MapView.ResetMap(Map);
 	}
 
 	/// <summary>
@@ -172,7 +172,7 @@ public abstract class GameMode : MonoBehaviour
 		//카드 초기화
 		Cards.Clear();
 		//뷰 초기화
-		_playCanvas.HandCanvas.ResetCards(Cards);
+		_playCanvas.HandView.ResetCards(Cards);
 	}
 
 	/// <summary>
@@ -209,7 +209,7 @@ public abstract class GameMode : MonoBehaviour
 	void AddCard(BlockGroup card)
 	{
 		Cards.Add(card);
-		_playCanvas.HandCanvas.OnCardAdded(Cards.Count - 1, card);
+		_playCanvas.HandView.OnCardAdded(Cards.Count - 1, card);
 	}
 	/// <summary>
 	/// 패의 카드 제거
@@ -217,7 +217,7 @@ public abstract class GameMode : MonoBehaviour
 	void RemoveCard(BlockGroupView target)
 	{
 		Cards.Remove(target.OwnerBlockGroup);
-		_playCanvas.HandCanvas.OnCardRemoved(target);
+		_playCanvas.HandView.OnCardRemoved(target);
 
 		if (Cards.Count == 0)
 		{
@@ -320,7 +320,7 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	protected virtual void OnBeginDragCard(BlockGroupView cardView, PointerEventData eventData)
 	{
-		_playCanvas.HandCanvas.OnBeginDragCard(cardView, _playCanvas.MapCanvas.BlockViewSize);
+		_playCanvas.HandView.OnBeginDragCard(cardView, _playCanvas.MapView.BlockViewSize);
 	}
 
 	/// <summary>
@@ -329,7 +329,7 @@ public abstract class GameMode : MonoBehaviour
 	protected virtual void OnDragCard(BlockGroupView cardView, PointerEventData eventData)
 	{
 		//카드를 배치할 때 기준이 되는 맵의 블록 검출
-		var origin = _playCanvas.MapCanvas.GetMapBlockAt(cardView.OriginBlockPosition);
+		var origin = _playCanvas.MapView.GetMapBlockAt(cardView.OriginBlockPosition);
 		//카드 배치 시도
 		if (TryCardPlacement(cardView.OwnerBlockGroup, origin))
 		{
@@ -340,7 +340,7 @@ public abstract class GameMode : MonoBehaviour
 			//배치 실패
 			Map.Convert(Block.State.Preview, Block.State.Empty);
 		}
-		_playCanvas.HandCanvas.OnDragCard(cardView, eventData.position);
+		_playCanvas.HandView.OnDragCard(cardView, eventData.position);
 	}
 
 	/// <summary>
@@ -355,7 +355,7 @@ public abstract class GameMode : MonoBehaviour
 			//카드 배치 확정
 			ConfirmCardPlacement(cardView);
 		}
-		_playCanvas.HandCanvas.OnEndDragCard(cardView);
+		_playCanvas.HandView.OnEndDragCard(cardView);
 	}
 
 	/// <summary>

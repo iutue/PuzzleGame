@@ -11,13 +11,13 @@ using static BlockGroupView;
 public class PlayCanvas : UIBehaviour
 {
 	[field: SerializeField]
-	public TopBarCanvas TopBarCanvas { get; private set; }
+	public TopBarCanvas TopBar { get; private set; }
 	[field: SerializeField]
-	public MapCanvas MapCanvas { get; private set; }
+	public MapView MapView { get; private set; }
 	[field: SerializeField]
-	public HandCanvas HandCanvas { get; private set; }
+	public HandView HandView { get; private set; }
 	[field: SerializeField]
-	public ResultCanvas ResultCanvas { get; private set; }
+	public ResultCanvas ResultPanel { get; private set; }
 
 	protected override void OnRectTransformDimensionsChange()
 	{
@@ -33,13 +33,13 @@ public class PlayCanvas : UIBehaviour
 		DragHandler beginDragCard, DragHandler endDragCard, DragHandler dragCard)
 	{
 		//탑바
-		TopBarCanvas.Init(gameModeData.Scores["Total"], backButtonClicked, resetButtonClicked);
+		TopBar.Init(gameModeData.Scores["Total"], backButtonClicked, resetButtonClicked);
 		//맵
-		MapCanvas.Init(gameModeData);
+		MapView.Init(gameModeData);
 		//카드
-		HandCanvas.Init(gameModeData, beginDragCard, endDragCard, dragCard);
+		HandView.Init(gameModeData, beginDragCard, endDragCard, dragCard);
 		//결과
-		ResultCanvas.Init(gameModeData.Scores, backButtonClicked, resetButtonClicked, nextButtonClicked);
+		ResultPanel.Init(gameModeData.Scores, backButtonClicked, resetButtonClicked, nextButtonClicked);
 	}
 
 	/// <summary>
@@ -48,11 +48,11 @@ public class PlayCanvas : UIBehaviour
 	public void OnGameStarted()
 	{
 		//결과창 닫고
-		ResultCanvas.Close();
+		ResultPanel.Close();
 		//필수창 열기
-		TopBarCanvas.Open();
-		MapCanvas.Open();
-		HandCanvas.Open();
+		TopBar.Open();
+		MapView.Open();
+		HandView.Open();
 	}
 
 	/// <summary>
@@ -61,9 +61,9 @@ public class PlayCanvas : UIBehaviour
 	public void OnGameEnded()
 	{
 		//탑바만 숨기고
-		TopBarCanvas.Close();
+		TopBar.Close();
 		//결과창 열기
-		ResultCanvas.Open();
+		ResultPanel.Open();
 	}
 
 	/// <summary>

@@ -2,13 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static BlockGroupView;
-using static UnityEngine.Rendering.GPUSort;
 
 /// <summary>
 /// 자신이 가지고 있는 카드를 보여주는 창
 /// </summary>
 [RequireComponent(typeof(Canvas))]
-public class HandCanvas : UIBehaviour
+public class HandView : UIBehaviour
 {
 	[SerializeField]
 	PlaySetting _playSetting;
@@ -71,6 +70,31 @@ public class HandCanvas : UIBehaviour
 
 	#region Callbacks
 	/// <summary>
+	/// 카드가 추가됐을 때 호출됨
+	/// </summary>
+	public void OnCardAdded(int index, BlockGroup card)
+	{
+		//카드 뷰 추가
+		var cardView = Instantiate(_cardViewPrefab, _cardParent.GetChild(index)).GetComponent<BlockGroupView>();
+		var randomIndex = UnityEngine.Random.Range(0, _gameModeSetting.CardThemes.Length);
+		cardView.Init(card, _gameModeSetting.CardThemes[randomIndex]);
+		cardView.BeginDrag += _beginDragCard;
+		cardView.EndDrag += _endDragCard;
+		cardView.Dragging += _dragCard;
+		_cardViews.Add(cardView);
+	}
+
+	/// <summary>
+	/// 카드가 제거됐을 때 호출됨
+	/// </summary>
+	public void OnCardRemoved(BlockGroupView cardView)
+	{
+		//카드 뷰 제거
+		_cardViews.Remove(cardView);
+		Destroy(cardView.gameObject);
+	}
+
+	/// <summary>
 	/// 플레이어가 카드를 집었을 때 호출됨
 	/// </summary>
 	public void OnBeginDragCard(BlockGroupView cardView, Vector2 mapBlockViewSize)
@@ -97,29 +121,6 @@ public class HandCanvas : UIBehaviour
 		//카드를 원래 위치와 크기로 복구
 		cardView.ChangePosition(Vector2.zero);
 		cardView.ChangeBlockViewSize(cardView.BlockViewSize);
-	}
-
-	/// <summary>
-	/// 카드가 추가됐을 때 호출됨
-	/// </summary>
-	public void OnCardAdded(int index, BlockGroup card)
-	{
-		var cardView = Instantiate(_cardViewPrefab, _cardParent.GetChild(index)).GetComponent<BlockGroupView>();
-		//카드 테마 선택
-		var randomIndex = UnityEngine.Random.Range(0, _gameModeSetting.CardThemes.Length);
-		cardView.Init(card, _gameModeSetting.CardThemes[randomIndex]);
-		cardView.BeginDrag += _beginDragCard;
-		cardView.EndDrag += _endDragCard;
-		cardView.Dragging += _dragCard;
-		_cardViews.Add(cardView);
-	}
-	/// <summary>
-	/// 카드가 제거됐을 때 호출됨
-	/// </summary>
-	public void OnCardRemoved(BlockGroupView cardView)
-	{
-		_cardViews.Remove(cardView);
-		Destroy(cardView.gameObject);
 	}
 	#endregion
 }
