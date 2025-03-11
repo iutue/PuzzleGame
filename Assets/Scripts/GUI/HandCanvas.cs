@@ -10,18 +10,15 @@ using static BlockGroupView;
 public class HandCanvas : UIBehaviour
 {
 	//TODO GameModeSetting을 만들어 DrawCount, TimeLimit,_cardOffset,_themes 등 저장하기
-	/// <summary>
-	/// 카드를 집었을 때 포인터와 카드의 상대 위치, 화면 크기에 비례함
-	/// </summary>
+
 	[SerializeField]
-	Vector2 _cardOffset;
+	PlaySetting _playSetting;
+
 	/// <summary>
 	/// 카드에 무작위로 적용할 테마
 	/// </summary>
 	[SerializeField]
 	BlockTheme[] _themes;
-
-
 
 	[SerializeField]
 	SlidePanel _cards;
@@ -106,7 +103,7 @@ public class HandCanvas : UIBehaviour
 	{
 		//카드를 포인터 위치로 이동
 		position = cardView.GetComponent<RectTransform>().InverseTransformPoint(position);
-		cardView.SetPosition(position + _cardOffset * Screen.height);
+		cardView.SetPosition(position + _playSetting.CardOffset * Screen.height);
 	}
 
 	/// <summary>
