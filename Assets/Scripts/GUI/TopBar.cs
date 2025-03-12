@@ -10,11 +10,10 @@ using UnityEngine.UI;
 /// <summary>
 /// 매치 관련 버튼과 매치 상태를 보여주는 바
 /// </summary>
-[RequireComponent(typeof(Canvas))]
-public class TopBarCanvas : UIBehaviour
+public class TopBar : UIBehaviour
 {
 	[SerializeField]
-	SlidePanel _topBar;
+	SlidePanel _panel;
 
 	[SerializeField]
 	TMP_Text _scoreText;
@@ -56,10 +55,10 @@ public class TopBarCanvas : UIBehaviour
 
 	public void Open()
 	{
-		_topBar.Open();
+		_panel.Open();
 	}
 	public void Close()
 	{
-		_topBar.Close();
+		_panel.Close();
 	}
 }

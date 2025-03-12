@@ -14,7 +14,7 @@ public class HandView : UIBehaviour
 	GameState _gameModeSetting;
 
 	[SerializeField]
-	SlidePanel _cards;
+	SlidePanel _panel;
 	[SerializeField]
 	RectTransform _cardParent;
 
@@ -61,11 +61,11 @@ public class HandView : UIBehaviour
 
 	public void Open()
 	{
-		_cards.Open();
+		_panel.Open();
 	}
 	public void Close()
 	{
-		_cards.Close();
+		_panel.Close();
 	}
 
 	#region Callbacks

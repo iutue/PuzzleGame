@@ -11,13 +11,13 @@ using static BlockGroupView;
 public class PlayCanvas : UIBehaviour
 {
 	[field: SerializeField]
-	public TopBarCanvas TopBar { get; private set; }
+	public TopBar TopBar { get; private set; }
 	[field: SerializeField]
 	public MapView MapView { get; private set; }
 	[field: SerializeField]
 	public HandView HandView { get; private set; }
 	[field: SerializeField]
-	public ResultCanvas ResultPanel { get; private set; }
+	public ResultPanel ResultPanel { get; private set; }
 
 	protected override void OnRectTransformDimensionsChange()
 	{

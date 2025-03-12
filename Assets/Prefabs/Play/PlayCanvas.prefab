@@ -439,7 +439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7052464462723363491, guid: e80826541f725744c9f9421a78fe4302, type: 3}
       propertyPath: m_Name
-      value: HandCanvas
+      value: HandView
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -568,7 +568,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2166886757929894801, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
       propertyPath: m_Name
-      value: ResultCanvas
+      value: ResultPanel
       objectReference: {fileID: 0}
     - target: {fileID: 2222046787797229407, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
       propertyPath: m_Size
@@ -576,7 +576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2222046787797229407, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2329859958258254340, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
       propertyPath: m_AnchorMax.y
@@ -614,10 +614,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3061054043211151831, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
-      propertyPath: m_fontSize
-      value: 126.35
-      objectReference: {fileID: 0}
     - target: {fileID: 4298758059254260760, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -641,10 +637,6 @@ PrefabInstance:
     - target: {fileID: 4298758059254260760, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4609891597575204468, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
-      propertyPath: m_fontSize
-      value: 59.45
       objectReference: {fileID: 0}
     - target: {fileID: 4962202624552724143, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
       propertyPath: m_AnchorMax.y
@@ -745,10 +737,6 @@ PrefabInstance:
     - target: {fileID: 6818470164469363623, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6853791452519277331, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
-      propertyPath: m_fontSize
-      value: 59.45
       objectReference: {fileID: 0}
     - target: {fileID: 7294194742543307046, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
       propertyPath: m_AnchorMax.y
@@ -854,10 +842,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7767033220675188108, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
-      propertyPath: m_fontSize
-      value: 59.45
-      objectReference: {fileID: 0}
     - target: {fileID: 8073490047635845168, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -918,10 +902,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8959205096189425166, guid: dee3674733f047f469565b23f8f6ca10, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -953,7 +933,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4815682421171642516, guid: ebb5b458cbb2a644ca6abc6011ac0250, type: 3}
       propertyPath: m_Name
-      value: MapCanvas
+      value: MapView
       objectReference: {fileID: 0}
     - target: {fileID: 8591367807916746349, guid: ebb5b458cbb2a644ca6abc6011ac0250, type: 3}
       propertyPath: _boundary
@@ -1190,7 +1170,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4753376763931790031, guid: 1e6e207dd8894c140bfa2717d666d1a2, type: 3}
       propertyPath: m_Name
-      value: TopBarCanvas
+      value: TopBar
       objectReference: {fileID: 0}
     - target: {fileID: 6620043703505604329, guid: 1e6e207dd8894c140bfa2717d666d1a2, type: 3}
       propertyPath: _stateSettings.Array.data[1].SlidePosition.y

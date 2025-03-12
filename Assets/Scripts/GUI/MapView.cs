@@ -14,7 +14,7 @@ public class MapView : UIBehaviour
 	GameState _gameModeSetting;
 
 	[SerializeField]
-	SlidePanel _map;
+	SlidePanel _panel;
 	[SerializeField]
 	RectTransform _mapParent;
 	GraphicRaycaster _mapRaycaster;
@@ -50,8 +50,8 @@ public class MapView : UIBehaviour
 	public void Init(GameState gameModeSetting)
 	{
 		_gameModeSetting = gameModeSetting;
-		_mapParent = _map.GetComponent<RectTransform>();
-		_mapRaycaster = _map.GetComponentInParent<GraphicRaycaster>();
+		_mapParent = _panel.GetComponent<RectTransform>();
+		_mapRaycaster = _panel.GetComponentInParent<GraphicRaycaster>();
 	}
 
 	/// <summary>
@@ -91,15 +91,15 @@ public class MapView : UIBehaviour
 
 	public void Open()
 	{
-		_map.Open();
+		_panel.Open();
 	}
 	public void Close()
 	{
-		_map.Close();
+		_panel.Close();
 	}
 
 	void OnSettingChanged()
 	{
-		_map.GetComponent<RectTransform>().localScale = Vector3.one * _playSetting.MapScale;
+		_panel.GetComponent<RectTransform>().localScale = Vector3.one * _playSetting.MapScale;
 	}
 }

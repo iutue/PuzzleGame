@@ -7,13 +7,12 @@ using UnityEngine.UI;
 /// <summary>
 /// 매치 결과를 보여주는 창
 /// </summary>
-[RequireComponent(typeof(Canvas))]
-public class ResultCanvas : UIBehaviour
+public class ResultPanel : UIBehaviour
 {
 	[SerializeField]
-	SlidePanel _result;
+	SlidePanel _panel;
 	[SerializeField]
-	ScrollRect _scoreScrollRect;
+	ScrollRect _scoreRect;
 	/// <summary>
 	/// 한 번에 볼 수 있는 점수 패널의 개수
 	/// </summary>
@@ -33,12 +32,12 @@ public class ResultCanvas : UIBehaviour
 		InitGrid();
 	}
 
-	public void Init(ScoreContainer scoreTable, Action backButtonClicked, Action resetButtonClicked, Action nextButtonClicked)
+	public void Init(ScoreContainer scores, Action backButtonClicked, Action resetButtonClicked, Action nextButtonClicked)
 	{
 		//점수 패널 생성
-		foreach (var score in scoreTable)
+		foreach (var score in scores)
 		{
-			var newPanel = Instantiate(_scorePanelPrefab, _scoreScrollRect.content).GetComponent<ScoreView>();
+			var newPanel = Instantiate(_scorePanelPrefab, _scoreRect.content).GetComponent<ScoreView>();
 			newPanel.Init(score);
 		}
 		InitGrid();
@@ -52,8 +51,8 @@ public class ResultCanvas : UIBehaviour
 		//레이아웃이 초기화될 때까지 대기
 		await Awaitable.EndOfFrameAsync();
 		//점수 패널의 크기 조절
-		Vector2 scorePanelSize = _scoreScrollRect.viewport.rect.size;
-		GridLayoutGroup grid = _scoreScrollRect.content.GetComponent<GridLayoutGroup>();
+		Vector2 scorePanelSize = _scoreRect.viewport.rect.size;
+		GridLayoutGroup grid = _scoreRect.content.GetComponent<GridLayoutGroup>();
 		scorePanelSize -= grid.spacing * (_constraintCount);
 		scorePanelSize.x -= grid.padding.left + grid.padding.right;
 		scorePanelSize.y -= grid.padding.top + grid.padding.bottom;
@@ -76,10 +75,10 @@ public class ResultCanvas : UIBehaviour
 
 	public void Open()
 	{
-		_result.Open();
+		_panel.Open();
 	}
 	public void Close()
 	{
-		_result.Close();
+		_panel.Close();
 	}
 }

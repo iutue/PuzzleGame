@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5009294213166025728}
   - component: {fileID: 5274069272094820436}
   m_Layer: 5
-  m_Name: CardScrollView
+  m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 4146816551712412392}
   - component: {fileID: 6648850481425077262}
   m_Layer: 5
-  m_Name: HandCanvas
+  m_Name: HandView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -430,15 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playSetting: {fileID: 11400000, guid: 904b26cf08da64b48a0a4b243a9d943d, type: 2}
-  _themes:
-  - {fileID: 11400000, guid: 3d9b275f9539d394d9157765c405582a, type: 2}
-  - {fileID: 11400000, guid: abae41d2511cb174fa1f28ae17cd2843, type: 2}
-  - {fileID: 11400000, guid: 4c85f05baad2b8e499a89db46a278214, type: 2}
-  - {fileID: 11400000, guid: f53ad807586fef74599429e1b6ac22ee, type: 2}
-  - {fileID: 11400000, guid: ca4ddf76db8af474cbbcea4bc77a7035, type: 2}
-  - {fileID: 11400000, guid: 8aac5848d29a39946940f92d89ff32b1, type: 2}
-  - {fileID: 11400000, guid: 43c4e0c987a465242824978ba21e9aa2, type: 2}
-  _cards: {fileID: 5009294213166025728}
+  _panel: {fileID: 5009294213166025728}
   _cardParent: {fileID: 6886095413788172937}
   _cardViewPrefab: {fileID: 4292344153093373680, guid: e517032661691f34dac22131e008069c, type: 3}
 --- !u!223 &5357914982166373515
