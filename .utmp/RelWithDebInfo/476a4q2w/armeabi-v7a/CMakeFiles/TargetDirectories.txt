@@ -1,5 +1,0 @@
-D:/Projects/PuzzleGame/.utmp/RelWithDebInfo/476a4q2w/armeabi-v7a/CMakeFiles/edit_cache.dir
-D:/Projects/PuzzleGame/.utmp/RelWithDebInfo/476a4q2w/armeabi-v7a/CMakeFiles/rebuild_cache.dir
-D:/Projects/PuzzleGame/.utmp/RelWithDebInfo/476a4q2w/armeabi-v7a/FramePacing/CMakeFiles/swappywrapper.dir
-D:/Projects/PuzzleGame/.utmp/RelWithDebInfo/476a4q2w/armeabi-v7a/FramePacing/CMakeFiles/edit_cache.dir
-D:/Projects/PuzzleGame/.utmp/RelWithDebInfo/476a4q2w/armeabi-v7a/FramePacing/CMakeFiles/rebuild_cache.dir
