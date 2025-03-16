@@ -17,7 +17,7 @@ public class GameState : ScriptableObject
 
 	[Header("Map")]
 	/// <summary>
-	/// 맵에 적용할 테마
+	/// 맵에 무작위로 적용할 테마
 	/// </summary>
 	public BlockTheme MapTheme;
 

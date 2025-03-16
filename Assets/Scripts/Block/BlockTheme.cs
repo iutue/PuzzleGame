@@ -17,6 +17,7 @@ public class BlockTheme : ScriptableObject
 	{
 		public Sprite BlockImage;
 		public Color BlockColor;
+		public GameObject BlockObject;
 	}
 
 	//블록 상태에 따라 적용할 테마들

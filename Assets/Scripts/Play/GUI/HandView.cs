@@ -9,8 +9,6 @@ using static BlockGroupView;
 [RequireComponent(typeof(Canvas))]
 public class HandView : UIBehaviour
 {
-	[SerializeField]
-	PlaySetting _playSetting;
 	GameState _gameModeSetting;
 
 	[SerializeField]
@@ -110,7 +108,7 @@ public class HandView : UIBehaviour
 	{
 		//카드를 포인터 위치로 이동
 		position = cardView.GetComponent<RectTransform>().InverseTransformPoint(position);
-		cardView.SetPosition(position + _playSetting.CardOffset * Screen.height);
+		cardView.SetPosition(position + SettingManager.Instance.Play.CardOffset * Screen.height);
 	}
 
 	/// <summary>

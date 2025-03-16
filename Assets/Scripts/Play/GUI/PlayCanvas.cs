@@ -10,6 +10,7 @@ using static BlockGroupView;
 [RequireComponent(typeof(Canvas))]
 public class PlayCanvas : UIBehaviour
 {
+	//TODO 게임모드 초기화시 필요한 UI만 동적으로 직접 생성해서 사용하기
 	[field: SerializeField]
 	public TopBar TopBar { get; private set; }
 	[field: SerializeField]

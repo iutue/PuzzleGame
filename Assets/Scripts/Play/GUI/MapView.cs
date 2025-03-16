@@ -9,8 +9,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Canvas))]
 public class MapView : UIBehaviour
 {
-	[SerializeField]
-	PlaySetting _playSetting;
 	GameState _gameModeSetting;
 
 	[SerializeField]
@@ -37,14 +35,14 @@ public class MapView : UIBehaviour
 	protected override void OnEnable()
 	{
 		base.OnEnable();
-		_playSetting.SettingChanged += OnSettingChanged;
+		SettingManager.Instance.Play.SettingChanged += OnSettingChanged;
 		//동기화
 		OnSettingChanged();
 	}
 	protected override void OnDisable()
 	{
 		base.OnDisable();
-		_playSetting.SettingChanged -= OnSettingChanged;
+		SettingManager.Instance.Play.SettingChanged -= OnSettingChanged;
 	}
 
 	public void Init(GameState gameModeSetting)
@@ -100,6 +98,6 @@ public class MapView : UIBehaviour
 
 	void OnSettingChanged()
 	{
-		_panel.GetComponent<RectTransform>().localScale = Vector3.one * _playSetting.MapScale;
+		_panel.GetComponent<RectTransform>().localScale = Vector3.one * SettingManager.Instance.Play.MapScale;
 	}
 }

@@ -1,11 +1,8 @@
-using DG.Tweening;
 using System.Collections.Generic;
-using Unity.Burst;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 /// <summary>
 /// 점수, 규칙 등 매치의 상태를 가지고 하나의 매치를 관리함
@@ -15,7 +12,6 @@ public abstract class GameMode : MonoBehaviour
 	/// <summary>
 	/// 게임 상태
 	/// </summary>
-	[field: SerializeField]
 	protected GameState State { get; private set; }
 
 	/// <summary>
@@ -37,6 +33,7 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	protected List<BlockGroup> Cards = new();
 
+	[Header("GUI")]
 	[SerializeField]
 	PlayCanvas _playCanvas;
 
