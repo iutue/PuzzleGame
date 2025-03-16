@@ -5,12 +5,12 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class StageButton : UIBehaviour
+public class StageView : UIBehaviour
 {
 	[SerializeField]
 	TMP_Text _stageTitleText;
 	[SerializeField]
-	Button _playButton;
+	Button _enterButton;
 
 	int _stageIndex;
 	Action<int> _clicekd;
@@ -19,8 +19,8 @@ public class StageButton : UIBehaviour
 	{
 		_stageIndex = stageIndex;
 		_clicekd = clicked;
-		_stageTitleText.text = stageIndex.ToString();
-		_playButton.onClick.AddListener(new UnityAction(OnClicked));
+		_stageTitleText.text = (stageIndex + 1).ToString();
+		_enterButton.onClick.AddListener(new UnityAction(OnClicked));
 	}
 
 	void OnClicked()

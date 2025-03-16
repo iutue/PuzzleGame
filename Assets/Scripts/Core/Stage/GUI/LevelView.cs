@@ -21,15 +21,16 @@ public class LevelView : UIBehaviour
 		_ownerLevel = levelData;
 		_titleText.text = levelData.Title.GetLocalizedString();
 		_titleImage.sprite = levelData.TitleImage;
+		//스테이지 버튼 생성
 		for (int i = 0; i < levelData.Stages.Length; i++)
 		{
-			var stageButton = Instantiate(_stageButtonPrefab, _stageButtonParent, false).GetComponent<StageButton>();
-			stageButton.Init(i, levelData.Stages[i], OnStageButtonClicked);
+			var stageView = Instantiate(_stageButtonPrefab, _stageButtonParent, false).GetComponent<StageView>();
+			stageView.Init(i, levelData.Stages[i], OnStageButtonClicked);
 		}
 	}
 
 	void OnStageButtonClicked(int stageIndex)
 	{
-		StageManager.Instance.LoadStageAsync(null, _ownerLevel, _ownerLevel.Stages[stageIndex]);
+		MatchManager.Instance.LoadStageAsync(null, _ownerLevel, _ownerLevel.Stages[stageIndex]);
 	}
 }

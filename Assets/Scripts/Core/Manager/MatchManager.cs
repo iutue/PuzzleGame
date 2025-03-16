@@ -1,9 +1,9 @@
 using UnityEngine;
 
 /// <summary>
-/// 스테이지를 관리하는 매니저
+/// 매치를 관리하는 매니저
 /// </summary>
-public class StageManager : SingletonBehaviour<StageManager>
+public class MatchManager : SingletonBehaviour<MatchManager>
 {
 	public ChapterData CurrentChapter { get; private set; }
 	public LevelData CurrentLevel { get; private set; }
@@ -18,25 +18,14 @@ public class StageManager : SingletonBehaviour<StageManager>
 		CurrentLevel = level;
 		CurrentStage = stage;
 
-		//씬
+		//씬 불러오기
 		await TransitionManager.Instance.LoadSceneAsync("Play");
-		//모드
-		if (CurrentStage.Mode)
-		{
-			Instantiate(CurrentStage.Mode);
-		}
-		else
-		{
-			Instantiate(CurrentLevel.DefaultStageData.Mode);
-		}
-		//맵
-		if (CurrentStage.Map)
-		{
-			Instantiate(CurrentStage.Map);
-		}
-		else
-		{
-			Instantiate(CurrentLevel.DefaultStageData.Map);
-		}
+		//씬에 모드, 맵 생성
+		var modeToSpawn = CurrentStage.Mode ? CurrentStage.Mode : CurrentLevel.DefaultStageData.Mode;
+		var mapToSpawn = CurrentStage.Map ? CurrentStage.Map : CurrentLevel.DefaultStageData.Map;
+		var mode = Instantiate(modeToSpawn);
+		var map = Instantiate(mapToSpawn);
+
+
 	}
 }

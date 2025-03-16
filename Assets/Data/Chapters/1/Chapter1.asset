@@ -12,5 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54c8f989e74d614099a1bc99995b01c, type: 3}
   m_Name: Chapter1
   m_EditorClassIdentifier: 
+  Title:
+    m_TableReference:
+      m_TableCollectionName: GUID:e4d168923a082d14fb3bb7de2a6b54d3
+    m_TableEntryReference:
+      m_KeyId: 146132901888
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e4d168923a082d14fb3bb7de2a6b54d3
+    m_TableEntryReference:
+      m_KeyId: 146132901888
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Levels:
   - {fileID: 11400000, guid: d4cdb4bd838399642987c8f87cab8ae1, type: 2}
+  - {fileID: 11400000, guid: 19fa119543fe62040b2d83510d551e8b, type: 2}
+  - {fileID: 11400000, guid: d2f6390ee7f3bbe45832b15874368cc8, type: 2}
+  references:
+    version: 2
+    RefIds: []

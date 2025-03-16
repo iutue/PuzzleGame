@@ -12,14 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
     guid: ffab932033925584292ca5c15d18ab04
   - enabled: 1
-    path: Assets/Scenes/Blast/Blast_4x4.unity
-    guid: 2a838bcd66270ac43a86804a6ce8b779
-  - enabled: 1
-    path: Assets/Scenes/Blast/Blast_5x5.unity
-    guid: a238f68bb31fc5f4a9a4231dfa052c65
-  - enabled: 1
-    path: Assets/Scenes/Blast/Blast_7x5.unity
-    guid: 754314e5d13289c4e8d7235a49de0592
+    path: Assets/Scenes/Play.unity
+    guid: b7ef0caa9b4e7984cae2af52c0f4bf32
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: be75f2bf6bf3dc44ea7da54ea8cdae67, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 4eb260b0982b53e40bedde98f56f3c46, type: 2}
