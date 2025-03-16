@@ -26,7 +26,17 @@ public class AspectRatioEvent : UIBehaviour
 	{
 		base.OnRectTransformDimensionsChange();
 		var rect = GetComponent<RectTransform>().rect;
-		if (rect.width / rect.height > ThresholdRatio)
+		float aspectRatio = rect.width / rect.height;
+		OnAspectRatioChanged(aspectRatio);
+	}
+
+	/// <summary>
+	/// 종횡비가 변경됐을 때 호출됨
+	/// </summary>
+	async Awaitable OnAspectRatioChanged(float aspectRatio)
+	{
+		await Awaitable.EndOfFrameAsync();
+		if (aspectRatio > ThresholdRatio)
 		{
 			RatioIsBigger.Invoke();
 		}
