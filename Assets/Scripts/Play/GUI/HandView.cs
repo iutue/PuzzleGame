@@ -9,8 +9,6 @@ using static BlockGroupView;
 [RequireComponent(typeof(Canvas))]
 public class HandView : UIBehaviour
 {
-	GameState _gameModeSetting;
-
 	[SerializeField]
 	SlidePanel _panel;
 	[SerializeField]
@@ -21,6 +19,7 @@ public class HandView : UIBehaviour
 	/// </summary>
 	[SerializeField]
 	GameObject _cardViewPrefab;
+	BlockTheme[] _cardThemes;
 	/// <summary>
 	/// 생성된 모든 카드 뷰
 	/// </summary>
@@ -30,14 +29,14 @@ public class HandView : UIBehaviour
 	DragHandler _endDragCard;
 	DragHandler _dragCard;
 
-	public void Init(GameState gameModeSetting, DragHandler beginDragCard, DragHandler endDragCard, DragHandler dragCard)
+	public void Init(BlockTheme[] cardThemes, int handCapacity, DragHandler beginDragCard, DragHandler endDragCard, DragHandler dragCard)
 	{
-		_gameModeSetting = gameModeSetting;
+		_cardThemes = cardThemes;
 		_beginDragCard = beginDragCard;
 		_endDragCard = endDragCard;
 		_dragCard = dragCard;
 		//카드가 들어갈 자리를 미리 확보
-		for (int i = 0; i < _gameModeSetting.HandCapacity; i++)
+		for (int i = 0; i < handCapacity; i++)
 		{
 			var child = new GameObject("CardSlot").AddComponent<RectTransform>();
 			child.transform.SetParent(_cardParent, false);
@@ -73,9 +72,10 @@ public class HandView : UIBehaviour
 	public void OnCardAdded(int index, BlockGroup card)
 	{
 		//카드 뷰 추가
+		//TODO 카드 개수가 슬롯 개수를 넘으면 카드를 부모의 자식으로 추가하기
 		var cardView = Instantiate(_cardViewPrefab, _cardParent.GetChild(index)).GetComponent<BlockGroupView>();
-		var randomIndex = UnityEngine.Random.Range(0, _gameModeSetting.CardThemes.Length);
-		cardView.Init(card, _gameModeSetting.CardThemes[randomIndex]);
+		var randomIndex = UnityEngine.Random.Range(0, _cardThemes.Length);
+		cardView.Init(card, _cardThemes);
 		cardView.BeginDrag += _beginDragCard;
 		cardView.EndDrag += _endDragCard;
 		cardView.Dragging += _dragCard;

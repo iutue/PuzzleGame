@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8845a37e2fa350a408c48054195e5bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scores:
+  <Scores>k__BackingField:
     _elements:
     - <Type>k__BackingField: {fileID: 11400000, guid: 95884e1e77971e34a850d65491d3850c, type: 2}
       _valueUpdateMethod: 0
@@ -312,23 +312,17 @@ MonoBehaviour:
       <Multiplier>k__BackingField: 1
       <InitialValue>k__BackingField: 0
       _baseValue: 0
-  TimeLimit: 0
+  <TimeLimit>k__BackingField: 0
   _topBar: {fileID: 4591633811546995416}
   _resultPanel: {fileID: 3620613831258239149}
   _initialMapSize: {x: 0, y: 0}
   MapView: {fileID: 3078582081314509941}
   _mapThemes:
   - {fileID: 11400000, guid: 458cffec419fc7447b89d6e0d5321bb0, type: 2}
-  HandCapacity: 3
-  DrawCount: 3
-  CardThemes:
+  _handCapacity: 1
+  _drawCount: 1
+  _cardThemes:
   - {fileID: 11400000, guid: 3d9b275f9539d394d9157765c405582a, type: 2}
-  - {fileID: 11400000, guid: abae41d2511cb174fa1f28ae17cd2843, type: 2}
-  - {fileID: 11400000, guid: 4c85f05baad2b8e499a89db46a278214, type: 2}
-  - {fileID: 11400000, guid: f53ad807586fef74599429e1b6ac22ee, type: 2}
-  - {fileID: 11400000, guid: ca4ddf76db8af474cbbcea4bc77a7035, type: 2}
-  - {fileID: 11400000, guid: 8aac5848d29a39946940f92d89ff32b1, type: 2}
-  - {fileID: 11400000, guid: 43c4e0c987a465242824978ba21e9aa2, type: 2}
   _handView: {fileID: 2501402402465261374}
 --- !u!1001 &179698111479220431
 PrefabInstance:

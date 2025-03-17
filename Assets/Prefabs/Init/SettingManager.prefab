@@ -180,6 +180,7 @@ MonoBehaviour:
   _mixer: {fileID: 24100000, guid: ab6a710798595b84d8c5e0c4c13014bd, type: 2}
   _bgmSource: {fileID: 5817826830842393268}
   _sfxSource: {fileID: 6583923761895893181}
+  <Play>k__BackingField: {fileID: 11400000, guid: 904b26cf08da64b48a0a4b243a9d943d, type: 2}
 --- !u!1 &7469725985996596194
 GameObject:
   m_ObjectHideFlags: 0

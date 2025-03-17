@@ -9,8 +9,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Canvas))]
 public class MapView : UIBehaviour
 {
-	GameState _gameModeSetting;
-
 	[SerializeField]
 	SlidePanel _panel;
 	[SerializeField]
@@ -23,6 +21,7 @@ public class MapView : UIBehaviour
 	/// </summary>
 	[SerializeField]
 	GameObject _mapViewPrefab;
+	BlockTheme[] _mapThemes;
 	/// <summary>
 	/// 생성된 맵 뷰
 	/// </summary>
@@ -45,9 +44,9 @@ public class MapView : UIBehaviour
 		SettingManager.Instance.Play.SettingChanged -= OnSettingChanged;
 	}
 
-	public void Init(GameState gameModeSetting)
+	public void Init(BlockTheme[] mapThemes)
 	{
-		_gameModeSetting = gameModeSetting;
+		_mapThemes = mapThemes;
 		_mapParent = _panel.GetComponent<RectTransform>();
 		_mapRaycaster = _panel.GetComponentInParent<GraphicRaycaster>();
 	}
@@ -64,7 +63,7 @@ public class MapView : UIBehaviour
 		}
 		//새로운 뷰 생성
 		_mapView = Instantiate(_mapViewPrefab, _mapParent).GetComponent<BlockGroupView>();
-		_mapView.Init(map, _gameModeSetting.MapTheme);
+		_mapView.Init(map, _mapThemes);
 	}
 
 	/// <summary>

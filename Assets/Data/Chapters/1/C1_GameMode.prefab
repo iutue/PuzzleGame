@@ -133,6 +133,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2528699730327139177, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
+      propertyPath: _drawCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2528699730327139177, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
+      propertyPath: _handCapacity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2528699730327139177, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
       propertyPath: _initialMapSize.x
       value: 4
       objectReference: {fileID: 0}
@@ -298,7 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4309658864455250932, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
       propertyPath: m_Size
-      value: 0.98794985
+      value: 0.9978837
       objectReference: {fileID: 0}
     - target: {fileID: 4309658864455250932, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
       propertyPath: m_Value
@@ -490,7 +498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7833099719210363858, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 363.15363
+      value: 364.25452
       objectReference: {fileID: 0}
     - target: {fileID: 8155601385315851440, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
       propertyPath: m_AnchorMax.x
