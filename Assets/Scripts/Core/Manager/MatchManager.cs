@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 /// <summary>
 /// 매치를 관리하는 매니저
@@ -10,9 +11,9 @@ public class MatchManager : SingletonBehaviour<MatchManager>
 	public StageData CurrentStage { get; private set; }
 
 	/// <summary>
-	/// 스테이지 전환
+	/// 스테이지 불러오기
 	/// </summary>
-	public async void LoadStageAsync(ChapterData chapter, LevelData level, StageData stage)
+	public async Awaitable LoadStageAsync(ChapterData chapter, LevelData level, StageData stage)
 	{
 		CurrentChapter = chapter;
 		CurrentLevel = level;
@@ -21,11 +22,21 @@ public class MatchManager : SingletonBehaviour<MatchManager>
 		//씬 불러오기
 		await TransitionManager.Instance.LoadSceneAsync("Play");
 		//씬에 모드, 맵 생성
-		var modeToSpawn = CurrentStage.Mode ? CurrentStage.Mode : CurrentLevel.DefaultStageData.Mode;
-		var mapToSpawn = CurrentStage.Map ? CurrentStage.Map : CurrentLevel.DefaultStageData.Map;
-		var mode = Instantiate(modeToSpawn);
-		var map = Instantiate(mapToSpawn);
+		var modeToSpawn = CurrentStage.Mode.RuntimeKeyIsValid() ? CurrentStage.Mode : CurrentLevel.DefaultStageData.Mode;
+		var mapToSpawn = CurrentStage.Map.RuntimeKeyIsValid() ? CurrentStage.Map : CurrentLevel.DefaultStageData.Map;
+		//TODO[개선] 모드, 맵 로딩이 끝날 때까지 로딩화면 대기시키기
+		modeToSpawn.InstantiateAsync();
+		mapToSpawn.InstantiateAsync();
 
+
+	}
+
+	/// <summary>
+	/// 다음 스테이지로 이동
+	/// </summary>
+	/// <returns></returns>
+	public async Awaitable LoadNextStageAsync()
+	{
 
 	}
 }

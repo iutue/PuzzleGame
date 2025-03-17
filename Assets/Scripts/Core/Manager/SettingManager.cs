@@ -20,7 +20,8 @@ public class SettingManager : SingletonBehaviour<SettingManager>
 	[SerializeField]
 	AudioSource _sfxSource;
 
-	[Header("Play")]
+	[field: Header("Play")]
+	[field: SerializeField]
 	public PlaySetting Play { get; private set; }
 
 	protected void Start()

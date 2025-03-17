@@ -13,10 +13,43 @@ MonoBehaviour:
   m_Name: Default Local Group
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
-  m_Data:
-    m_SerializedData: []
   m_GUID: 6e55edc2e9233514db4d479a97ff13dd
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 0c2833abe7a532e49a36d7f505b2a650
+    m_Address: Assets/Data/Chapters/1/GameMode.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40ecdfed4629f9f4997af5da8cc5c04c
+    m_Address: Assets/Data/Chapters/1/C1_GameMode_Large.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4813aaffcbc110042bd4be13c672ddbb
+    m_Address: Assets/Data/Chapters/1/Map.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0719056751c3ba4a93d4dc344a7ee99
+    m_Address: Assets/Data/Chapters/1/C1_Map_Small.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b5141b4d0386c294b843b5973bb47649
+    m_Address: Assets/Data/Chapters/1/C1_Map_Medium.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc923becf84709e44a8d65b15c22f19b
+    m_Address: Assets/Data/Chapters/1/C1_Map_Large.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e68babe12bc35534785c91acc2f9aae3
+    m_Address: Assets/Data/Chapters/1/C1_Map.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a54ff1860c400a64eacb8c3c11e04b4f, type: 2}
   m_SchemaSet:
