@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 1375628499537630623}
   - component: {fileID: 2528699730327139177}
   m_Layer: 0
-  m_Name: BlastGameMode
+  m_Name: GameMode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
