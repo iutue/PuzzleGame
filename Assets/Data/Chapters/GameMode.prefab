@@ -319,11 +319,17 @@ MonoBehaviour:
   MapView: {fileID: 3078582081314509941}
   _mapThemes:
   - {fileID: 11400000, guid: 458cffec419fc7447b89d6e0d5321bb0, type: 2}
-  _handCapacity: 1
   _drawCount: 1
+  _handCapacity: 1
+  _handView: {fileID: 2501402402465261374}
   _cardThemes:
   - {fileID: 11400000, guid: 3d9b275f9539d394d9157765c405582a, type: 2}
-  _handView: {fileID: 2501402402465261374}
+  - {fileID: 11400000, guid: abae41d2511cb174fa1f28ae17cd2843, type: 2}
+  - {fileID: 11400000, guid: 4c85f05baad2b8e499a89db46a278214, type: 2}
+  - {fileID: 11400000, guid: f53ad807586fef74599429e1b6ac22ee, type: 2}
+  - {fileID: 11400000, guid: ca4ddf76db8af474cbbcea4bc77a7035, type: 2}
+  - {fileID: 11400000, guid: 8aac5848d29a39946940f92d89ff32b1, type: 2}
+  - {fileID: 11400000, guid: 43c4e0c987a465242824978ba21e9aa2, type: 2}
 --- !u!1001 &179698111479220431
 PrefabInstance:
   m_ObjectHideFlags: 0

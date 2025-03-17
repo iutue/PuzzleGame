@@ -63,7 +63,7 @@ public class MapView : UIBehaviour
 		}
 		//새로운 뷰 생성
 		_mapView = Instantiate(_mapViewPrefab, _mapParent).GetComponent<BlockGroupView>();
-		_mapView.Init(map, _mapThemes);
+		_mapView.Init(map, _mapThemes[0]);
 	}
 
 	/// <summary>

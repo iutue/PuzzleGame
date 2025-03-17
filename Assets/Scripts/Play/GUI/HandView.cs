@@ -75,7 +75,7 @@ public class HandView : UIBehaviour
 		//TODO 카드 개수가 슬롯 개수를 넘으면 카드를 부모의 자식으로 추가하기
 		var cardView = Instantiate(_cardViewPrefab, _cardParent.GetChild(index)).GetComponent<BlockGroupView>();
 		var randomIndex = UnityEngine.Random.Range(0, _cardThemes.Length);
-		cardView.Init(card, _cardThemes);
+		cardView.Init(card, _cardThemes[randomIndex]);
 		cardView.BeginDrag += _beginDragCard;
 		cardView.EndDrag += _endDragCard;
 		cardView.Dragging += _dragCard;
