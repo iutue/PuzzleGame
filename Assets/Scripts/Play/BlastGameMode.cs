@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// 최대한 많은 블록을 배치, 파괴하는 게임모드
 /// </summary>
-public class BlastGameMode : GameMode
+public class BlastGameMode : CardGameMode
 {
+	#region Map
 	protected override void UpdateMap()
 	{
 		TryLineClear();
@@ -74,14 +77,14 @@ public class BlastGameMode : GameMode
 			block.CurrentState = Block.State.Empty;
 		}
 		//점수 추가
-		State.Scores["LineClear"].BaseValue += clearCount;
+		Scores["LineClear"].BaseValue += clearCount;
 	}
 
 	protected override bool CheckEndCondition()
 	{
 		//배치할 수 있는 카드를 하나라도 가지고 있는지 검사
 		bool hasValidCard = false;
-		foreach (var card in Cards)
+		foreach (var card in Hand)
 		{
 			if (TryPlaceCard(card))
 			{
@@ -96,6 +99,9 @@ public class BlastGameMode : GameMode
 		//배치 가능한 카드가 하나도 없으면 게임 종료
 		return !hasValidCard;
 	}
+	#endregion
+
+	#region Card
 	/// <summary>
 	/// 맵에 카드를 배치할 수 있는 공간이 있는가
 	/// </summary>
@@ -112,18 +118,19 @@ public class BlastGameMode : GameMode
 		//맵에 배치할 공간이 없음
 		return false;
 	}
+	#endregion
 
 	#region Callbakcs
 	protected override void OnMapBlockSpawned(Block block)
 	{
 		base.OnMapBlockSpawned(block);
-		State.Scores["+Block"].BaseValue += 1;
+		Scores["+Block"].BaseValue += 1;
 	}
 
 	protected override void OnMapBlockDestroyed(Block block)
 	{
 		base.OnMapBlockDestroyed(block);
-		State.Scores["-Block"].BaseValue += 1;
+		Scores["-Block"].BaseValue += 1;
 	}
 	#endregion
 }
