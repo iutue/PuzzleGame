@@ -152,6 +152,26 @@ PrefabInstance:
       propertyPath: CardThemes.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2528699730327139177, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
+      propertyPath: _mapThemes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2528699730327139177, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
+      propertyPath: _cardThemes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2528699730327139177, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
+      propertyPath: '_mapThemes.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: be58c11d45fc719418cd826786e25f95, type: 2}
+    - target: {fileID: 2528699730327139177, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
+      propertyPath: '_mapThemes.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 13d72a66e3192d946bba58576bd819cc, type: 2}
+    - target: {fileID: 2528699730327139177, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
+      propertyPath: '_cardThemes.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 313c76633bcf97d4e98a6da4fc9905a6, type: 2}
     - target: {fileID: 2531917540341062451, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -386,7 +406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5967560351606698865, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
       propertyPath: m_Name
-      value: C1_GameMode
+      value: C1_GameMode 2
       objectReference: {fileID: 0}
     - target: {fileID: 6117032054650492380, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
       propertyPath: m_AnchorMax.y

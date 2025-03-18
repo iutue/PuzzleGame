@@ -21,7 +21,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  TitleBackground: {fileID: 0}
+  TitleBackground: {fileID: 21300000, guid: 21a16ecf58d3b074d88aed66c8d9bfe1, type: 3}
   TitleMaterial: {fileID: 0}
   DefaultStageData:
     Mode:

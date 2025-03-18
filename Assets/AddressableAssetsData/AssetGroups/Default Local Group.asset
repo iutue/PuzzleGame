@@ -20,13 +20,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 120724721b10bea498c85b9ef6eba990
+    m_Address: Assets/Data/Chapters/C1/Mode/C1_GameMode 2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3b2990fa0205cf24da4de1c11cec4419
     m_Address: Assets/Data/Chapters/C2/C2_Map_Medium.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 40ecdfed4629f9f4997af5da8cc5c04c
-    m_Address: Assets/Data/Chapters/1/C1_GameMode_Large.prefab
+    m_Address: Assets/Data/Chapters/C1/Mode/C1_GameMode.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -45,18 +50,28 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 707d1d4a4062093489c49db17cc52dc8
+    m_Address: Assets/Data/Chapters/C1/Mode/C1_GameMode 1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9611ca8d7e61bfd4f827961339b297b2
     m_Address: Assets/Data/Chapters/C2/C2_Map_Small.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c6379bb799098a41b5bf7e48a36ccbf
+    m_Address: Assets/Data/Chapters/C1/Mode/C1_GameMode 4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b0719056751c3ba4a93d4dc344a7ee99
-    m_Address: Assets/Data/Chapters/1/C1_Map_Small.prefab
+    m_Address: Assets/Data/Chapters/C1/Map/C1_Map_Small.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b5141b4d0386c294b843b5973bb47649
-    m_Address: Assets/Data/Chapters/1/C1_Map_Medium.prefab
+    m_Address: Assets/Data/Chapters/C1/Map/C1_Map_Medium.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -66,12 +81,17 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dc923becf84709e44a8d65b15c22f19b
-    m_Address: Assets/Data/Chapters/1/C1_Map_Large.prefab
+    m_Address: Assets/Data/Chapters/C1/Map/C1_Map_Large.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e68babe12bc35534785c91acc2f9aae3
-    m_Address: Assets/Data/Chapters/1/C1_Map.prefab
+    m_Address: Assets/Data/Chapters/C1/Map/C1_Map.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e9510dc615d3e1444b87d7822a2b85fb
+    m_Address: Assets/Data/Chapters/C1/Mode/C1_GameMode 3.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
