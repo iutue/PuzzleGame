@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6288040909465233746}
   - component: {fileID: 6948921981930811017}
   m_Layer: 5
-  m_Name: Image
+  m_Name: IconImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 6067745207395086003}
   - component: {fileID: 843459327717158871}
   m_Layer: 5
-  m_Name: Name
+  m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -232,7 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5870560833178922175}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,7 +297,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4649779237081649091
 MonoBehaviour:
@@ -322,7 +322,7 @@ MonoBehaviour:
     m_LocalVariables: []
   _displayNameText: {fileID: 3531501133825440165}
   _icon: {fileID: 0}
-  _iconImage: {fileID: 0}
+  _iconImage: {fileID: 6288040909465233746}
   <Highlight>k__BackingField: {fileID: 5024367432378522669}
   references:
     version: 2
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 4804549320305826957}
   - component: {fileID: 3531501133825440165}
   m_Layer: 5
-  m_Name: Text
+  m_Name: TitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -5,7 +5,7 @@ using UnityEngine.Localization;
 public class LevelData : ScriptableObject
 {
 	public LocalizedString Title;
-	public Sprite TitleImage;
+	public Sprite TitleBackground;
 	public Material TitleMaterial;
 
 	/// <summary>

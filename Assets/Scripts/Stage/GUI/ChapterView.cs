@@ -1,10 +1,12 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ChapterView : UIBehaviour
 {
 	[SerializeField]
-	ChapterData _testChapterData;
+	ChapterData _chapter;
 
 	[Header("Level")]
 	[SerializeField]
@@ -15,10 +17,10 @@ public class ChapterView : UIBehaviour
 	protected override void Start()
 	{
 		//레벨 뷰 생성
-		for (int i = 0; i < _testChapterData.Levels.Length; i++)
+		for (int i = 0; i < _chapter.Levels.Length; i++)
 		{
 			var levelView = Instantiate(_levelViewPrefab, _levelViewParent, false).GetComponent<LevelView>();
-			levelView.Init(_testChapterData.Levels[i]);
+			levelView.Init(_chapter.Levels[i]);
 		}
 	}
 }

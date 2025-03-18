@@ -10,7 +10,7 @@ public class LevelView : UIBehaviour
 	[SerializeField]
 	TMP_Text _titleText;
 	[SerializeField]
-	Image _titleImage;
+	Image _titleBackground;
 	[SerializeField]
 	RectTransform _stageButtonParent;
 	[SerializeField]
@@ -20,7 +20,7 @@ public class LevelView : UIBehaviour
 	{
 		_ownerLevel = levelData;
 		_titleText.text = levelData.Title.GetLocalizedString();
-		_titleImage.sprite = levelData.TitleImage;
+		_titleBackground.sprite = levelData.TitleBackground;
 		//스테이지 버튼 생성
 		for (int i = 0; i < levelData.Stages.Length; i++)
 		{

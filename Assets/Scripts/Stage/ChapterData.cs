@@ -5,6 +5,7 @@ using UnityEngine.Localization;
 public class ChapterData : ScriptableObject
 {
 	public LocalizedString Title;
-	public LocalizedString Description;
+	public Sprite TitleBackground;
+	public Sprite Icon;
 	public LevelData[] Levels;
 }
