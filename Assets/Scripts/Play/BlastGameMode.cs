@@ -23,19 +23,19 @@ public class BlastGameMode : CardGameMode
 		//라인 클리어 횟수
 		int clearCount = 0;
 		//제거할 블록들
-		List<Block> blocksToDestroy = new List<Block>(Map.Size.x * Map.Size.y);
+		List<Block> blocksToDestroy = new List<Block>(Map.Blocks.Size.x * Map.Blocks.Size.y);
 		//제거할 블록 후보들
-		List<Block> candidates = new List<Block>(Map.Size.x + Map.Size.y);
+		List<Block> candidates = new List<Block>(Map.Blocks.Size.x + Map.Blocks.Size.y);
 
 		//세로 클리어
-		for (int x = 0; x < Map.Size.x; x++)
+		for (int x = 0; x < Map.Blocks.Size.x; x++)
 		{
 			candidates.Clear();
-			for (int y = 0; y < Map.Size.y; y++)
+			for (int y = 0; y < Map.Blocks.Size.y; y++)
 			{
-				if (Map[x, y].CurrentState == Block.State.Placed)
+				if (Map.Blocks[x, y].CurrentState == Block.State.Placed)
 				{
-					candidates.Add(Map[x, y]);
+					candidates.Add(Map.Blocks[x, y]);
 				}
 				else
 				{
@@ -50,14 +50,14 @@ public class BlastGameMode : CardGameMode
 			}
 		}
 		//가로 클리어
-		for (int y = 0; y < Map.Size.y; y++)
+		for (int y = 0; y < Map.Blocks.Size.y; y++)
 		{
 			candidates.Clear();
-			for (int x = 0; x < Map.Size.x; x++)
+			for (int x = 0; x < Map.Blocks.Size.x; x++)
 			{
-				if (Map[x, y].CurrentState == Block.State.Placed)
+				if (Map.Blocks[x, y].CurrentState == Block.State.Placed)
 				{
-					candidates.Add(Map[x, y]);
+					candidates.Add(Map.Blocks[x, y]);
 				}
 				else
 				{
@@ -94,7 +94,7 @@ public class BlastGameMode : CardGameMode
 			}
 		}
 		//검사 흔적 제거
-		Map.Convert(Block.State.Preview, Block.State.Empty);
+		Map.Blocks.Convert(Block.State.Preview, Block.State.Empty);
 
 		//배치 가능한 카드가 하나도 없으면 게임 종료
 		return !hasValidCard;
@@ -107,9 +107,9 @@ public class BlastGameMode : CardGameMode
 	/// </summary>
 	bool TryPlaceCard(BlockGroup card)
 	{
-		foreach (var mapBlock in Map)
+		foreach (var mapBlock in Map.Blocks)
 		{
-			if (Map.TryMerge(card, mapBlock.Position))
+			if (Map.Blocks.TryMerge(card, mapBlock.Position))
 			{
 				//맵에 배치 가능
 				return true;

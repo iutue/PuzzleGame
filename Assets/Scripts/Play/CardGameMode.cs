@@ -38,9 +38,9 @@ public abstract class CardGameMode : GameMode
 	BlockTheme[] _cardThemes;
 
 	#region Game
-	protected override void InitGame()
+	public override void InitGame(GameMap map)
 	{
-		base.InitGame();
+		base.InitGame(map);
 		_handView.Init(_cardThemes, _handCapacity, OnBeginDragCard, OnEndDragCard, OnDragCard);
 	}
 
@@ -50,103 +50,11 @@ public abstract class CardGameMode : GameMode
 		ResetCards();
 	}
 
-	protected override void StartGame()
+	public override void StartGame()
 	{
 		base.StartGame();
 		DrawCards();
 		_handView.Open();
-	}
-	#endregion
-
-	#region Map
-	protected override void UpdateMap()
-	{
-		TryLineClear();
-	}
-
-	/// <summary>
-	/// 맵에 존재하는 모든 블록 라인을 찾아서 제거
-	/// </summary>
-	void TryLineClear()
-	{
-		//라인 클리어 횟수
-		int clearCount = 0;
-		//제거할 블록들
-		List<Block> blocksToDestroy = new List<Block>(Map.Size.x * Map.Size.y);
-		//제거할 블록 후보들
-		List<Block> candidates = new List<Block>(Map.Size.x + Map.Size.y);
-
-		//세로 클리어
-		for (int x = 0; x < Map.Size.x; x++)
-		{
-			candidates.Clear();
-			for (int y = 0; y < Map.Size.y; y++)
-			{
-				if (Map[x, y].CurrentState == Block.State.Placed)
-				{
-					candidates.Add(Map[x, y]);
-				}
-				else
-				{
-					candidates.Clear();
-					break;
-				}
-			}
-			if (candidates.Count > 0)
-			{
-				clearCount++;
-				blocksToDestroy.AddRange(candidates);
-			}
-		}
-		//가로 클리어
-		for (int y = 0; y < Map.Size.y; y++)
-		{
-			candidates.Clear();
-			for (int x = 0; x < Map.Size.x; x++)
-			{
-				if (Map[x, y].CurrentState == Block.State.Placed)
-				{
-					candidates.Add(Map[x, y]);
-				}
-				else
-				{
-					candidates.Clear();
-					break;
-				}
-			}
-			if (candidates.Count > 0)
-			{
-				clearCount++;
-				blocksToDestroy.AddRange(candidates);
-			}
-		}
-		//감지된 모든 라인의 블록 제거
-		foreach (var block in blocksToDestroy)
-		{
-			block.CurrentState = Block.State.Empty;
-		}
-		//점수 추가
-		Scores["LineClear"].BaseValue += clearCount;
-	}
-
-	protected override bool CheckEndCondition()
-	{
-		//배치할 수 있는 카드를 하나라도 가지고 있는지 검사
-		bool hasValidCard = false;
-		foreach (var card in Hand)
-		{
-			if (TryPlaceCard(card))
-			{
-				//배치 가능한 카드가 하나라도 있음
-				hasValidCard = true;
-				break;
-			}
-		}
-		//검사 흔적 제거
-		Map.Convert(Block.State.Preview, Block.State.Empty);
-
-		//배치 가능한 카드가 하나도 없으면 게임 종료
-		return !hasValidCard;
 	}
 	#endregion
 
@@ -236,7 +144,7 @@ public abstract class CardGameMode : GameMode
 		SelectedBlock = currentBlock;
 
 		//배치 시도
-		Map.Convert(Block.State.Preview, Block.State.Empty);
+		Map.Blocks.Convert(Block.State.Preview, Block.State.Empty);
 		if (currentBlock == null)
 		{
 			//감지된 블록이 없으면 이전의 배치 흔적만 제거
@@ -245,7 +153,7 @@ public abstract class CardGameMode : GameMode
 		else
 		{
 			//새로운 블록에 카드 배치 시도
-			return Map.TryMerge(_selectedCard, currentBlock.Position);
+			return Map.Blocks.TryMerge(_selectedCard, currentBlock.Position);
 		}
 	}
 
@@ -255,7 +163,7 @@ public abstract class CardGameMode : GameMode
 	void ConfirmCardPlacement(BlockGroupView cardView)
 	{
 		//카드 사용
-		Map.Convert(Block.State.Preview, Block.State.Placed);
+		Map.Blocks.Convert(Block.State.Preview, Block.State.Placed);
 		RemoveCard(cardView);
 		//게임 업데이트
 		UpdateGame();
@@ -266,9 +174,9 @@ public abstract class CardGameMode : GameMode
 	/// </summary>
 	bool TryPlaceCard(BlockGroup card)
 	{
-		foreach (var mapBlock in Map)
+		foreach (var mapBlock in Map.Blocks)
 		{
-			if (Map.TryMerge(card, mapBlock.Position))
+			if (Map.Blocks.TryMerge(card, mapBlock.Position))
 			{
 				//맵에 배치 가능
 				return true;
@@ -298,7 +206,7 @@ public abstract class CardGameMode : GameMode
 	protected virtual void OnBeginDragCard(BlockGroupView cardView, PointerEventData eventData)
 	{
 		_selectedCard = cardView.OwnerBlockGroup;
-		_handView.OnBeginDragCard(cardView, MapView.BlockViewSize);
+		_handView.OnBeginDragCard(cardView, Map.MapView.BlockViewSize);
 	}
 
 	/// <summary>
@@ -306,7 +214,7 @@ public abstract class CardGameMode : GameMode
 	/// </summary>
 	protected virtual void OnDragCard(BlockGroupView cardView, PointerEventData eventData)
 	{
-		Origin = MapView.GetMapBlockAt(cardView.OriginBlockPosition);
+		Origin = Map.MapView.GetMapBlockAt(cardView.OriginBlockPosition);
 		//카드 배치 시도
 		if (TryCardPlacement())
 		{
@@ -315,7 +223,7 @@ public abstract class CardGameMode : GameMode
 		else
 		{
 			//배치 실패
-			Map.Convert(Block.State.Preview, Block.State.Empty);
+			Map.Blocks.Convert(Block.State.Preview, Block.State.Empty);
 		}
 		_handView.OnDragCard(cardView, eventData.position);
 	}
@@ -327,7 +235,7 @@ public abstract class CardGameMode : GameMode
 	{
 		//맵에 배치된 카드가 있으면
 		//TODO[개선] 맵이 아닌 카드로 배치 성공 여부 저장하기
-		if (Map.Contains(Block.State.Preview))
+		if (Map.Blocks.Contains(Block.State.Preview))
 		{
 			//카드 배치 확정
 			ConfirmCardPlacement(cardView);

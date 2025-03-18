@@ -12,6 +12,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: C1_Map
       objectReference: {fileID: 0}
+    - target: {fileID: 6018082370623294376, guid: e68babe12bc35534785c91acc2f9aae3, type: 3}
+      propertyPath: m_Name
+      value: C1_Map_Large
+      objectReference: {fileID: 0}
+    - target: {fileID: 8165008849531001287, guid: e68babe12bc35534785c91acc2f9aae3, type: 3}
+      propertyPath: _initialMapSize.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8165008849531001287, guid: e68babe12bc35534785c91acc2f9aae3, type: 3}
+      propertyPath: _initialMapSize.y
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8202615996362322593, guid: e68babe12bc35534785c91acc2f9aae3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

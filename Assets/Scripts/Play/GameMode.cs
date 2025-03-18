@@ -28,46 +28,29 @@ public abstract class GameMode : MonoBehaviour
 	[SerializeField]
 	ResultPanel _resultPanel;
 
-	//TODO[개선] Map 클래스로 분리하고 맵 게임오브젝트에 추가하기
-	/// <summary>
-	/// 맵의 크기
-	/// </summary>
-	[Header("Map"), SerializeField]
-	Vector2Int _initialMapSize;
-	/// <summary>
-	/// 현재 맵
-	/// </summary>
-	protected BlockGroup Map { get; private set; }
-
+	protected GameMap Map { get; private set; }
 	/// <summary>
 	/// 플레이어가 선택한 블록
 	/// </summary>
 	protected Block SelectedBlock;
 	protected BlockView Origin;
-	[SerializeField]
-	protected MapView MapView;
-	/// <summary>
-	/// 맵에 적용할 테마
-	/// </summary>
-	[SerializeField]
-	BlockTheme[] _mapThemes;
-
-	protected void Start()
-	{
-		//초기화 후 바로 게임 시작
-		InitGame();
-		StartGame();
-	}
 
 	#region Game
 	/// <summary>
 	/// 게임 초기화, 씬 로드 후 번만 실행됨
 	/// </summary>
-	protected virtual void InitGame()
+	public virtual void InitGame(GameMap map)
 	{
+		//맵 초기화
+		Map = map;
+		Map.Init();
+		Map.MapBlockSpawned += OnMapBlockSpawned;
+		Map.MapBlockDestroyed += OnMapBlockDestroyed;
+
+		//TODO Score 컨테이너를 별도의 에셋으로 분리하기
 		Scores.Init();
+		//TODO 각 GUI가 별도의 이벤트를 가지고 게임모드는 그 이벤트에 직접 연결하기
 		_topBar.Init(Scores["Total"], OnBackButtonClicked, OnResetButtonClicked);
-		MapView.Init(_mapThemes);
 		_resultPanel.Init(Scores, OnBackButtonClicked, OnResetButtonClicked, OnNextButtonClicked);
 
 #if UNITY_EDITOR
@@ -91,14 +74,14 @@ public abstract class GameMode : MonoBehaviour
 	/// <summary>
 	/// 게임 시작, 새로운 매치를 시작할 때마다 호출됨
 	/// </summary>
-	protected virtual void StartGame()
+	public virtual void StartGame()
 	{
 		//모든 정보 초기화
 		ResetGame();
 
 		_resultPanel.Close();
 		_topBar.Open();
-		MapView.Open();
+		Map.Open();
 
 #if UNITY_EDITOR
 		Debug.Log("게임 시작");
@@ -156,13 +139,7 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	protected virtual void ResetMap()
 	{
-		//맵 초기화
-		var mapTemplate = new Block.State[_initialMapSize.x, _initialMapSize.y];
-		Map = new BlockGroup(mapTemplate);
-		Map.BlockSpawned += OnMapBlockSpawned;
-		Map.BlockDestroyed += OnMapBlockDestroyed;
-
-		MapView.ResetMap(Map);
+		Map.ResetMap();
 	}
 
 	/// <summary>

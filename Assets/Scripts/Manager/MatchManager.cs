@@ -25,10 +25,19 @@ public class MatchManager : SingletonBehaviour<MatchManager>
 		var modeToSpawn = CurrentStage.Mode.RuntimeKeyIsValid() ? CurrentStage.Mode : CurrentLevel.DefaultStageData.Mode;
 		var mapToSpawn = CurrentStage.Map.RuntimeKeyIsValid() ? CurrentStage.Map : CurrentLevel.DefaultStageData.Map;
 		//TODO[개선] 모드, 맵 로딩이 끝날 때까지 로딩화면 대기시키기
-		modeToSpawn.InstantiateAsync();
-		mapToSpawn.InstantiateAsync();
+		var modeLoading = modeToSpawn.InstantiateAsync();
+		var mapLoading = mapToSpawn.InstantiateAsync();
 
+		var mode = await modeLoading.Task;
+		var map = await mapLoading.Task;
 
+		await Awaitable.NextFrameAsync();
+		
+		var gameMode = mode.GetComponent<GameMode>();
+		var gameMap = map.GetComponent<GameMap>();
+
+		gameMode.InitGame(gameMap);
+		gameMode.StartGame();
 	}
 
 	/// <summary>
