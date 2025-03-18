@@ -321,6 +321,8 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   _displayNameText: {fileID: 3531501133825440165}
+  _icon: {fileID: 0}
+  _iconImage: {fileID: 0}
   <Highlight>k__BackingField: {fileID: 5024367432378522669}
   references:
     version: 2
@@ -553,7 +555,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8142002764702212370}
   - component: {fileID: 9210773037320394381}
-  - component: {fileID: 5635918987117594816}
   m_Layer: 5
   m_Name: Info
   m_TagString: Untagged
@@ -608,46 +609,3 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &5635918987117594816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8564718807324987015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92db10b3449820f4cadcb5b3dc403d0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ThresholdRatio: 1
-  RatioIsBigger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2341351931689138836}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  RatioIsSmaller:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2341351931689138836}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
