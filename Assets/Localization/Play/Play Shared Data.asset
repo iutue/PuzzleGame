@@ -35,6 +35,10 @@ MonoBehaviour:
     m_Key: NewButton
     m_Metadata:
       m_Items: []
+  - m_Id: 5335738362306560
+    m_Key: Option
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
