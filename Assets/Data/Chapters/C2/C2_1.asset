@@ -25,13 +25,13 @@ MonoBehaviour:
   TitleMaterial: {fileID: 0}
   DefaultStageData:
     Mode:
-      m_AssetGUID: 40ecdfed4629f9f4997af5da8cc5c04c
+      m_AssetGUID: 61d24dfb84048c646b11284885cc0527
       m_SubObjectName: 
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     Map:
-      m_AssetGUID: b0719056751c3ba4a93d4dc344a7ee99
+      m_AssetGUID: 9611ca8d7e61bfd4f827961339b297b2
       m_SubObjectName: 
       m_SubObjectGUID: 
       m_SubObjectType: 

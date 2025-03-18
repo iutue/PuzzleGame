@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b13e5cb7d75c0c646adc3591e68db927, type: 3}
-  m_Name: C2_2
+  m_Name: C1_5
   m_EditorClassIdentifier: 
   Title:
     m_TableReference:
       m_TableCollectionName: GUID:3665834babb97a84292013464f2b7f35
     m_TableEntryReference:
-      m_KeyId: 764532695040
+      m_KeyId: 186345229328384
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -25,13 +25,13 @@ MonoBehaviour:
   TitleMaterial: {fileID: 0}
   DefaultStageData:
     Mode:
-      m_AssetGUID: 61d24dfb84048c646b11284885cc0527
+      m_AssetGUID: 40ecdfed4629f9f4997af5da8cc5c04c
       m_SubObjectName: 
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     Map:
-      m_AssetGUID: 3b2990fa0205cf24da4de1c11cec4419
+      m_AssetGUID: dc923becf84709e44a8d65b15c22f19b
       m_SubObjectName: 
       m_SubObjectGUID: 
       m_SubObjectType: 

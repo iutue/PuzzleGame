@@ -50,6 +50,22 @@ MonoBehaviour:
     m_Localized: Stone
     m_Metadata:
       m_Items: []
+  - m_Id: 185328278380544
+    m_Localized: Classic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 185343969271808
+    m_Localized: Block
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186250874265600
+    m_Localized: Candy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 186345229328384
+    m_Localized: Bread
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

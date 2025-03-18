@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b2990fa0205cf24da4de1c11cec4419
+    m_Address: Assets/Data/Chapters/C2/C2_Map_Medium.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 40ecdfed4629f9f4997af5da8cc5c04c
     m_Address: Assets/Data/Chapters/1/C1_GameMode_Large.prefab
     m_ReadOnly: 0
@@ -27,6 +32,21 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4813aaffcbc110042bd4be13c672ddbb
     m_Address: Assets/Data/Chapters/1/Map.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e387e25c5bdc864d9db58219f117282
+    m_Address: Assets/Data/Chapters/C3/C3_GameMode.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 61d24dfb84048c646b11284885cc0527
+    m_Address: Assets/Data/Chapters/C2/C2_GameMode.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9611ca8d7e61bfd4f827961339b297b2
+    m_Address: Assets/Data/Chapters/C2/C2_Map_Small.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -40,6 +60,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b53f83f100404724d9de85201d947e98
+    m_Address: Assets/Data/Chapters/C3/C3_Map_Small.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dc923becf84709e44a8d65b15c22f19b
     m_Address: Assets/Data/Chapters/1/C1_Map_Large.prefab
     m_ReadOnly: 0
@@ -47,6 +72,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e68babe12bc35534785c91acc2f9aae3
     m_Address: Assets/Data/Chapters/1/C1_Map.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0515a97d469df24a90f04f7266248da
+    m_Address: Assets/Data/Chapters/C2/C2_Map_Large.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
