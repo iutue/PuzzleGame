@@ -142,7 +142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2528699730327139177, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
       propertyPath: _initialMapSize.x
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2528699730327139177, guid: 0c2833abe7a532e49a36d7f505b2a650, type: 3}
       propertyPath: _initialMapSize.y

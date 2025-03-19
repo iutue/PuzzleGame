@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f54c8f989e74d614099a1bc99995b01c, type: 3}
   m_Name: C2
   m_EditorClassIdentifier: 
+  Index: 2
   Title:
     m_TableReference:
       m_TableCollectionName: GUID:3665834babb97a84292013464f2b7f35
@@ -21,15 +22,8 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  Description:
-    m_TableReference:
-      m_TableCollectionName: 
-    m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
+  TitleBackground: {fileID: 0}
+  Icon: {fileID: 0}
   Levels:
   - {fileID: 11400000, guid: 2571ade84ab0a90479a7aba0e769551a, type: 2}
   - {fileID: 11400000, guid: 6b7c23f91be3b3048bc618201e720673, type: 2}
