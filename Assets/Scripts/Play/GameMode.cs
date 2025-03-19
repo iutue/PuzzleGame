@@ -62,11 +62,15 @@ public abstract class GameMode : MonoBehaviour
 
 	protected void OnEnable()
 	{
+		_topBar.BackButtonClicekd += OnBackButtonClicked;
+		_topBar.ResetButtonClicekd += OnResetButtonClicked;
 		_resultPanel.BackButtonClicked += OnBackButtonClicked;
 		_resultPanel.ResetButtonClicked += OnResetButtonClicked;
 	}
 	protected void OnDisable()
 	{
+		_topBar.BackButtonClicekd -= OnBackButtonClicked;
+		_topBar.ResetButtonClicekd -= OnResetButtonClicked;
 		_resultPanel.BackButtonClicked -= OnBackButtonClicked;
 		_resultPanel.ResetButtonClicked -= OnResetButtonClicked;
 	}
@@ -78,7 +82,7 @@ public abstract class GameMode : MonoBehaviour
 	protected virtual void InitGame()
 	{
 		Scores.Init();
-		_topBar.Init(Scores["Total"], OnBackButtonClicked, OnResetButtonClicked);
+		_topBar.Init(Scores["Total"]);
 		MapView.Init(_mapThemes);
 		_resultPanel.Init(Scores);
 
