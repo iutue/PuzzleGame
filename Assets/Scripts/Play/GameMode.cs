@@ -129,7 +129,6 @@ public abstract class GameMode : MonoBehaviour
 		//기록 비교
 		var totalScore = Scores["Total"];
 		var bestRecord = Scores["BestRecord"];
-
 		StringBuilder stagePath = MatchManager.Instance.CurrentStage.GetPath();
 		string bestRecordKey = stagePath.Append("_BestRecord").ToString();
 		bestRecord.BaseValue = PlayerPrefs.GetInt(bestRecordKey, 0);
@@ -145,7 +144,7 @@ public abstract class GameMode : MonoBehaviour
 		}
 		if (MatchManager.Instance.TryGetNextStage(out var _))
 		{
-			//다음 버튼 활성화
+			//다음 스테이지 버튼 활성화
 			_resultPanel.NextButtonClicked += OnNextButtonClicked;
 		}
 

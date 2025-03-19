@@ -14,12 +14,14 @@ public class TopBar : UIBehaviour
 {
 	[SerializeField]
 	SlidePanel _panel;
-
 	[SerializeField]
 	TMP_Text _scoreText;
+
+	//이전
 	[SerializeField]
 	Button _backButton;
 	public event Action BackButtonClicekd;
+	//다시
 	[SerializeField]
 	Button _resetButton;
 	public event Action ResetButtonClicekd;
@@ -31,6 +33,13 @@ public class TopBar : UIBehaviour
 		_resetButton.onClick.AddListener(new UnityAction(OnResetButtonClicked));
 	}
 
+	public void Open() => _panel.Open();
+	public void Close() => _panel.Close();
+
+	#region Callbacks
+	void OnBackButtonClicekd() => BackButtonClicekd?.Invoke();
+	void OnResetButtonClicked() => ResetButtonClicekd?.Invoke();
+
 	/// <summary>
 	/// 총점이 변경됐을 때 호출됨
 	/// </summary>
@@ -41,22 +50,5 @@ public class TopBar : UIBehaviour
 			.Append(_scoreText.rectTransform.DOScale(1.2f, 0.1f))
 			.Append(_scoreText.rectTransform.DOScale(1f, 0.1f));
 	}
-
-	public void Open()
-	{
-		_panel.Open();
-	}
-	public void Close()
-	{
-		_panel.Close();
-	}
-
-	public void OnBackButtonClicekd()
-	{
-		BackButtonClicekd?.Invoke();
-	}
-	public void OnResetButtonClicked()
-	{
-		ResetButtonClicekd?.Invoke();
-	}
+	#endregion
 }

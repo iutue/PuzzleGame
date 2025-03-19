@@ -56,14 +56,8 @@ public class HandView : UIBehaviour
 		_cardViews.Clear();
 	}
 
-	public void Open()
-	{
-		_panel.Open();
-	}
-	public void Close()
-	{
-		_panel.Close();
-	}
+	public void Open() => _panel.Open();
+	public void Close() => _panel.Close();
 
 	#region Callbacks
 	/// <summary>

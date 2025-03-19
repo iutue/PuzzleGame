@@ -25,11 +25,11 @@ public class ResultPanel : UIBehaviour
 	//이전
 	[SerializeField] Button _backButton;
 	public event Action BackButtonClicked;
-	[SerializeField] Button _resetButton;
 	//다시
+	[SerializeField] Button _resetButton;
 	public event Action ResetButtonClicked;
-	[SerializeField] Button _nextButton;
 	//다음
+	[SerializeField] Button _nextButton;
 	event Action _nextButtonClicked;
 	public event Action NextButtonClicked
 	{
@@ -69,6 +69,7 @@ public class ResultPanel : UIBehaviour
 	{
 		//레이아웃이 초기화될 때까지 대기
 		await Awaitable.EndOfFrameAsync();
+		//TODO 높이는 상수로 고정하고 너비는 AspectRatioFitter로 조절하기
 		//점수 패널의 크기 조절
 		Vector2 scorePanelSize = _scoreRect.viewport.rect.size;
 		GridLayoutGroup grid = _scoreRect.content.GetComponent<GridLayoutGroup>();
@@ -86,20 +87,14 @@ public class ResultPanel : UIBehaviour
 	public void Close()
 	{
 		_panel.Close();
+		//다음 버튼 초기화
 		_nextButtonClicked = null;
 		_nextButton.interactable = false;
 	}
 
-	void OnBackButtonClicked()
-	{
-		BackButtonClicked?.Invoke();
-	}
-	void OnResetButtonClicked()
-	{
-		ResetButtonClicked?.Invoke();
-	}
-	void OnNextButtonClicked()
-	{
-		_nextButtonClicked?.Invoke();
-	}
+	#region Callbacks
+	void OnBackButtonClicked() => BackButtonClicked?.Invoke();
+	void OnResetButtonClicked() => ResetButtonClicked?.Invoke();
+	void OnNextButtonClicked() => _nextButtonClicked?.Invoke();
+	#endregion
 }
