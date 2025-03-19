@@ -22,9 +22,28 @@ public class ResultPanel : UIBehaviour
 	GameObject _scorePanelPrefab;
 
 	[Space]
+	//이전
 	[SerializeField] Button _backButton;
+	public event Action BackButtonClicked;
 	[SerializeField] Button _resetButton;
+	//다시
+	public event Action ResetButtonClicked;
 	[SerializeField] Button _nextButton;
+	//다음
+	event Action _nextButtonClicked;
+	public event Action NextButtonClicked
+	{
+		add
+		{
+			_nextButtonClicked += value;
+			_nextButton.interactable = _nextButtonClicked != null;
+		}
+		remove
+		{
+			_nextButtonClicked -= value;
+			_nextButton.interactable = _nextButtonClicked != null;
+		}
+	}
 
 	protected override void OnRectTransformDimensionsChange()
 	{
@@ -32,7 +51,7 @@ public class ResultPanel : UIBehaviour
 		InitGrid();
 	}
 
-	public void Init(ScoreContainer scores, Action backButtonClicked, Action resetButtonClicked, Action nextButtonClicked)
+	public void Init(ScoreContainer scores)
 	{
 		//점수 패널 생성
 		foreach (var score in scores)
@@ -41,10 +60,10 @@ public class ResultPanel : UIBehaviour
 			newPanel.Init(score);
 		}
 		InitGrid();
-		//버튼 바인딩
-		TryBind(_backButton, backButtonClicked);
-		TryBind(_resetButton, resetButtonClicked);
-		TryBind(_nextButton, nextButtonClicked);
+
+		_backButton.onClick.AddListener(new UnityAction(OnBackButtonClicked));
+		_resetButton.onClick.AddListener(new UnityAction(OnResetButtonClicked));
+		_nextButton.onClick.AddListener(new UnityAction(OnNextButtonClicked));
 	}
 	async Awaitable InitGrid()
 	{
@@ -60,19 +79,6 @@ public class ResultPanel : UIBehaviour
 		grid.cellSize = scorePanelSize;
 	}
 
-	/// <summary>
-	/// 버튼 클릭 이벤트에 콜백 함수 연결
-	/// </summary>
-	void TryBind(Button button, Action clicked)
-	{
-		if (clicked == null)
-		{
-			button.interactable = false;
-			return;
-		}
-		button.onClick.AddListener(new UnityAction(clicked));
-	}
-
 	public void Open()
 	{
 		_panel.Open();
@@ -80,5 +86,20 @@ public class ResultPanel : UIBehaviour
 	public void Close()
 	{
 		_panel.Close();
+		_nextButtonClicked = null;
+		_nextButton.interactable = false;
+	}
+
+	void OnBackButtonClicked()
+	{
+		BackButtonClicked?.Invoke();
+	}
+	void OnResetButtonClicked()
+	{
+		ResetButtonClicked?.Invoke();
+	}
+	void OnNextButtonClicked()
+	{
+		_nextButtonClicked?.Invoke();
 	}
 }

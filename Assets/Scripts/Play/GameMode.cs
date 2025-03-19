@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
@@ -59,6 +60,17 @@ public abstract class GameMode : MonoBehaviour
 		StartGame();
 	}
 
+	protected void OnEnable()
+	{
+		_resultPanel.BackButtonClicked += OnBackButtonClicked;
+		_resultPanel.ResetButtonClicked += OnResetButtonClicked;
+	}
+	protected void OnDisable()
+	{
+		_resultPanel.BackButtonClicked -= OnBackButtonClicked;
+		_resultPanel.ResetButtonClicked -= OnResetButtonClicked;
+	}
+
 	#region Game
 	/// <summary>
 	/// 게임 초기화, 씬 로드 후 번만 실행됨
@@ -68,7 +80,7 @@ public abstract class GameMode : MonoBehaviour
 		Scores.Init();
 		_topBar.Init(Scores["Total"], OnBackButtonClicked, OnResetButtonClicked);
 		MapView.Init(_mapThemes);
-		_resultPanel.Init(Scores, OnBackButtonClicked, OnResetButtonClicked, OnNextButtonClicked);
+		_resultPanel.Init(Scores);
 
 #if UNITY_EDITOR
 		Debug.Log("게임 초기화");
@@ -113,12 +125,24 @@ public abstract class GameMode : MonoBehaviour
 		//기록 비교
 		var totalScore = Scores["Total"];
 		var bestRecord = Scores["BestRecord"];
-		string bestRecordKey = MatchManager.Instance.CurrentStage.GetPath().Append("_BestRecord").ToString();
+
+		StringBuilder stagePath = MatchManager.Instance.CurrentStage.GetPath();
+		string bestRecordKey = stagePath.Append("_BestRecord").ToString();
 		bestRecord.BaseValue = PlayerPrefs.GetInt(bestRecordKey, 0);
 		if (totalScore.CurrentValue > bestRecord.CurrentValue)
 		{
 			//신기록 저장
 			PlayerPrefs.SetInt(bestRecordKey, totalScore.CurrentValue);
+		}
+		if (CheckUnlockCondition())
+		{
+			//다음 스테이지 해금
+			MatchManager.Instance.UnlockNextStage();
+		}
+		if (MatchManager.Instance.TryGetNextStage(out var _))
+		{
+			//다음 버튼 활성화
+			_resultPanel.NextButtonClicked += OnNextButtonClicked;
 		}
 
 		_topBar.Close();
@@ -148,6 +172,11 @@ public abstract class GameMode : MonoBehaviour
 	/// 게임 종료 조건을 만족하는가
 	/// </summary>
 	protected abstract bool CheckEndCondition();
+
+	/// <summary>
+	/// 다음 스테이지를 잠금 해제할 수 있는가
+	/// </summary>
+	protected abstract bool CheckUnlockCondition();
 	#endregion
 
 	#region Map

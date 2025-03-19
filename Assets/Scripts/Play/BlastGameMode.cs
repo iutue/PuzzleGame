@@ -99,6 +99,18 @@ public class BlastGameMode : CardGameMode
 		//배치 가능한 카드가 하나도 없으면 게임 종료
 		return !hasValidCard;
 	}
+
+	protected override bool CheckUnlockCondition()
+	{
+		if (Scores["Total"].CurrentValue > 100)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	#endregion
 
 	#region Card
