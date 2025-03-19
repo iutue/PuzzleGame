@@ -113,12 +113,12 @@ public abstract class GameMode : MonoBehaviour
 		//기록 비교
 		var totalScore = Scores["Total"];
 		var bestRecord = Scores["BestRecord"];
-		string bestRecordName = "BestRecord_" + SceneManager.GetActiveScene().name;
-		bestRecord.BaseValue = PlayerPrefs.GetInt(bestRecordName, 0);
+		string bestRecordKey = MatchManager.Instance.CurrentStage.GetPath().Append("_BestRecord").ToString();
+		bestRecord.BaseValue = PlayerPrefs.GetInt(bestRecordKey, 0);
 		if (totalScore.CurrentValue > bestRecord.CurrentValue)
 		{
 			//신기록 저장
-			PlayerPrefs.SetInt(bestRecordName, totalScore.CurrentValue);
+			PlayerPrefs.SetInt(bestRecordKey, totalScore.CurrentValue);
 		}
 
 		_topBar.Close();

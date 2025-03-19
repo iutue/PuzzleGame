@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -22,8 +23,8 @@ public class StageData
 	/// <summary>
 	/// 스테이지부터 챕터까지의 경로
 	/// </summary>
-	public string GetPath()
+	public StringBuilder GetPath()
 	{
-		return ParentLevel.GetPath().ToString();
+		return ParentLevel.GetPath().Append("-").Append(Index);
 	}
 }
