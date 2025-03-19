@@ -31,6 +31,6 @@ public class ChapterData : ScriptableObject
 
 	public StringBuilder GetPath()
 	{
-		return new StringBuilder(Index);
+		return new StringBuilder(Index.ToString());
 	}
 }
