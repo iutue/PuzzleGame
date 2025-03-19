@@ -37,11 +37,26 @@ public abstract class CardGameMode : GameMode
 	[SerializeField]
 	BlockTheme[] _cardThemes;
 
+	protected override void OnEnable()
+	{
+		base.OnEnable();
+		_handView.CardDraggingStarted += OnCardDraggingStarted;
+		_handView.CardDragging += OnCardDragging;
+		_handView.CardDraggingStopped += OnCardDraggingStopped;
+	}
+	protected override void OnDisable()
+	{
+		base.OnDisable();
+		_handView.CardDraggingStarted -= OnCardDraggingStarted;
+		_handView.CardDragging -= OnCardDragging;
+		_handView.CardDraggingStopped -= OnCardDraggingStopped;
+	}
+
 	#region Game
 	protected override void InitGame()
 	{
 		base.InitGame();
-		_handView.Init(_cardThemes, _handCapacity, OnBeginDragCard, OnEndDragCard, OnDragCard);
+		_handView.Init(_cardThemes, _handCapacity);
 	}
 
 	protected override void ResetGame()
@@ -158,7 +173,7 @@ public abstract class CardGameMode : GameMode
 	{
 		//카드 초기화
 		_hand.Clear();
-		_handView.ResetCards(_hand);
+		_handView.ClearCards();
 	}
 
 	/// <summary>
@@ -195,7 +210,7 @@ public abstract class CardGameMode : GameMode
 	protected virtual void AddCard(BlockGroup card)
 	{
 		_hand.Add(card);
-		_handView.OnCardAdded(Hand.Count - 1, card);
+		_handView.AddCard(Hand.Count - 1, card);
 	}
 
 	/// <summary>
@@ -204,7 +219,7 @@ public abstract class CardGameMode : GameMode
 	protected virtual void RemoveCard(BlockGroupView target)
 	{
 		_hand.Remove(target.OwnerBlockGroup);
-		_handView.OnCardRemoved(target);
+		_handView.RemoveCard(target);
 
 		if (Hand.Count == 0)
 		{
@@ -295,16 +310,16 @@ public abstract class CardGameMode : GameMode
 	/// <summary>
 	/// 카드를 집었을 때 호출됨
 	/// </summary>
-	protected virtual void OnBeginDragCard(BlockGroupView cardView, PointerEventData eventData)
+	void OnCardDraggingStarted(BlockGroupView cardView, PointerEventData eventData)
 	{
 		_selectedCard = cardView.OwnerBlockGroup;
-		_handView.OnBeginDragCard(cardView, MapView.BlockViewSize);
+		_handView.GrabCard(cardView, MapView.BlockViewSize);
 	}
 
 	/// <summary>
 	/// 카드를 이동중일 때 호출됨
 	/// </summary>
-	protected virtual void OnDragCard(BlockGroupView cardView, PointerEventData eventData)
+	void OnCardDragging(BlockGroupView cardView, PointerEventData eventData)
 	{
 		Origin = MapView.GetMapBlockAt(cardView.OriginBlockPosition);
 		//카드 배치 시도
@@ -317,13 +332,13 @@ public abstract class CardGameMode : GameMode
 			//배치 실패
 			Map.Convert(Block.State.Preview, Block.State.Empty);
 		}
-		_handView.OnDragCard(cardView, eventData.position);
+		_handView.MoveCard(cardView, eventData.position);
 	}
 
 	/// <summary>
 	/// 카드를 내려놓았을 때 호출됨
 	/// </summary>
-	protected virtual void OnEndDragCard(BlockGroupView cardView, PointerEventData eventData)
+	void OnCardDraggingStopped(BlockGroupView cardView, PointerEventData eventData)
 	{
 		//맵에 배치된 카드가 있으면
 		//TODO[개선] 맵이 아닌 카드로 배치 성공 여부 저장하기
@@ -332,13 +347,13 @@ public abstract class CardGameMode : GameMode
 			//카드 배치 확정
 			ConfirmCardPlacement(cardView);
 		}
-		_handView.OnEndDragCard(cardView);
+		_handView.DropCard(cardView);
 	}
 
 	/// <summary>
 	/// 패에 카드가 하나도 없을 때 호출됨
 	/// </summary>
-	protected virtual void OnHandEmpty()
+	void OnHandEmpty()
 	{
 		//새로운 카드 뽑기
 		DrawCards();

@@ -60,14 +60,14 @@ public abstract class GameMode : MonoBehaviour
 		StartGame();
 	}
 
-	protected void OnEnable()
+	protected virtual void OnEnable()
 	{
 		_topBar.BackButtonClicekd += OnBackButtonClicked;
 		_topBar.ResetButtonClicekd += OnResetButtonClicked;
 		_resultPanel.BackButtonClicked += OnBackButtonClicked;
 		_resultPanel.ResetButtonClicked += OnResetButtonClicked;
 	}
-	protected void OnDisable()
+	protected virtual void OnDisable()
 	{
 		_topBar.BackButtonClicekd -= OnBackButtonClicked;
 		_topBar.ResetButtonClicekd -= OnResetButtonClicked;
