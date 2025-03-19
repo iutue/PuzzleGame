@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class LevelView : UIBehaviour
 {
-	LevelData _ownerLevel;
+	LevelData _owner;
 
 	[SerializeField]
 	TMP_Text _titleText;
@@ -16,21 +16,21 @@ public class LevelView : UIBehaviour
 	[SerializeField]
 	GameObject _stageButtonPrefab;
 
-	public void Init(LevelData levelData)
+	public void Init(LevelData data)
 	{
-		_ownerLevel = levelData;
-		_titleText.text = levelData.Title.GetLocalizedString();
-		_titleBackground.sprite = levelData.TitleBackground;
+		_owner = data;
+		_titleText.text = data.Title.GetLocalizedString();
+		_titleBackground.sprite = data.TitleBackground;
 		//스테이지 버튼 생성
-		for (int i = 0; i < levelData.Stages.Length; i++)
+		for (int i = 0; i < data.Stages.Length; i++)
 		{
 			var stageView = Instantiate(_stageButtonPrefab, _stageButtonParent, false).GetComponent<StageView>();
-			stageView.Init(i, levelData.Stages[i], OnStageButtonClicked);
+			stageView.Init(data.Stages[i], OnStageButtonClicked);
 		}
 	}
 
-	void OnStageButtonClicked(int stageIndex)
+	void OnStageButtonClicked(StageData stage)
 	{
-		MatchManager.Instance.LoadStageAsync(null, _ownerLevel, _ownerLevel.Stages[stageIndex]);
+		MatchManager.Instance.LoadStageAsync(null, _owner, _owner.Stages[stage.Index]);
 	}
 }

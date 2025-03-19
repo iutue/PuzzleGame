@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b13e5cb7d75c0c646adc3591e68db927, type: 3}
   m_Name: C1_3
   m_EditorClassIdentifier: 
+  ParentChapter: {fileID: 11400000, guid: 297344b6c8ebbbc4bbe77147fdabec6f, type: 2}
+  Index: 2
   Title:
     m_TableReference:
       m_TableCollectionName: GUID:3665834babb97a84292013464f2b7f35
@@ -24,6 +26,8 @@ MonoBehaviour:
   TitleBackground: {fileID: 21300000, guid: 1d558aaa063c6394fa91e6de6d374c64, type: 3}
   TitleMaterial: {fileID: 0}
   DefaultStageData:
+    ParentLevel: {fileID: 0}
+    Index: 0
     Mode:
       m_AssetGUID: 120724721b10bea498c85b9ef6eba990
       m_SubObjectName: 
@@ -37,7 +41,9 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
   Stages:
-  - Mode:
+  - ParentLevel: {fileID: 11400000}
+    Index: 0
+    Mode:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectGUID: 
@@ -49,7 +55,9 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Mode:
+  - ParentLevel: {fileID: 11400000}
+    Index: 1
+    Mode:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectGUID: 
@@ -61,7 +69,9 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Mode:
+  - ParentLevel: {fileID: 11400000}
+    Index: 2
+    Mode:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectGUID: 
@@ -73,7 +83,9 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Mode:
+  - ParentLevel: {fileID: 11400000}
+    Index: 3
+    Mode:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectGUID: 
@@ -85,7 +97,9 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Mode:
+  - ParentLevel: {fileID: 11400000}
+    Index: 4
+    Mode:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectGUID: 
@@ -97,7 +111,9 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Mode:
+  - ParentLevel: {fileID: 11400000}
+    Index: 5
+    Mode:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectGUID: 
@@ -109,7 +125,9 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Mode:
+  - ParentLevel: {fileID: 11400000}
+    Index: 6
+    Mode:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectGUID: 
@@ -121,7 +139,9 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Mode:
+  - ParentLevel: {fileID: 11400000}
+    Index: 7
+    Mode:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectGUID: 
@@ -133,7 +153,9 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Mode:
+  - ParentLevel: {fileID: 11400000}
+    Index: 8
+    Mode:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectGUID: 
@@ -145,7 +167,9 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - Mode:
+  - ParentLevel: {fileID: 11400000}
+    Index: 9
+    Mode:
       m_AssetGUID: 
       m_SubObjectName: 
       m_SubObjectGUID: 
