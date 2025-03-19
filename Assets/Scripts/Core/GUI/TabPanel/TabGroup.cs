@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 /// <summary>
-/// 복수의 탭을 가지는 패널 GUI
+/// 복수의 탭을 관리하는 그룹 GUI
 /// </summary>
-public class TabPanel : UIBehaviour
+public class TabGroup : UIBehaviour
 {
 	/// <summary>
 	/// 탭 버튼과 이에 대응하는 탭 콘텐츠
@@ -61,7 +61,7 @@ public class TabPanel : UIBehaviour
 
 		Tab oldTab = _tabs[oldIndex];
 		Tab newTab = _tabs[newIndex];
-		
+
 		oldTab.Button.Highlight.enabled = false;
 		newTab.Button.Highlight.enabled = true;
 
