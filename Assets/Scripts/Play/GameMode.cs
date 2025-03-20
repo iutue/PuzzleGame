@@ -65,7 +65,6 @@ public abstract class GameMode : MonoBehaviour
 		//TODO Score 컨테이너를 별도의 에셋으로 분리하기
 		Scores.Init();
 		_topBar.Init(Scores["Total"]);
-		MapView.Init(_mapThemes);
 		_resultPanel.Init(Scores);
 
 #if UNITY_EDITOR

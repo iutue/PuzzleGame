@@ -55,7 +55,7 @@ public abstract class CardGameMode : GameMode
 	#region Game
 	public override void InitGame(GameMap map)
 	{
-		base.InitGame();
+		base.InitGame(map);
 		_handView.Init(_cardThemes, _handCapacity);
 	}
 
@@ -221,7 +221,7 @@ public abstract class CardGameMode : GameMode
 	void OnCardDraggingStarted(BlockGroupView cardView, PointerEventData eventData)
 	{
 		_selectedCard = cardView.OwnerBlockGroup;
-		_handView.OnBeginDragCard(cardView, Map.MapView.BlockViewSize);
+		_handView.GrabCard(cardView, Map.MapView.BlockViewSize);
 	}
 
 	/// <summary>
