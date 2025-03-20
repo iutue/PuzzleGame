@@ -29,6 +29,7 @@ public class LevelData : ScriptableObject
 	public StageData DefaultStageData;
 	public StageData[] Stages;
 
+#if UNITY_EDITOR
 	protected void OnValidate()
 	{
 		//스테이지의 부모 설정
@@ -42,6 +43,7 @@ public class LevelData : ScriptableObject
 			}
 		}
 	}
+#endif
 
 	public StringBuilder GetPath()
 	{
