@@ -22,9 +22,28 @@ public class ResultPanel : UIBehaviour
 	GameObject _scorePanelPrefab;
 
 	[Space]
+	//이전
 	[SerializeField] Button _backButton;
+	public event Action BackButtonClicked;
+	//다시
 	[SerializeField] Button _resetButton;
+	public event Action ResetButtonClicked;
+	//다음
 	[SerializeField] Button _nextButton;
+	event Action _nextButtonClicked;
+	public event Action NextButtonClicked
+	{
+		add
+		{
+			_nextButtonClicked += value;
+			_nextButton.interactable = _nextButtonClicked != null;
+		}
+		remove
+		{
+			_nextButtonClicked -= value;
+			_nextButton.interactable = _nextButtonClicked != null;
+		}
+	}
 
 	protected override void OnRectTransformDimensionsChange()
 	{
@@ -32,7 +51,7 @@ public class ResultPanel : UIBehaviour
 		InitGrid();
 	}
 
-	public void Init(ScoreContainer scores, Action backButtonClicked, Action resetButtonClicked, Action nextButtonClicked)
+	public void Init(ScoreContainer scores)
 	{
 		//점수 패널 생성
 		foreach (var score in scores)
@@ -41,15 +60,16 @@ public class ResultPanel : UIBehaviour
 			newPanel.Init(score);
 		}
 		InitGrid();
-		//버튼 바인딩
-		TryBind(_backButton, backButtonClicked);
-		TryBind(_resetButton, resetButtonClicked);
-		TryBind(_nextButton, nextButtonClicked);
+
+		_backButton.onClick.AddListener(new UnityAction(OnBackButtonClicked));
+		_resetButton.onClick.AddListener(new UnityAction(OnResetButtonClicked));
+		_nextButton.onClick.AddListener(new UnityAction(OnNextButtonClicked));
 	}
 	async Awaitable InitGrid()
 	{
 		//레이아웃이 초기화될 때까지 대기
 		await Awaitable.EndOfFrameAsync();
+		//TODO 높이는 상수로 고정하고 너비는 AspectRatioFitter로 조절하기
 		//점수 패널의 크기 조절
 		Vector2 scorePanelSize = _scoreRect.viewport.rect.size;
 		GridLayoutGroup grid = _scoreRect.content.GetComponent<GridLayoutGroup>();
@@ -60,19 +80,6 @@ public class ResultPanel : UIBehaviour
 		grid.cellSize = scorePanelSize;
 	}
 
-	/// <summary>
-	/// 버튼 클릭 이벤트에 콜백 함수 연결
-	/// </summary>
-	void TryBind(Button button, Action clicked)
-	{
-		if (clicked == null)
-		{
-			button.interactable = false;
-			return;
-		}
-		button.onClick.AddListener(new UnityAction(clicked));
-	}
-
 	public void Open()
 	{
 		_panel.Open();
@@ -80,5 +87,14 @@ public class ResultPanel : UIBehaviour
 	public void Close()
 	{
 		_panel.Close();
+		//다음 버튼 초기화
+		_nextButtonClicked = null;
+		_nextButton.interactable = false;
 	}
+
+	#region Callbacks
+	void OnBackButtonClicked() => BackButtonClicked?.Invoke();
+	void OnResetButtonClicked() => ResetButtonClicked?.Invoke();
+	void OnNextButtonClicked() => _nextButtonClicked?.Invoke();
+	#endregion
 }

@@ -29,9 +29,9 @@ public class BlockGroupView : UIBehaviour, IBeginDragHandler, IDragHandler, IEnd
 	public Vector2 OriginBlockPosition => _blocksParent.GetChild(0).position;
 
 	public delegate void DragHandler(BlockGroupView target, PointerEventData eventData);
-	public event DragHandler BeginDrag;
+	public event DragHandler DraggingStarted;
 	public event DragHandler Dragging;
-	public event DragHandler EndDrag;
+	public event DragHandler DraggingStopped;
 
 	protected override void OnRectTransformDimensionsChange()
 	{
@@ -103,8 +103,8 @@ public class BlockGroupView : UIBehaviour, IBeginDragHandler, IDragHandler, IEnd
 	}
 
 	#region Callbacks
-	public void OnBeginDrag(PointerEventData eventData) => BeginDrag?.Invoke(this, eventData);
+	public void OnBeginDrag(PointerEventData eventData) => DraggingStarted?.Invoke(this, eventData);
 	public void OnDrag(PointerEventData eventData) => Dragging?.Invoke(this, eventData);
-	public void OnEndDrag(PointerEventData eventData) => EndDrag?.Invoke(this, eventData);
+	public void OnEndDrag(PointerEventData eventData) => DraggingStopped?.Invoke(this, eventData);
 	#endregion
 }

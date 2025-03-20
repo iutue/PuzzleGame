@@ -25,16 +25,13 @@ public class HandView : UIBehaviour
 	/// </summary>
 	List<BlockGroupView> _cardViews = new();
 
-	DragHandler _beginDragCard;
-	DragHandler _endDragCard;
-	DragHandler _dragCard;
+	public event DragHandler CardDraggingStarted;
+	public event DragHandler CardDragging;
+	public event DragHandler CardDraggingStopped;
 
-	public void Init(BlockTheme[] cardThemes, int handCapacity, DragHandler beginDragCard, DragHandler endDragCard, DragHandler dragCard)
+	public void Init(BlockTheme[] cardThemes, int handCapacity)
 	{
 		_cardThemes = cardThemes;
-		_beginDragCard = beginDragCard;
-		_endDragCard = endDragCard;
-		_dragCard = dragCard;
 		//카드가 들어갈 자리를 미리 확보
 		for (int i = 0; i < handCapacity; i++)
 		{
@@ -44,9 +41,32 @@ public class HandView : UIBehaviour
 	}
 
 	/// <summary>
-	/// 모든 카드 뷰 초기화
+	/// 카드 뷰 추가
 	/// </summary>
-	public void ResetCards(List<BlockGroup> cards)
+	public void AddCard(int index, BlockGroup card)
+	{
+		var cardView = Instantiate(_cardViewPrefab, _cardParent.GetChild(index)).GetComponent<BlockGroupView>();
+		var randomIndex = UnityEngine.Random.Range(0, _cardThemes.Length);
+		cardView.Init(card, _cardThemes[randomIndex]);
+		cardView.DraggingStarted += OnCardDraggingStarted;
+		cardView.DraggingStopped += OnCardDraggingStopped;
+		cardView.Dragging += OnCardDragging;
+		_cardViews.Add(cardView);
+	}
+
+	/// <summary>
+	/// 카드 뷰 제거
+	/// </summary>
+	public void RemoveCard(BlockGroupView cardView)
+	{
+		_cardViews.Remove(cardView);
+		Destroy(cardView.gameObject);
+	}
+
+	/// <summary>
+	/// 모든 카드 뷰 제거
+	/// </summary>
+	public void ClearCards()
 	{
 		//기존의 뷰 제거
 		foreach (var cardView in _cardViews)
@@ -56,55 +76,19 @@ public class HandView : UIBehaviour
 		_cardViews.Clear();
 	}
 
-	public void Open()
-	{
-		_panel.Open();
-	}
-	public void Close()
-	{
-		_panel.Close();
-	}
-
-	#region Callbacks
 	/// <summary>
-	/// 카드가 추가됐을 때 호출됨
+	/// 카드 들기
 	/// </summary>
-	public void OnCardAdded(int index, BlockGroup card)
-	{
-		//카드 뷰 추가
-		//TODO 카드 개수가 슬롯 개수를 넘으면 카드를 부모의 자식으로 추가하기
-		var cardView = Instantiate(_cardViewPrefab, _cardParent.GetChild(index)).GetComponent<BlockGroupView>();
-		var randomIndex = UnityEngine.Random.Range(0, _cardThemes.Length);
-		cardView.Init(card, _cardThemes[randomIndex]);
-		cardView.BeginDrag += _beginDragCard;
-		cardView.EndDrag += _endDragCard;
-		cardView.Dragging += _dragCard;
-		_cardViews.Add(cardView);
-	}
-
-	/// <summary>
-	/// 카드가 제거됐을 때 호출됨
-	/// </summary>
-	public void OnCardRemoved(BlockGroupView cardView)
-	{
-		//카드 뷰 제거
-		_cardViews.Remove(cardView);
-		Destroy(cardView.gameObject);
-	}
-
-	/// <summary>
-	/// 플레이어가 카드를 집었을 때 호출됨
-	/// </summary>
-	public void OnBeginDragCard(BlockGroupView cardView, Vector2 mapBlockViewSize)
+	public void GrabCard(BlockGroupView cardView, Vector2 mapBlockViewSize)
 	{
 		//카드 블록의 크기를 맵 블록의 크기와 일치시킴
 		cardView.ChangeBlockViewSize(mapBlockViewSize);
 	}
 
 	/// <summary>
-	/// 플레이어가 카드를 이동중일 때 호출됨
+	/// 카드 이동
 	/// </summary>
-	public void OnDragCard(BlockGroupView cardView, Vector2 position)
+	public void MoveCard(BlockGroupView cardView, Vector2 position)
 	{
 		//카드를 포인터 위치로 이동
 		position = cardView.GetComponent<RectTransform>().InverseTransformPoint(position);
@@ -112,13 +96,21 @@ public class HandView : UIBehaviour
 	}
 
 	/// <summary>
-	/// 플레이어가 카드를 내려놓았을 때 호출됨
+	/// 카드 놓기
 	/// </summary>
-	public void OnEndDragCard(BlockGroupView cardView)
+	public void DropCard(BlockGroupView cardView)
 	{
 		//카드를 원래 위치와 크기로 복구
 		cardView.ChangePosition(Vector2.zero);
 		cardView.ChangeBlockViewSize(cardView.BlockViewSize);
 	}
+
+	public void Open() => _panel.Open();
+	public void Close() => _panel.Close();
+
+	#region Callbacks
+	void OnCardDraggingStarted(BlockGroupView t, PointerEventData e) => CardDraggingStarted?.Invoke(t, e);
+	void OnCardDragging(BlockGroupView t, PointerEventData e) => CardDragging?.Invoke(t, e);
+	void OnCardDraggingStopped(BlockGroupView t, PointerEventData e) => CardDraggingStopped?.Invoke(t, e);
 	#endregion
 }

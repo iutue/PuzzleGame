@@ -12,28 +12,25 @@ using TMPro;
 [RequireComponent(typeof(Button))]
 public class TabButton : UIBehaviour
 {
-	/// <summary>
-	/// 이름
-	/// </summary>
 	[SerializeField]
-	LocalizedString _displayName;
+	LocalizedString _title;
 	[SerializeField]
-	TMP_Text _displayNameText;
-	/// <summary>
-	/// 아이콘
-	/// </summary>
+	GameObject _titlePanel;
+	[SerializeField]
+	TMP_Text _titleText;
+
 	[SerializeField]
 	Sprite _icon;
 	[SerializeField]
+	GameObject _iconPanel;
+	[SerializeField]
 	Image _iconImage;
-	/// <summary>
-	/// 하이라이트 이미지
-	/// </summary>
+
 	[field: SerializeField]
 	public Image Highlight { get; private set; }
 
 	/// <summary>
-	/// 그룹에서 이 탭의 번호
+	/// 속한 탭 그룹에서 이 버튼의 순서
 	/// </summary>
 	int _index;
 	Action<int> _clicked;
@@ -43,16 +40,23 @@ public class TabButton : UIBehaviour
 		_index = index;
 		_clicked = clicked;
 		GetComponent<Button>().onClick.AddListener(new UnityAction(OnClicked));
-		_displayName.StringChanged += OnDisplayNameChanged;
+
+		_titlePanel.SetActive(_title != null);
+		if (_title != null)
+		{
+			_title.StringChanged += OnTitleChanged;
+		}
+
+		_iconPanel.SetActive(_icon != null);
+		_iconImage.sprite = _icon;
 	}
 
-	private void OnDisplayNameChanged(string value)
+	#region Callbakcs
+	void OnTitleChanged(string value)
 	{
-		_displayNameText.text = value;
+		_titleText.text = value;
 	}
 
-	/// <summary>
-	/// 탭 버튼이 클릭됐을 때 호출됨
-	/// </summary>
 	void OnClicked() => _clicked(_index);
+	#endregion
 }

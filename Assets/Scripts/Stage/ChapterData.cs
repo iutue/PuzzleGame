@@ -14,6 +14,7 @@ public class ChapterData : ScriptableObject
 	public Sprite Icon;
 	public LevelData[] Levels;
 
+#if UNITY_EDITOR
 	protected void OnValidate()
 	{
 		//레벨 에셋의 부모 설정
@@ -28,6 +29,7 @@ public class ChapterData : ScriptableObject
 			}
 		}
 	}
+#endif
 
 	public StringBuilder GetPath()
 	{

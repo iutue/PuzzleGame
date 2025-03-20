@@ -14,20 +14,31 @@ public class TopBar : UIBehaviour
 {
 	[SerializeField]
 	SlidePanel _panel;
-
 	[SerializeField]
 	TMP_Text _scoreText;
+
+	//이전
 	[SerializeField]
 	Button _backButton;
+	public event Action BackButtonClicekd;
+	//다시
 	[SerializeField]
 	Button _resetButton;
+	public event Action ResetButtonClicekd;
 
-	public void Init(Score totalScore, Action backButtonClicked, Action resetButtonClicked)
+	public void Init(Score totalScore)
 	{
 		totalScore.BaseValueChanged += OnTotalScoreChanged;
-		TryBind(_backButton, backButtonClicked);
-		TryBind(_resetButton, resetButtonClicked);
+		_backButton.onClick.AddListener(new UnityAction(OnBackButtonClicekd));
+		_resetButton.onClick.AddListener(new UnityAction(OnResetButtonClicked));
 	}
+
+	public void Open() => _panel.Open();
+	public void Close() => _panel.Close();
+
+	#region Callbacks
+	void OnBackButtonClicekd() => BackButtonClicekd?.Invoke();
+	void OnResetButtonClicked() => ResetButtonClicekd?.Invoke();
 
 	/// <summary>
 	/// 총점이 변경됐을 때 호출됨
@@ -39,26 +50,5 @@ public class TopBar : UIBehaviour
 			.Append(_scoreText.rectTransform.DOScale(1.2f, 0.1f))
 			.Append(_scoreText.rectTransform.DOScale(1f, 0.1f));
 	}
-
-	/// <summary>
-	/// 버튼의 클릭 이벤트에 콜백 함수 연결
-	/// </summary>
-	void TryBind(Button button, Action clicked)
-	{
-		if (clicked == null)
-		{
-			button.interactable = false;
-			return;
-		}
-		button.onClick.AddListener(new UnityAction(clicked));
-	}
-
-	public void Open()
-	{
-		_panel.Open();
-	}
-	public void Close()
-	{
-		_panel.Close();
-	}
+	#endregion
 }

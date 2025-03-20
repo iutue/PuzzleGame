@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
@@ -34,6 +35,20 @@ public abstract class GameMode : MonoBehaviour
 	/// </summary>
 	protected Block SelectedBlock;
 	protected BlockView Origin;
+	protected virtual void OnEnable()
+	{
+		_topBar.BackButtonClicekd += OnBackButtonClicked;
+		_topBar.ResetButtonClicekd += OnResetButtonClicked;
+		_resultPanel.BackButtonClicked += OnBackButtonClicked;
+		_resultPanel.ResetButtonClicked += OnResetButtonClicked;
+	}
+	protected virtual void OnDisable()
+	{
+		_topBar.BackButtonClicekd -= OnBackButtonClicked;
+		_topBar.ResetButtonClicekd -= OnResetButtonClicked;
+		_resultPanel.BackButtonClicked -= OnBackButtonClicked;
+		_resultPanel.ResetButtonClicked -= OnResetButtonClicked;
+	}
 
 	#region Game
 	/// <summary>
@@ -49,9 +64,9 @@ public abstract class GameMode : MonoBehaviour
 
 		//TODO Score 컨테이너를 별도의 에셋으로 분리하기
 		Scores.Init();
-		//TODO 각 GUI가 별도의 이벤트를 가지고 게임모드는 그 이벤트에 직접 연결하기
-		_topBar.Init(Scores["Total"], OnBackButtonClicked, OnResetButtonClicked);
-		_resultPanel.Init(Scores, OnBackButtonClicked, OnResetButtonClicked, OnNextButtonClicked);
+		_topBar.Init(Scores["Total"]);
+		MapView.Init(_mapThemes);
+		_resultPanel.Init(Scores);
 
 #if UNITY_EDITOR
 		Debug.Log("게임 초기화");
@@ -96,12 +111,23 @@ public abstract class GameMode : MonoBehaviour
 		//기록 비교
 		var totalScore = Scores["Total"];
 		var bestRecord = Scores["BestRecord"];
-		string bestRecordName = "BestRecord_" + SceneManager.GetActiveScene().name;
-		bestRecord.BaseValue = PlayerPrefs.GetInt(bestRecordName, 0);
+		StringBuilder stagePath = MatchManager.Instance.CurrentStage.GetPath();
+		string bestRecordKey = stagePath.Append("_BestRecord").ToString();
+		bestRecord.BaseValue = PlayerPrefs.GetInt(bestRecordKey, 0);
 		if (totalScore.CurrentValue > bestRecord.CurrentValue)
 		{
 			//신기록 저장
-			PlayerPrefs.SetInt(bestRecordName, totalScore.CurrentValue);
+			PlayerPrefs.SetInt(bestRecordKey, totalScore.CurrentValue);
+		}
+		if (CheckUnlockCondition())
+		{
+			//다음 스테이지 해금
+			MatchManager.Instance.UnlockNextStage();
+		}
+		if (MatchManager.Instance.TryGetNextStage(out var _))
+		{
+			//다음 스테이지 버튼 활성화
+			_resultPanel.NextButtonClicked += OnNextButtonClicked;
 		}
 
 		_topBar.Close();
@@ -131,6 +157,11 @@ public abstract class GameMode : MonoBehaviour
 	/// 게임 종료 조건을 만족하는가
 	/// </summary>
 	protected abstract bool CheckEndCondition();
+
+	/// <summary>
+	/// 다음 스테이지를 잠금 해제할 수 있는가
+	/// </summary>
+	protected abstract bool CheckUnlockCondition();
 	#endregion
 
 	#region Map
