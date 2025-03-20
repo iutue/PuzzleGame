@@ -13,11 +13,17 @@ public class MatchManager : SingletonBehaviour<MatchManager>
 	/// <summary>
 	/// 스테이지 불러오기
 	/// </summary>
-	public async Awaitable LoadStageAsync(ChapterData chapter, LevelData level, StageData stage)
+	public async Awaitable LoadStageAsync(StageData stage)
 	{
-		CurrentChapter = chapter;
-		CurrentLevel = level;
+		if (!stage.IsUnlocked)
+		{
+			//스테이지가 잠김
+			return;
+		}
+
 		CurrentStage = stage;
+		CurrentLevel = stage.ParentLevel;
+		CurrentChapter = CurrentLevel.ParentChapter;
 
 		//씬 불러오기
 		await TransitionManager.Instance.LoadSceneAsync("Play");
@@ -48,24 +54,28 @@ public class MatchManager : SingletonBehaviour<MatchManager>
 	/// </summary>
 	public bool TryGetNextStage(out StageData nextStage)
 	{
+		nextStage = null;
+		int nextChapterIndex = CurrentChapter.Index + 1;
+		int nextLevelIndex = CurrentLevel.Index + 1;
 		int nextStageIndex = CurrentStage.Index + 1;
-		if (nextStageIndex >= CurrentLevel.Stages.Length)
+		//다음 스테이지 탐색
+		if (nextStageIndex < CurrentLevel.Stages.Length)
 		{
-			//현재 스테이지가 마지막임
-			nextStage = null;
-			return false;
+			nextStage = CurrentLevel.Stages[nextStageIndex];
 		}
-		string progressKey = CurrentLevel.GetPath().Append("_Progress").ToString();
-		int progress = PlayerPrefs.GetInt(progressKey, 0);
-		if (nextStageIndex > progress)
+		//다음 레벨 탐색
+		else if (nextLevelIndex < CurrentChapter.Levels.Length)
 		{
-			//다음 스테이지가 해금되지 않음
-			nextStage = null;
-			return false;
+			LevelData nextLevel = CurrentChapter.Levels[nextLevelIndex];
+			nextStage = nextLevel.Stages[0];
+		}
+		//다음 챕터 탐색
+		else if (false)
+		{
+
 		}
 
-		nextStage = CurrentLevel.Stages[nextStageIndex];
-		return true;
+		return nextStage != null && nextStage.IsUnlocked;
 	}
 
 	/// <summary>
@@ -75,7 +85,7 @@ public class MatchManager : SingletonBehaviour<MatchManager>
 	{
 		if (TryGetNextStage(out var nextStage))
 		{
-			await LoadStageAsync(CurrentChapter, CurrentLevel, nextStage);
+			await LoadStageAsync(nextStage);
 		}
 	}
 }

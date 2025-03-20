@@ -21,6 +21,19 @@ public class StageData
 	public AssetReferenceGameObject Map;
 
 	/// <summary>
+	/// 이 스테이지가 해금됐는가
+	/// </summary>
+	public bool IsUnlocked
+	{
+		get
+		{
+			string progressKey = ParentLevel.GetPath().Append("_Progress").ToString();
+			int progress = PlayerPrefs.GetInt(progressKey, 0);
+			return Index <= progress;
+		}
+	}
+
+	/// <summary>
 	/// 스테이지부터 챕터까지의 경로
 	/// </summary>
 	public StringBuilder GetPath()

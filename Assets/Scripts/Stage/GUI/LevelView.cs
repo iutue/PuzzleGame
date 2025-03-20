@@ -31,6 +31,6 @@ public class LevelView : UIBehaviour
 
 	void OnStageButtonClicked(StageData stage)
 	{
-		MatchManager.Instance.LoadStageAsync(null, _owner, _owner.Stages[stage.Index]);
+		MatchManager.Instance.LoadStageAsync(stage);
 	}
 }
