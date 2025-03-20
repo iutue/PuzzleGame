@@ -1,4 +1,2 @@
-
-
-https://github.com/user-attachments/assets/dd31972d-969e-4eaa-bf7c-dedab0184d3b
-
+# Play 영상
+https://github.com/user-attachments/assets/3f366889-844d-47a0-bd73-623e54200329
